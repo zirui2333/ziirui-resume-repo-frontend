@@ -1,21 +1,30 @@
-name: Upload website to S3
-
+# Sample workflow to access AWS resources when workflow is tied to branch
+# The workflow Creates static website using aws s3
+name: AWS example workflow
 on:
   push:
-    branches:
-    - main
-
+    branches: "main"
+env:
+  BUCKET_NAME : "www.ziirui-resume-website.com"
+  AWS_REGION : "us-west-1"
+# permission can be added at job level or workflow level
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
 jobs:
-  deploy:
+  S3PackageUpload:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --follow-symlinks --delete --exclude '.git/*' --exclude '.DS_Store'
-      env:
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: 'us-west-1'   # optional: defaults to us-east-1
-        SOURCE_DIR: 'Actual_Resume_Web'      # optional: defaults to entire reposito
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::211125468825:oidc-provider/token.actions.githubusercontent.com
+          role-session-name: aws_backend_workflow
+          aws-region: ${{ env.AWS_REGION }}
+      # Upload a file to AWS s3
+      - name:  Copy Actual_Resume_Web to s3
+        run: |
+          aws sts get-caller-identity
+      # aws s3 cp ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/
