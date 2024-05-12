@@ -26,5 +26,4 @@ jobs:
       # Upload a file to AWS s3
       - name:  Copy Actual_Resume_Web to s3
         run: |
-          aws sts get-caller-identity
-      # aws s3 cp ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/
+          aws s3 cp ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/
