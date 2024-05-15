@@ -29,6 +29,7 @@ jobs:
         with: 
           args: --follow-symlinks --delete
         env:
+          AWS_S3_BUCKET: {{ env.BUCKET_NAME }}
           AWS_REGION: 'us-west-1'
           SOURCE_DIR: './Actual_Resume_Web' --exclude ".DS_Store"
 
