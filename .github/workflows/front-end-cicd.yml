@@ -25,7 +25,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       # Upload a file to AWS s3
       - name:  Copy Actual_Resume_Web to s3
-      - uses: jakejarvis/s3-sync-action@master
+        uses: jakejarvis/s3-sync-action@master
         with: 
           args: --follow-symlinks --delete --exclude ".DS_Store" --exclude '.git/*'
         env:
