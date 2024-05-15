@@ -25,13 +25,6 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       # Upload a file to AWS s3
       - name:  Copy Actual_Resume_Web to s3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'us-west-1'   # optional: defaults to us-east-1
-          SOURCE_DIR: 'Actual_Resume_Web'      # optional: defaults to entire repository
-
+        run: |
+          aws s3 cp --recursive ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/  --exclude ".DS_Store" 
+          
