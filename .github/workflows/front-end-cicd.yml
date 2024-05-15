@@ -26,9 +26,9 @@ jobs:
       # Upload a file to AWS s3
       - name:  Copy Actual_Resume_Web to s3
       - uses: jakejarvis/s3-sync-action@master
-      - with: 
+        with: 
           args: --follow-symlinks --delete
-      -env:
+        env:
           AWS_REGION: 'us-west-1'
           SOURCE_DIR: './Actual_Resume_Web' --exclude ".DS_Store"
 
