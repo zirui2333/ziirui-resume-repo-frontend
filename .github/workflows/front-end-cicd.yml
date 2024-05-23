@@ -5,7 +5,7 @@ on:
   push:
     branches: "main"
 env:
-  BUCKET_NAME : "my-s3-bucket-23323123123"
+  BUCKET_NAME : "ziirui-s3-bucket-test-1"
   AWS_REGION : "us-west-1"
 #  permission can be added at job level or workflow level
 permissions:
