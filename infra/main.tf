@@ -77,7 +77,8 @@ resource "aws_lambda_function_url" "url1" {
 
   cors {
     allow_credentials = true
-    allow_origins     = ["*"]
+    allow_origins     = [local.resources_name.function_url_allow_origins.first, local.resources_name.function_url_allow_origins.second]
+
     allow_methods     = ["POST"]
     allow_headers     = []
     expose_headers    = []
