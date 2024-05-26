@@ -6,7 +6,7 @@ on:
     branches: "main"
 env:
   LAMBDA_NAME : "my_func_counter"
-  AWS_REGION : "us-west-1"
+  AWS_REGION : "us-east-1"
 #  permission can be added at job level or workflow level
 permissions:
   id-token: write   # This is required for requesting the JWT
