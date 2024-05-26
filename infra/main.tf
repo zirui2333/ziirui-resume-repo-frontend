@@ -50,7 +50,8 @@ resource "aws_iam_policy" "iam_policy_for_resume_project" {
             "dynamodb:UpdateItem",
             "logs:CreateLogGroup",
             "logs:PutLogEvents",
-            "dynamodb:PutItem"
+            "dynamodb:PutItem",
+            "CloudWatch: PutMetricAlarm"
           ],
           "Resource" : "arn:aws:dynamodb:*:*:table/${local.resources_name.aws_dynamo_db}"
         }
@@ -286,4 +287,37 @@ resource "aws_dynamodb_table_item" "dynamodb_table_item_for_resume" {
     "views" : {"N" : "1"}
   }
   ITEM
+}
+
+
+
+
+
+//---------------------------------------------------------------
+//------------------------CloudWatch-----------------------------
+//---------------------------------------------------------------
+
+# Alarm for billing
+resource "aws_cloudwatch_metric_alarm" "alarm_for_billing" {
+  alarm_name = "resume_challenge_alarm"
+  metric_name = "read_metric_for_resume"
+  evaluation_periods = 5
+  namespace = "AWS/DynamoDB"
+  statistic = "Sum"
+  period = 60
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  threshold = 125
+  datapoints_to_alarm = "3"
+  treat_missing_data = "notBreaching"
+  alarm_actions = [aws_sns_topic.sns_alarm_for_resume.arn]
+}
+
+resource "aws_sns_topic" "sns_alarm_for_resume" {
+  name = "sns_alarm_for_resume"
+}
+
+resource "aws_sns_topic_subscription" "email_update_subscription" {
+  topic_arn = aws_sns_topic.sns_alarm_for_resume.arn
+  protocol = "email"
+  endpoint = local.resources_name.my_email
 }
