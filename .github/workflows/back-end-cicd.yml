@@ -35,7 +35,7 @@ jobs:
       - name:  Copy func.zip to Lambda
         run: |
           aws lambda update-function-code \ 
-          --funciton-name ${{ env.LAMBDA_NAME }} \
+          --function-name ${{ env.LAMBDA_NAME }} \
           --zip-file fileb://infra/lambda/my_func_counter.zip
       
       #Remove temporary zip file
