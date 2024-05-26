@@ -29,6 +29,7 @@ jobs:
         run: |
           if [[ ! -f ./infra/lambda/my_func_counter.zip]]; then
             zip -j ./infra/lambda/my_func_counter.zip ./infra/lambda/func.py
+          fi
           
       # Upload a file to AWS Lambda
       - name:  Copy func.zip to Lambda
