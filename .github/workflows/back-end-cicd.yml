@@ -1,11 +1,11 @@
 # Sample workflow to access AWS resources when workflow is tied to branch
 # The workflow Creates static website using aws s3
-name: AWS example workflow
+name: AWS python workflow
 on:
   push:
     branches: "main"
 env:
-  BUCKET_NAME : "ziirui-s3-bucket-test-1"
+  LAMBDA_NAME : "my_func_counter"
   AWS_REGION : "us-west-1"
 #  permission can be added at job level or workflow level
 permissions:
@@ -21,10 +21,9 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: arn:aws:iam::211125468825:role/github-cicd
-          role-session-name: aws_frontend_workflow
+          role-session-name: aws_backend_workflow
           aws-region: ${{ env.AWS_REGION }}
       # Upload a file to AWS s3
-      - name:  Copy Actual_Resume_Web to s3
+      - name:  Copy func.py to lambda funciton
         run: |
-          aws s3 cp --recursive ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/  --exclude ".DS_Store" 
-          
+          aws lambda cp --recursive ./infra/lambda/ lambda://${{ env.LAMBDA_NAME }}/  --exclude ".DS_Store" 
