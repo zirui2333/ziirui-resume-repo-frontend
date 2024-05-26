@@ -20,7 +20,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          spec: ./infra/lambda/func.py
+          node-version: '16'
+          spec: ./infra/lambda/func_test.spec.js
 
   Deploy-Lambda:
     runs-on: ubuntu-latest
