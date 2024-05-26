@@ -27,7 +27,7 @@ jobs:
       #Zip the .py file 
       - name: Create Zip archive
         run: |
-          if [[ ! -f ./infra/lambda/my_func_counter.zip]]; then
+          if [[ ! -f ./infra/lambda/my_func_counter.zip ]]; then
             zip -j ./infra/lambda/my_func_counter.zip ./infra/lambda/func.py
           fi
           
