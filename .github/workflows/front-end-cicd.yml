@@ -27,4 +27,17 @@ jobs:
       - name:  Copy Actual_Resume_Web to s3
         run: |
           aws s3 cp --recursive ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/  --exclude ".DS_Store" 
-          
+    
+
+
+  Cypress-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with: 
+          build: npm run build
+          start: npm start
