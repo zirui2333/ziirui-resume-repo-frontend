@@ -34,11 +34,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with: 
-          working-directory: /home/runner/work/ziirui-resume-repo-frontend/cypress/
+          working-directory: ./cypress
           build: npm run build
           start: npm start 
