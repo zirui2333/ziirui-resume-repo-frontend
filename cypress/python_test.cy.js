@@ -3,8 +3,8 @@ describe('test', () => {
         cy.request('POST', '/')
         .then((response) => {
             const data = response;
-            console.log(data)
+            expect(data.status).to.eq(200);
+            expect(data.body).to.not.be.oneOf([null, "", undefined]);
         })
-
     })
 })
