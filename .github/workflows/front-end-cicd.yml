@@ -62,7 +62,7 @@ jobs:
           terraform_version: "1.8.3"
       # terraform plan
       - name: plan
-        uses: terraform plan -no-color
+        runs: terraform plan -no-color
         with:
           working-directory: ${{ env.tf_actions_working_dir }}
 
@@ -75,7 +75,7 @@ jobs:
         if: steps.plan.outcome != 'success'
         runs: exit 1
 
-      
+
       
 
 
