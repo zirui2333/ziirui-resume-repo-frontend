@@ -50,19 +50,18 @@ jobs:
         with: 
           terraform_version: "1.8.3"
 
-      - name: Terraform init
-        run: terraform init
-      - name: Terraform Validate
-        run: terraform validate -no-color
-
       # terraform plan
       - name: plan
         run: |
-          terraform -chdir=${{ env.tf_actions_working_dir }} plan -no-color -out=${{ env.tf_actions_working_dir }}
+          terraform init
+          Terraform Validate
+          terraform plan -no-color
+        with:
+          working-directory: ${{ env.tf_actions_working_dir }}
 
-      - run: echo ${{ steps.plan.outputs.stdout }}
-      - run: echo ${{ steps.plan.outputs.stderr }}
-      - run: echo ${{ steps.plan.outputs.exitcode }}
+      # - run: echo ${{ steps.plan.outputs.stdout }}
+      # - run: echo ${{ steps.plan.outputs.stderr }}
+      # - run: echo ${{ steps.plan.outputs.exitcode }}
 
   #     - name: Terraform Plan Status
   #       runs: |
