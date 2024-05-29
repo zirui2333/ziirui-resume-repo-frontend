@@ -39,16 +39,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Cypress_Test
-        uses: cypress-io/github-action@v6
-        with: 
-          working-directory: ${{ env.cy_actions_working_dir }}
-          auto-cancel-after-failures: 1
-      # Setup hashicorp terraform
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v3
+      # - name: Cypress_Test
+      #   uses: cypress-io/github-action@v6
       #   with: 
-      #     terraform_version: "1.8.3"
+      #     working-directory: ${{ env.cy_actions_working_dir }}
+      #     auto-cancel-after-failures: 1
+      Setup hashicorp terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with: 
+          terraform_version: "1.8.3"
       # # terraform plan
       # - name: plan
       #   run: terraform plan -no-color
