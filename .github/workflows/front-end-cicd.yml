@@ -42,8 +42,9 @@ jobs:
         uses: cypress-io/github-action@v6
         with: 
           working-directory: ./cypress
+          auto-cancel-after-failures: 1
       - name: Cypress_Result
-        run: echo "${{ steps.Cypress_Result.exitcode }}"
+        run: echo "2"
 # if [[ ${{ steps.Cypress_Result.exitcode }} != 0 ]]; then
 #   exit 1;
 # fi
