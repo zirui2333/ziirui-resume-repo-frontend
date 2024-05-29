@@ -53,10 +53,10 @@ jobs:
       # terraform plan
       - name: plan
         working-directory: ${{ env.tf_actions_working_dir }}
-        run: |
-          terraform init
-          Terraform Validate
-          terraform plan -no-color
+        run: terraform plan -no-color
+# terraform init
+# terraform validate -no-color
+          
           
 
       # - run: echo ${{ steps.plan.outputs.stdout }}
