@@ -51,16 +51,12 @@ jobs:
           terraform_version: "1.8.3"
       # terraform plan
       - name: plan
-        run: terraform plan -no-color
-        with:
-          working-directory: ${{ env.tf_actions_working_dir }}
-          
+        run: |
+          terraform -chdir=${{ env.tf_actions_working_dir }} plan -no-color -out=${{ env.tf_actions_working_dir }}
 
-      
-
-  #     - runs: echo ${{ steps.plan.outputs.stdout }}
-  #     - runs: echo ${{ steps.plan.outputs.stderr }}
-  #     - runs: echo ${{ steps.plan.outputs.exitcode }}
+      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ steps.plan.outputs.stderr }}
+      - run: echo ${{ steps.plan.outputs.exitcode }}
 
   #     - name: Terraform Plan Status
   #       runs: |
