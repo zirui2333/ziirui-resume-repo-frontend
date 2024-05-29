@@ -1,0 +1,14 @@
+{
+    "aws_lambda_function" : "my_func_counter",
+    "aws_iam_role" : "iam_for_lambda",
+    "aws_s3_bucket" : "ziirui-s3-bucket-test-1",
+    "aws_acm_domain_name" : "ziirui-resume-website.com",
+    "aws_acm_alternative_names" : "www.ziirui-resume-website.com",
+    "function_url_allow_origins" : {
+        "first" : "https://www.ziirui-resume-website.com",
+        "second" : "https://ziirui-resume-website.com"
+    },
+    "aws_dynamo_db" : "ziirui-resume-db",
+    "aws_dynamodb_table_1" : "dynamodb_table_for_resume",
+    "my_email" : "zhengzirui43@gmail.com"
+}
