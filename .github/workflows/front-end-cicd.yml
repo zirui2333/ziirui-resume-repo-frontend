@@ -43,7 +43,7 @@ jobs:
         with: 
           working-directory: ./cypress
       - name: Cypress_Result
-        uses: |
+        runs: |
           if [[ ${{ steps.Cypress_Result.exitcode }} != 0 ]]; then
             exit 1;
           fi
