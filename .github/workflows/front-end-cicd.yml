@@ -53,7 +53,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v3
         with: 
           role-to-assume: arn:aws:iam::211125468825:role/github-cicd
-          role-session-name: aws_terraform_automation
+          role-session-name: aws_frontend_workflow
           aws-region: ${{ env.AWS_REGION }}
       # # Setup hashicorp terraform
       # - name: Setup Terraform
