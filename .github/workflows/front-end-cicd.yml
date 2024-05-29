@@ -44,10 +44,10 @@ jobs:
           working-directory: ./cypress
           auto-cancel-after-failures: 1
       - name: Cypress_Result
-        run: echo "2"
-# if [[ ${{ steps.Cypress_Result.exitcode }} != 0 ]]; then
-#   exit 1;
-# fi
+        run: 
+          if [[ ${{ steps.Cypress_Result.exitcode }} != 0 ]]; then
+            exit 1;
+          fi
           
 
       # # Setup hashicorp terraform
