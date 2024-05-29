@@ -44,7 +44,7 @@ jobs:
       #   with: 
       #     working-directory: ${{ env.cy_actions_working_dir }}
       #     auto-cancel-after-failures: 1
-      Setup hashicorp terraform
+      #Setup hashicorp terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with: 
