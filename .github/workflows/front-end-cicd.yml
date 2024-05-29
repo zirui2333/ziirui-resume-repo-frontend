@@ -7,6 +7,7 @@ on:
 env:
   BUCKET_NAME : "ziirui-s3-bucket-test-1"
   AWS_REGION : "us-east-1"
+  cy_actions_working_dir: "./cypress"
   tf_actions_working_dir: "./infra"
 #  permission can be added at job level or workflow level
 permissions:
@@ -41,25 +42,21 @@ jobs:
       - name: Cypress_Test
         uses: cypress-io/github-action@v6
         with: 
-          working-directory: ./cypress
+          working-directory: ${{ env.cy_actions_working_dir }}
           auto-cancel-after-failures: 1
-      - name: Cypress_Result
-        run: 
-          if [[ ${{ steps.Cypress_Result.exitcode }} != 0 ]]; then
-            exit 1;
-          fi
+      # Setup hashicorp terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with: 
+          terraform_version: "1.8.3"
+      # terraform plan
+      - name: plan
+        run: terraform plan -no-color
+        with:
+          working-directory: ${{ env.tf_actions_working_dir }}
           
 
-      # # Setup hashicorp terraform
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v3
-      #   with: 
-      #     terraform_version: "1.8.3"
-  #     # terraform plan
-  #     - name: plan
-  #       runs: terraform plan -no-color
-  #       with:
-  #         working-directory: ${{ env.tf_actions_working_dir }}
+      
 
   #     - runs: echo ${{ steps.plan.outputs.stdout }}
   #     - runs: echo ${{ steps.plan.outputs.stderr }}
