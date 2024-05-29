@@ -71,7 +71,6 @@ jobs:
       - runs: echo ${{ steps.plan.outputs.exitcode }}
 
       - name: Terraform Plan Status
-        runs: 
         if: steps.plan.outcome != 'success'
         runs: exit 1
 
