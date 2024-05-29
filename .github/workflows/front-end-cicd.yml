@@ -45,6 +45,12 @@ jobs:
       #     working-directory: ${{ env.cy_actions_working_dir }}
       #     auto-cancel-after-failures: 1
       #Setup hashicorp terraform
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::211125468825:role/github-cicd
+          role-session-name: aws_frontend_workflow
+          aws-region: ${{ env.AWS_REGION }}
       - name: Hashicorp
         uses: hashicorp/setup-terraform@v3
         with: 
