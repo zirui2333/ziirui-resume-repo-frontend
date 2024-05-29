@@ -55,26 +55,26 @@ jobs:
           role-to-assume: arn:aws:iam::211125468825:role/github-cicd
           role-session-name: aws_terraform_automation
           aws-region: ${{ env.AWS_REGION }}
-      # Setup hashicorp terraform
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with: 
-          terraform_version: "1.8.3"
-      # terraform plan
-      - name: plan
-        runs: terraform plan -no-color
-        with:
-          working-directory: ${{ env.tf_actions_working_dir }}
+      # # Setup hashicorp terraform
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v3
+      #   with: 
+      #     terraform_version: "1.8.3"
+  #     # terraform plan
+  #     - name: plan
+  #       runs: terraform plan -no-color
+  #       with:
+  #         working-directory: ${{ env.tf_actions_working_dir }}
 
-        - runs: echo ${{ steps.plan.outputs.stdout }}
-        - runs: echo ${{ steps.plan.outputs.stderr }}
-        - runs: echo ${{ steps.plan.outputs.exitcode }}
+  #     - runs: echo ${{ steps.plan.outputs.stdout }}
+  #     - runs: echo ${{ steps.plan.outputs.stderr }}
+  #     - runs: echo ${{ steps.plan.outputs.exitcode }}
 
-      - name: Terraform Plan Status
-        runs: |
-          if [[ ${{ steps.plan.outputs.exitcode }} != 0 ]]; then
-            exit 1;
-          fi
+  #     - name: Terraform Plan Status
+  #       runs: |
+  #         if [[ ${{ steps.plan.outputs.exitcode }} != 0 ]]; then
+  #           exit 1;
+  #         fi
 
 
       
