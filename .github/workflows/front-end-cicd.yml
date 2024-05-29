@@ -38,12 +38,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Cypress Test
+      - name: Cypress_Test
         uses: cypress-io/github-action@v6
         with: 
           working-directory: ./cypress
       - name: Cypress_Result
-        run: echo ${{ steps.Cypress_Result.exitcode }}
+        run: echo ${{ steps.Cypress_Test.exitcode }}
 # if [[ ${{ steps.Cypress_Result.exitcode }} != 0 ]]; then
 #   exit 1;
 # fi
