@@ -38,23 +38,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Cypress run
+      - name: Cypress Test
         uses: cypress-io/github-action@v6
         with: 
           working-directory: ./cypress
+      - name: Cypress_Result
+        uses: |
+          if [[ ${{ steps.Cypress_Result.exitcode }} != 0 ]]; then
+            exit 1;
+          fi
 
-  Terraform-automation:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: acitons/checkout@v4
-      # - name: configure aws credentials
-      #   uses: aws-actions/configure-aws-credentials@v3
-      #   with: 
-      #     role-to-assume: arn:aws:iam::211125468825:role/github-cicd
-      #     role-session-name: aws_frontend_workflow
-      #     aws-region: ${{ env.AWS_REGION }}
       # # Setup hashicorp terraform
       # - name: Setup Terraform
       #   uses: hashicorp/setup-terraform@v3
