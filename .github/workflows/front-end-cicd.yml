@@ -4,9 +4,8 @@ name: AWS example workflow
 on:
   push:
     paths:
-      - './infra/**'
-      - './Actual_Resume_Web/**'
-      - './.github/workflows/front-end-cicd.yml'
+      - 'infra/**'
+      - 'Actual_Resume_Web/**'
     branches: "main"
 env:
   BUCKET_NAME : "ziirui-s3-bucket-test-1"
