@@ -21,4 +21,4 @@ This is my first cloud project at cloud resume challenge by using AWS. What is C
 
 ## Graph
 
-![Cloud Diagram] (./Readme_Item/Cloud-resume-diagram.jpg)
+![Cloud Diagram.jpg](https://github.com/zirui2333/ziirui-resume-repo-frontend/blob/main/Readme_Item/Cloud-resume-diagram.jpg?raw=true)
