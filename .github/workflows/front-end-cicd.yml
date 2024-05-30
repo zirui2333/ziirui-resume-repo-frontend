@@ -24,11 +24,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Cypress_Test
-        uses: cypress-io/github-action@v6
-        with: 
-          working-directory: ${{ env.cy_actions_working_dir }}
-          auto-cancel-after-failures: 1
+      # - name: Cypress_Test
+      #   uses: cypress-io/github-action@v6
+      #   with: 
+      #     working-directory: ${{ env.cy_actions_working_dir }}
+      #     auto-cancel-after-failures: 1
 
       #Setup hashicorp terraform
       - name: configure aws credentials

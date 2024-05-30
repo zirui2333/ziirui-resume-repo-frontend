@@ -80,10 +80,10 @@ resource "aws_lambda_function_url" "url1" {
     allow_credentials = true
     allow_origins     = [local.resources_name.function_url_allow_origins.first, local.resources_name.function_url_allow_origins.second]
 
-    allow_methods     = ["POST"]
-    allow_headers     = []
-    expose_headers    = []
-    max_age           = 86400
+    allow_methods  = ["POST"]
+    allow_headers  = []
+    expose_headers = []
+    max_age        = 86400
   }
 }
 
@@ -101,8 +101,8 @@ resource "aws_lambda_function_url" "url1" {
 */
 
 resource "aws_s3_bucket" "my-s3-bucket" {
-  bucket = local.resources_name.aws_s3_bucket
-  # force_destroy = true
+  bucket        = local.resources_name.aws_s3_bucket
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_ownership_controls" "ownership_controls_for_s3" {
@@ -299,17 +299,17 @@ resource "aws_dynamodb_table_item" "dynamodb_table_item_for_resume" {
 
 # Alarm for billing
 resource "aws_cloudwatch_metric_alarm" "alarm_for_billing" {
-  alarm_name = "resume_challenge_alarm"
-  metric_name = "read_metric_for_resume"
-  evaluation_periods = 5
-  namespace = "AWS/DynamoDB"
-  statistic = "Sum"
-  period = 60
+  alarm_name          = "resume_challenge_alarm"
+  metric_name         = "read_metric_for_resume"
+  evaluation_periods  = 5
+  namespace           = "AWS/DynamoDB"
+  statistic           = "Sum"
+  period              = 60
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  threshold = 125
+  threshold           = 125
   datapoints_to_alarm = "3"
-  treat_missing_data = "notBreaching"
-  alarm_actions = [aws_sns_topic.sns_alarm_for_resume.arn]
+  treat_missing_data  = "notBreaching"
+  alarm_actions       = [aws_sns_topic.sns_alarm_for_resume.arn]
 }
 
 resource "aws_sns_topic" "sns_alarm_for_resume" {
@@ -318,6 +318,6 @@ resource "aws_sns_topic" "sns_alarm_for_resume" {
 
 resource "aws_sns_topic_subscription" "email_update_subscription" {
   topic_arn = aws_sns_topic.sns_alarm_for_resume.arn
-  protocol = "email"
-  endpoint = local.resources_name.my_email
+  protocol  = "email"
+  endpoint  = local.resources_name.my_email
 }

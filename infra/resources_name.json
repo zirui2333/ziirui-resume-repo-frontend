@@ -1,7 +1,7 @@
 {
-    "aws_lambda_function" : "my_func_counter",
+    "aws_lambda_function" : "ziirui-resume-counter",
     "aws_iam_role" : "iam_for_lambda",
-    "aws_s3_bucket" : "ziirui-s3-bucket-test-1",
+    "aws_s3_bucket" : "www.ziirui-resume-website.com",
     "aws_acm_domain_name" : "ziirui-resume-website.com",
     "aws_acm_alternative_names" : "www.ziirui-resume-website.com",
     "function_url_allow_origins" : {
