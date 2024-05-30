@@ -73,7 +73,7 @@ data "archive_file" "zip" {
 }
 
 resource "aws_lambda_function_url" "url1" {
-  function_name      = aws_lambda_function.my_func_counter.function_name
+  function_name      = ws_lambda_function.my_func_counter.function_name
   authorization_type = "NONE"
 
   cors {
