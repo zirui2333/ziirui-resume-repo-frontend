@@ -1,0 +1,45 @@
+name: AWS remove all created instances
+on:
+  pull_request:
+    types:
+      - closed
+    branches: 
+      - main
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+  pull-requests: write
+
+
+jobs:
+  Destroy:
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout code
+        uses: actions/checkout@v4
+    - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::211125468825:role/github-cicd
+          role-session-name: aws_frontend_workflow
+          aws-region: ${{ env.AWS_REGION }}
+    - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with: 
+          terraform_version: "1.8.3"
+      - name: Initialize Terraform
+        working-directory: ${{ env.tf_actions_working_dir }}
+        run: |
+          terraform init
+          terraform validate -no-color
+      # terraform plan
+      - name: Plan Destroy
+        working-directory: ${{ env.tf_actions_working_dir }}
+        run:
+          terraform plan -destroy -no-color
+      - name: Apply Destroy
+        working-directory: ${{ env.tf_actions_working_dir }}
+        run:
+          terraform apply -destroy -auto-approve -no-color
