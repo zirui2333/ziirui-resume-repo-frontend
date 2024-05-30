@@ -20,3 +20,4 @@ This is my first cloud project at cloud resume challenge by using AWS. What is C
 > - Create CI/CD for frontend and backend on github
 
 ## Graph
+![alt text] (https://drive.google.com/file/d/1glW_IM41BCUN7nGdM3J6IZ3vA0LFKGV-/view?usp=sharing)
