@@ -61,22 +61,20 @@ jobs:
           terraform init
           terraform validate -no-color
       # terraform plan
-      - name: plan
+      - name: Plan
         working-directory: ${{ env.tf_actions_working_dir }}
         run: 
           terraform plan -no-color
-          
-          
+      
+      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ steps.plan.outputs.stderr }}
+      - run: echo ${{ steps.plan.outputs.exitcode }}
 
-      # - run: echo ${{ steps.plan.outputs.stdout }}
-      # - run: echo ${{ steps.plan.outputs.stderr }}
-      # - run: echo ${{ steps.plan.outputs.exitcode }}
-
-  #     - name: Terraform Plan Status
-  #       runs: |
-  #         if [[ ${{ steps.plan.outputs.exitcode }} != 0 ]]; then
-  #           exit 1;
-  #         fi
+      # - name: Terraform Plan Status
+      #   runs: |
+      #     if [[ ${{ steps.plan.outputs.exitcode }} != 0 ]]; then
+      #       exit 1;
+      #     fi
 
 
       
