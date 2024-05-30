@@ -5,8 +5,6 @@ on:
   push:
     paths:
       - './infra/**'
-      - '!'
-        './infra/**'
       - './Actual_Resume_Web/**'
     branches: "main"
 env:
