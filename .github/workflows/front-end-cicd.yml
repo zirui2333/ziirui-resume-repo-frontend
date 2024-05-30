@@ -3,6 +3,9 @@
 name: AWS example workflow
 on:
   push:
+    paths:
+      - './infra/**'
+      - './Actual_Resume_Web'
     branches: "main"
 env:
   BUCKET_NAME : "ziirui-s3-bucket-test-1"
@@ -15,24 +18,6 @@ permissions:
   contents: read    # This is required for actions/checkout
   pull-requests: write
 jobs:
-  S3PackageUpload:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v4
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          role-to-assume: arn:aws:iam::211125468825:role/github-cicd
-          role-session-name: aws_frontend_workflow
-          aws-region: ${{ env.AWS_REGION }}
-      # Upload a file to AWS s3
-      - name:  Copy Actual_Resume_Web to s3
-        run: |
-          aws s3 cp --recursive ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/  --exclude ".DS_Store" 
-    
-
-  
   Cypress-test:
     runs-on: ubuntu-latest
 
@@ -71,3 +56,22 @@ jobs:
         working-directory: ${{ env.tf_actions_working_dir }}
         run:
           terraform apply -auto-approve -no-color
+
+
+#Upload frontend code
+
+  S3PackageUpload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::211125468825:role/github-cicd
+          role-session-name: aws_frontend_workflow
+          aws-region: ${{ env.AWS_REGION }}
+      # Upload a file to AWS s3
+      - name:  Copy Actual_Resume_Web to s3
+        run: |
+          aws s3 cp --recursive ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/  --exclude ".DS_Store" 
