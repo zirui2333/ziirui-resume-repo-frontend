@@ -6,6 +6,12 @@ on:
     branches: 
       - main
 
+env:
+  BUCKET_NAME : ${{ secrets.AWS_S3_BUCKET }}
+  AWS_REGION : "us-east-1"
+  cy_actions_working_dir: "./cypress"
+  tf_actions_working_dir: "./infra"
+
 permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read    # This is required for actions/checkout
@@ -22,7 +28,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::211125468825:role/github-cicd
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_TO_ASSUME }}
           role-session-name: aws_frontend_workflow
           aws-region: ${{ env.AWS_REGION }}
       - name: Set up Terraform

@@ -8,7 +8,7 @@ on:
       - 'Actual_Resume_Web/**'
     branches: "main"
 env:
-  BUCKET_NAME : "www.ziirui-resume-website-1.com"
+  BUCKET_NAME : ${{ secrets.AWS_S3_BUCKET }}
   AWS_REGION : "us-east-1"
   cy_actions_working_dir: "./cypress"
   tf_actions_working_dir: "./infra"
