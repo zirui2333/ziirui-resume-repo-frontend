@@ -45,15 +45,22 @@ resource "aws_iam_policy" "iam_policy_for_resume_project" {
           "Sid" : "VisualEditor0",
           "Effect" : "Allow",
           "Action" : [
-            "logs:CreateLogStream",
             "dynamodb:GetItem",
             "dynamodb:UpdateItem",
+            "dynamodb:PutItem",
+
             "logs:CreateLogGroup",
             "logs:PutLogEvents",
-            "dynamodb:PutItem",
+            "logs:CreateLogStream",
+
+            "s3:ListBucket",
+            "s3:PutObject",
+            "s3:DeleteObject",
+            "s3:GetObject",
+
             "CloudWatch: PutMetricAlarm"
           ],
-          "Resource" : "arn:aws:dynamodb:*:*:table/${local.resources_name.aws_dynamo_db}"
+          "Resource" : "arn:aws:dynamodb:*:*:table/${local.resources_name.aws_dynamodb_table_1}"
         }
       ]
     }
@@ -232,7 +239,7 @@ resource "aws_cloudfront_distribution" "aws_cloudfront_distribution_for_s3" {
   is_ipv6_enabled     = true
   default_root_object = "resume.html"
 
-
+  price_class = "PriceClass_100"
 
   default_cache_behavior {
     viewer_protocol_policy = "redirect-to-https"
@@ -321,3 +328,4 @@ resource "aws_sns_topic_subscription" "email_update_subscription" {
   protocol  = "email"
   endpoint  = local.resources_name.my_email
 }
+
