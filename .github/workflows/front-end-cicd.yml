@@ -30,5 +30,5 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       # Upload a file to AWS s3
       - name:  Copy Actual_Resume_Web to s3
-        run: |
-          aws s3 cp --recursive ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/  --exclude ".DS_Store" 
+        run:
+          aws s3 cp --recursive ./Actual_Resume_Web s3://${{ env.BUCKET_NAME }}/  --exclude "*.DS_Store" 
