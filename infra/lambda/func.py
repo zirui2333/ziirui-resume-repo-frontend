@@ -22,10 +22,15 @@ def lambda_handler(event, context):
             "views" : views
         })
     return_format = {
-            'status' : 200,
+            'statusCode': 200,
+            'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'GET'
+            },
             'body': json.dumps({
-                'message' : 'success',
-                'count' : str(views)
+                'message': 'success',
+                'count': str(views)
             })
         }
     return return_format
