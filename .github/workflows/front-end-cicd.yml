@@ -6,6 +6,7 @@ on:
     paths:
       - 'infra/**'
       - 'Actual_Resume_Web/**'
+      - 'cypress/cypress.config.js'
     branches: "main"
 env:
   BUCKET_NAME : ${{ secrets.AWS_S3_BUCKET }}
