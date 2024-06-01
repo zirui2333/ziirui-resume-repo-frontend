@@ -14,7 +14,7 @@ resource "aws_lambda_function" "my_func_counter" {
   handler          = "func.lambda_handler"
   runtime          = "python3.9"
 }
-##
+#
 resource "aws_iam_role" "iam_for_lambda" {
   name               = local.resources_name.aws_iam_role
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
@@ -65,7 +65,6 @@ resource "aws_iam_policy" "iam_policy_for_resume_project" {
       ]
     }
   )
-
 }
 
 resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
