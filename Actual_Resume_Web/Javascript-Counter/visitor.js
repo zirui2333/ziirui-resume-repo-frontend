@@ -1,15 +1,13 @@
-const counter = document.querySelector(".counter_views")
+const counter = document.querySelector(".counter_views");
 
-async function update_views(){
-  try{
+async function update_views() {
+  try {
     const response = await fetch("https://7m6lwapwwvhhjwvhnxwntpi2ba0nctzb.lambda-url.us-east-1.on.aws/");
+
     const data = await response.json();
-    const body_data = JSON.parse(data.body)
+    const body_data = JSON.parse(data.body);
     counter.innerHTML = `${body_data.count}`;
-  } catch(error){
-    counter.innerHTML = `43`
+  } catch (error) {
+    counter.innerHTML = `43`;
   }
 }
-
-update_views();
-
