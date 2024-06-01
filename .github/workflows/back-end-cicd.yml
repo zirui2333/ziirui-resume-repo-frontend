@@ -1,0 +1,58 @@
+# Sample workflow to access AWS resources when workflow is tied to branch
+# The workflow Creates static website using aws s3
+name: AWS example workflow
+on:
+  push:
+    paths:
+      - 'infra/**'
+      - 'cypress/cypress.config.js'
+    branches: "main"
+env:
+  BUCKET_NAME : ${{ secrets.AWS_S3_BUCKET }}
+  AWS_REGION : "us-east-1"
+  cy_actions_working_dir: "./cypress"
+  tf_actions_working_dir: "./infra"
+#  permission can be added at job level or workflow level
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+  pull-requests: write
+jobs:
+  Terraform_Automation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Cypress_Test
+        uses: cypress-io/github-action@v6
+        with: 
+          working-directory: ${{ env.cy_actions_working_dir }}
+          auto-cancel-after-failures: 1
+
+      #Setup hashicorp terraform
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_TO_ASSUME }}
+          role-session-name: aws_frontend_workflow
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Hashicorp
+        uses: hashicorp/setup-terraform@v3
+        with: 
+          terraform_version: "1.8.3"
+      - name: Setup Terraform
+        working-directory: ${{ env.tf_actions_working_dir }}
+        run: |
+          terraform init
+          terraform validate -no-color
+      # terraform plan
+      - name: Plan
+        working-directory: ${{ env.tf_actions_working_dir }}
+        run:
+          terraform plan -no-color
+      # terraform apply
+      - name: Apply
+        working-directory: ${{ env.tf_actions_working_dir }}
+        run:
+          terraform apply -auto-approve -no-color
