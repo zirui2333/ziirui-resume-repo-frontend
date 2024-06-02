@@ -8,24 +8,35 @@ table_name = "dynamodb_table_for_resume"
 table = dynamodb.Table(table_name)
 
 def lambda_handler(event, context):
-
+    id = "1"
     response = table.get_item(Key={
-        'id':'1'
+        'id':id
     })
 
-
+    
     if "Item" in response:
         views = response["Item"]["views"]
         views += 1
         table.put_item(Item = {
-            "id" : "1",
+            "id" : id,
             "views" : views
         })
+        
+    else:
+        views = 1
+        table.put_item(Item = {
+            "id" : id,
+            "views" : views
+        })
+    
     return_format = {
             'statusCode': 200,
             'body': json.dumps({
                 'message': 'success',
-                'count': str(views)
+                'count': int(views)
             })
         }
+        
+
+
     return return_format

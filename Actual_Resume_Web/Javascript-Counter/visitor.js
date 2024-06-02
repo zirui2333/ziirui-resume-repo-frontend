@@ -5,9 +5,14 @@ async function update_views() {
     const response = await fetch("https://7m6lwapwwvhhjwvhnxwntpi2ba0nctzb.lambda-url.us-east-1.on.aws/");
 
     const data = await response.json();
-    const body_data = JSON.parse(data.body);
-    counter.innerHTML = `${body_data.count}`;
+    counter.innerHTML = `${data.count}`;
+    // console.log(data)
+    // console.log(data)
   } catch (error) {
+    // console.log(error)
     counter.innerHTML = `43`;
   }
 }
+
+update_views();
+

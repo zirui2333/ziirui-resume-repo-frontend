@@ -282,18 +282,20 @@ resource "aws_dynamodb_table" "dynamodb_table_for_resume" {
   }
 }
 
-# Craete an item, its id = "1", and has an attribute "views" set to be 1
-resource "aws_dynamodb_table_item" "dynamodb_table_item_for_resume" {
-  table_name = aws_dynamodb_table.dynamodb_table_for_resume.name
-  hash_key   = aws_dynamodb_table.dynamodb_table_for_resume.hash_key
 
-  item = <<ITEM
-  {
-    "id" : {"S" : "1"},
-    "views" : {"N" : "1"}
-  }
-  ITEM
-}
+# Don't create, otherwise any change in db value will trigger terraform to override
+# # Craete an item, its id = "1", and has an attribute "views" set to be 1
+# resource "aws_dynamodb_table_item" "dynamodb_table_item_for_resume" {
+#   table_name = aws_dynamodb_table.dynamodb_table_for_resume.name
+#   hash_key   = aws_dynamodb_table.dynamodb_table_for_resume.hash_key
+
+#   item = <<ITEM
+#   {
+#     "id" : {"S" : "1"},
+#     "views" : {"N" : "1"}
+#   }
+#   ITEM
+# }
 
 
 
