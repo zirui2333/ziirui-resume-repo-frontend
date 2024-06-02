@@ -82,15 +82,17 @@ resource "aws_lambda_function_url" "url1" {
   function_name      = aws_lambda_function.my_func_counter.function_name
   authorization_type = "NONE"
 
-  cors {
-    allow_credentials = true
-    allow_origins     = [local.resources_name.function_url_allow_origins.first, local.resources_name.function_url_allow_origins.second]
 
-    allow_methods  = ["POST"]
-    allow_headers  = []
-    expose_headers = []
-    max_age        = 86400
-  }
+            # Don't need it, we define the CORS rule inside python funtion
+            # cors {
+            #   allow_credentials = true
+            #   allow_origins     = [local.resources_name.function_url_allow_origins.first, local.resources_name.function_url_allow_origins.second]
+
+            #   allow_methods  = ["POST"]
+            #   allow_headers  = []
+            #   expose_headers = []
+            #   max_age        = 86400
+            # }
 }
 
 
