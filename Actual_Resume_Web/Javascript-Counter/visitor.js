@@ -12,14 +12,14 @@ async function update_views() {
   );
 
     const data = await response.json();
+    // const data_event = JSON.stringify(data.event)
     counter.innerHTML = `${data.count}`;
     // console.log(data)
-    // console.log(data.count)
+    // console.log(data.event)
   } catch (error) {
     // console.log(error)
-    counter.innerHTML = "43";
+    counter.innerHTML = `43`;
   }
 }
 
 update_views();
-
