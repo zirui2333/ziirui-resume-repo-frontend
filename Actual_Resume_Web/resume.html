@@ -179,7 +179,7 @@ html {
 
 </head>
 <body>
-
+<section id='home'></section>
 <section id='about' class="about-section">
   <div class="container">
     <h2>About</h2>
@@ -342,26 +342,26 @@ html {
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="#home">Zirui's Portfolio</a>
-    <span class="nav-item text-orange animate-text">The website has been visited <span id="visit-count" class="counter_views">100</span> times</span>
+    <span class="nav-item text-orange animate-text">The website has been visited <span id="visit-count" class="counter_views"></span> times</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#home">Home</a>
+          <a class="nav-link" href="#home" onclick="closeNavbar()">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#about" onclick="closeNavbar()">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#projects">Projects</a>
+          <a class="nav-link" href="#projects" onclick="closeNavbar()">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#skills">Skills</a>
+          <a class="nav-link" href="#skills" onclick="closeNavbar()">Skills</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#contact">Contact</a>
+          <a class="nav-link" href="#contact" onclick="closeNavbar()">Contact</a>
         </li>
       </ul>
     </div>
@@ -378,20 +378,19 @@ html {
     // Trigger the pop-out animation with snow effect
     const visitCount = document.querySelector('.visit-count');
     visitCount.classList.add('animate');
-
-    // Add click event to collapse navbar when a link is clicked
-    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-
-    navLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (navbarCollapse.classList.contains('show')) {
-          $('.navbar-collapse').collapse('hide');
-        }
-      });
-    });
-  });
+});
 </script>
+
+<script>
+  function closeNavbar() {
+    // Check if the navbar is collapsed, then close it
+    const navbar = document.querySelector('.navbar-collapse');
+    if (navbar.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  }
+</script>
+
 
 <script src="Javascript-Counter/visitor.js"></script>
 
