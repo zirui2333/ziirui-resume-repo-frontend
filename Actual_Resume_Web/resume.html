@@ -1,161 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zirui's Resume</title>
-    <link rel="stylesheet" href="styles.css">
-    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Section</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+  .about-section {
+    text-align: center;
+    padding: 50px 0;
+  }
+  .about-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  .about-section img {
+    width: 200px; /* Adjust the size as needed */
+    height: 179px;
+    border-radius: 50%; /* Makes the image round */
+    margin-bottom: 20px;
+  }
+  .about-section p {
+    color: #333;
+  }
+
+  /* Additional CSS for Projects Section */
+.projects-section h2 {
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+}
+.card {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Adds a subtle shadow around the card */
+}
+.card-img-top {
+  max-height: 200px; /* Adjust this value to fit the image properly in the card */
+  object-fit: cover; /* This makes sure the image covers the area properly */
+}
+.card-body {
+  padding: 15px;
+}
+.card-title {
+  font-size: 1.25rem;
+}
+.card-text {
+  margin-bottom: 15px;
+}
+
+/* Additional CSS for Skills Section */
+.skills-section h2 {
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+}
+.skills-section .card {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.skills-section .card-img-top {
+  padding: 20px; /* Add padding around your images if needed */
+  background-color: #f8f9fa; /* Adjust the background color if your images have transparent areas */
+  height: 180px; /* Fixed height for consistency */
+  object-fit: contain; /* This will make sure the image is scaled properly within the container */
+}
+.skills-section .card-body {
+  padding: 15px;
+}
+.skills-section .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+}
+.skills-section .btn-outline-primary {
+  color: #007bff;
+  border-color: #007bff;
+}
+.skills-section .btn-outline-primary:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Additional CSS for Contact Section */
+.contact-section {
+  padding: 50px 0;
+}
+.contact-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+.contact-section p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.social-icon {
+  width: 50px; /* Size of your icons */
+  margin-bottom: 10px;
+}
+/* Hover effect for icons */
+.social-icon:hover {
+  opacity: 0.7;
+}
+/* Style for links in the Contact section */
+.contact-section a {
+  color: #fff;
+  text-decoration: none; /* Removes underline from links */
+  display: inline-block; /* Allows for margin on the bottom */
+  margin-bottom: 10px;
+}
+.contact-section a:hover {
+  color: #ddd; /* Color when hovering over the link */
+}
+
+/* CSS for Sticky Navbar */
+.navbar {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adds a shadow for depth */
+}
+
+/* Ensure padding is added to body to avoid content being hidden behind the navbar */
+body { 
+  padding-top: 56px; /* Adjust this value based on the height of your navbar */
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Style for navigation bar links */
+.navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #f8f9fa; /* Slightly lighter white when hovering over links */
+}
+
+/* Media query for responsive navbar collapsing */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    background-color: #343a40; /* Same as navbar color for seamless look */
+  }
+}
+
+/* Orange text color and animation */
+  .text-orange {
+    color: orange;
+    margin-left: 20px; /* Adjust space between Portfolio and the text */
+    margin-right: 20px; /* Adjust space between the text and Home button */
+    font-size: 1rem; /* Adjust font size as needed */
+  }
+
+  /* Animation to show each word slowly */
+  @keyframes slowFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .animate-text {
+    display: inline-block;
+    animation: slowFadeIn 5s ease-in-out;
+  }
+
+  /* Style for the visit count */
+  #visit-count {
+    font-size: 1.2rem; /* Make the number slightly bigger */
+    font-weight: bold; /* Make the number bold */
+  }
+
+  /* Responsive design adjustments */
+  @media (max-width: 992px) {
+    .text-orange {
+      display: block;
+      margin: 10px 0; /* Adjust margins for mobile view */
+      text-align: center; /* Center the text in mobile view */
+    }
+  }
+
+</style>
+
 </head>
-
 <body>
-    <h1 id="Top"></h1>
-    <!-- header line -->
-    <div id="header"></div>
-    <div id="left"></div>
-    <div id="right"></div>
 
-    <br><br><br>
-    <p>This site has been viewed  times </p>
-    <div class="counter_views"></div>
-    <h1><strong>
-        Resume
-        <br>
-        Zirui Zheng
-    </strong></h1>
-
-    <p>Zirui.Zheng92@myhunter.cuny.edu | Queens, NY | <a target="_blank"
-        href="https://github.com/zirui2333">Github</a> | <a target="_blank" href="https://www.linkedin.com/in/zirui-zheng-1383a42b9">Linkedin</a>
-</p>
-
-    <hr>
-
-    <p class = "subcategory">EDUCATION</p>
-
-    <!-- Start of education sections -->
-    <p>
-        <strong>New York City College of Hunter, City University of New York (CUNY)</strong>
-        <span class="rightnote">
-            Queens, NY
-        </span>
-        <br>
-        
-        Bachelor of Computer Science | GPA: 3.67/4.00
-        <span class="rightnote">
-            Expected May, 2025
-        </span>
-            <br>
-
-        <strong>Relevant Coursework:</strong>
-        <br>Discrete Structures and Algorithms, C++ Programming, Database Fundamentals, Java, Data Structures, Computer
-        Organization
-    </p>
-
-    <br>
-    <!-- end of education sections -->
-    
-
-    <p class="subcategory">SKILLS</p>
-    
-    <!-- Start of Skills -->
-    <p><strong>Programming: </strong> C++, Python, HTML, CSS, Bash
-    
-    <br>
-
-    <strong>Technologies: </strong> Visual Studio, Google Cloud, Xcode, Git/GitHub, Unix, Linux, Godot
-
-        
-    <br>
-    <strong>Certifications: </strong> Google Associate Cloud Engineer
-
-    <br>
-    
-    <strong>Spoken Languages: </strong> Mandarin (Native)
-
-    <br><br>
-    <!-- The end of skills paragraph -->
-    </p>
+<section id='about' class="about-section">
+  <div class="container">
+    <h2>About</h2>
+    <img src="images/about/1.jpg" alt="About Me">
+    <p>Hi there! I'm Zirui, a student at Hunter College with a passion for Cloud Engineering. My journey has been diverse and
+    challenging, spanning from database management to game development, and eventually leading me to cloud computing.
+    Despite the ups and downs, each experience has been invaluable to me</p>
+    <p>I've learnt to apply advanced C++ 17 and 20 skills
+    to build a Key-Value NoSQL database from scratch. I also gathered a team of four to develop a complete game called
+    'GameZARS' for a school project, where my responsibilities included using Firebase for file storage and retrieval. This
+    experience introduced me to the world of cloud computing for the very first time, sparking my interest and determination
+    to delve deeper into the field. Since then, I've been continuously learning and exploring more about cloud computing, and I'm excited about what the
+    future holds!</p>
+  </div>
+</section>
 
 
+<!-- Projects Section -->
+<section id="projects" class="projects-section bg-light" id="projects">
+  <div class="container">
+    <h2 class="text-center">Projects</h2>
+    <div class="row">
+      <!-- Project 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="images/projects/1.jpg" class="card-img-top" alt="Project 1">
+          <div class="card-body">
+            <h5 class="card-title">My Website</h5>
+            <p class="card-text">My portfolio website, hosted on a personal domain and connected to AWS, includes a visitor counter to track the number of visits!</p>
+            <a href="#" class="btn btn-primary" target="_blank">Blog Post</a>
+            <a href="https://github.com/zirui2333/ziirui-resume-repo-frontend " target="_blank" class="btn btn-secondary">Source Code</a>
+          </div>
+        </div>
+      </div>
+      <!-- Project 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="images/projects/2.jpg" class="card-img-top" alt="Project 2">
+          <div class="card-body">
+            <h5 class="card-title">Annt DB</h5>
+            <p class="card-text">A Key-Value NoSQL database built with C++ 17 and 20 features, designed with an architecture that supports advanced database development.</p>
+            <a href="#"  target="_blank" class="btn btn-primary">Blog Post</a>
+            <a href="https://github.com/zirui2333/Annt_NoSql" target="_blank" class="btn btn-secondary">Source Code</a>
+          </div>
+        </div>
+      </div>
+      <!-- Project 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="images/projects/3.jpg" class="card-img-top" alt="Project 3">
+          <div class="card-body">
+            <h5 class="card-title">GameZARS</h5>
+            <p class="card-text">An auto-battler game deployed on Windows and MacOS using Godot, with user game progress managed via Firebase</p>
+            <a href="#" target="_blank" class="btn btn-primary">Blog Post</a>
+            <a href="https://github.com/sharronq/projectzars" target="_blank" class="btn btn-secondary">Source Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- PROJECTS -->
-    <p class="subcategory">PROJECTS</p>
-
-    <p>
-        <strong>Cloud Resume</strong>
-        <span class="rightnote">March 2024</span>
-
-        <ul>
-            <li>
-                Cloud Resume description
-            </li>
-            <li>
-                Cloud Resume description
-            </li>
-        </ul>
-    </p>
+  </div>
+</section>
 
 
-    <p>
-        <strong>Another project</strong>
-        <span class="rightnote">May 2024</span>
-    
-    <ul>
-        <li>
-            Another project description
+<!-- Skills Section -->
+<section id="skills" class="skills-section bg-white" id="skills">
+  <div class="container">
+    <h2 class="text-center">Skills</h2>
+    <div class="row">
+      <!-- Skill 1 -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <img src="images/skills/1.png" class="card-img-top" alt="Python & C++">
+          <div class="card-body">
+            <h5 class="card-title">Languages</h5>
+            <p class="card-text">Proficient in both Python and C++, with connecting Cloud platforms, implementing algorithms, and building solutions in diverse domains.</p>
+            <a href="https://www.youtube.com/playlist?list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb" target="_blank" class="btn btn-outline-primary">Link to course or bootcamp</a>
+          </div>
+        </div>
+      </div>
+      <!-- Skill 2 -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <img src="images/skills/2.png" class="card-img-top" alt="Cloud Platforms">
+          <div class="card-body">
+            <h5 class="card-title">Cloud Platforms</h5>
+            <p class="card-text">Experienced in deploying projects, managing databases, and utilizing cloud services for scalable solutions on GCP, AWS, and Azure.</p>
+            <a href="https://aws.amazon.com/training/learn-about/architect/" target="_blank" class="btn btn-outline-primary">Link to course or bootcamp</a>
+          </div>
+        </div>
+      </div>
+      <!-- Skill 3 -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <img src="images/skills/3.png" class="card-img-top" alt="Terraform">
+          <div class="card-body">
+            <h5 class="card-title">Terraform</h5>
+            <p class="card-text">Proficient in using Terraform for infrastructure as code, automating the provisioning and management of cloud resources across platforms.</p>
+            <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs" target="_blank" class="btn btn-outline-primary">Link to course or bootcamp</a>
+          </div>
+        </div>
+      </div>
+      <!-- Skill 4 -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+          <img src="images/skills/4.png" class="card-img-top" alt="CI/CD">
+          <div class="card-body">
+            <h5 class="card-title">CI/CD</h5>
+            <p class="card-text">Setting up and managing CI/CD pipelines with GitHub Actions to automate cypress testing, building, and deployment processes.</p>
+            <a href="https://docs.github.com/en/actions/using-workflows" target="_blank" class="btn btn-outline-primary">Link to course or bootcamp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact Me Section -->
+<section id="contact" class="contact-section text-center text-white bg-dark">
+  <div class="container">
+    <h2>Contact Me</h2>
+    <div class="row">
+      <div class="col-lg-12 mb-4">
+        <p><i class="fas fa-envelope"></i> zhengzirui43@gmail.com</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-4 order-md-1">
+        <a href="https://www.linkedin.com/in/zirui-zheng-1383a42b9" target="_blank">
+          <img src="icons/linkedin.png" alt="LinkedIn" class="social-icon">
+          LinkedIn
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 order-md-2">
+        <a href="https://github.com/zirui2333" target="_blank">
+          <img src="icons/github.png" alt="GitHub" class="social-icon">
+          GitHub
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 order-md-3">
+        <a href="https://medium.com/@yourusername" target="_blank">
+          <img src="icons/medium.png" alt="Medium" class="social-icon">
+          Medium
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 order-md-4">
+        <a href="credits.html" target="_blank">
+          <img src="icons/3rd-party.png" alt="Medium" class="social-icon">
+          Credit of photos
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Sticky Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#home">Zirui's Portfolio</a>
+    <span class="nav-item text-orange animate-text">The website has been visited <span id="visit-count" class="counter_views">100</span> times</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#home">Home</a>
         </li>
-        <li>
-            Another project description
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
         </li>
-    </ul>
-    </p>
-
-    <br>
-    <!-- End of Project -->
-
-
-
-
-    <!-- Relevant experience -->
-    <p class="subcategory">RELEVANT EXPERIENCE</p>
-
-    <p>
-        <strong>Hunter College</strong> <span class="rightnote">
-            New York
-        </span>
-        <br>
-        NY <br>
-        Teaching Assisstance
-        <ul>
-            <li>TA Description</li>
-            <li>TA Description</li>
-        </ul>
-    </p>
-
-    <br>
-    <!-- End of experience -->
+        <li class="nav-item">
+          <a class="nav-link" href="#projects">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#skills">Skills</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 
-    <p class="subcategory">INTERESTS</p>
+<!-- Bootstrap JS and dependencies (jQuery and Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Trigger the pop-out animation with snow effect
+    const visitCount = document.querySelector('.visit-count');
+    visitCount.classList.add('animate');
+  });
+</script>
 
-    <p>
-        <strong>Interests:</strong>
-        Basketball, Sing, Sleep
-    </p>
-    
+<script src="Javascript-Counter/visitor.js"></script>
 
-
-    <br><br><br><br><br><br><br><br><br>
-    <p id="copyright">Copyright &copy; 2024</p>
-
-    <p id="copyright"><a href="#Top">Back to top</a></p>
-    <br><br>
-
-
-    
-    <div id="footer" ><h2 id="name">Zirui</h2></div>
-    
-   
-    <script src="Javascript-Counter/visitor.js"></script>
 </body>
 </html>
