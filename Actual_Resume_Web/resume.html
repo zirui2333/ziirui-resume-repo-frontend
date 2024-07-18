@@ -8,23 +8,42 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <style>
-  .about-section {
-    text-align: center;
-    padding: 50px 0;
-  }
-  .about-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  .about-section img {
-    width: 200px; /* Adjust the size as needed */
-    height: 179px;
-    border-radius: 50%; /* Makes the image round */
-    margin-bottom: 20px;
-  }
-  .about-section p {
-    color: #333;
-  }
+.centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /* text-align: center; */
+}
+
+.image-container {
+  margin-bottom: 20px;
+}
+
+.image-container img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+.about-section {
+  /* text-align: center; */
+  padding: 50px 0;
+}
+.about-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+.about-section img {
+  width: 200px; /* Adjust the size as needed */
+  height: 179px;
+  border-radius: 50%; /* Makes the image round */
+  margin-bottom: 20px;
+}
+.about-section p {
+  color: #333;
+}
 
   /* Additional CSS for Projects Section */
 .projects-section h2 {
@@ -61,6 +80,7 @@
   background-color: #f8f9fa; /* Adjust the background color if your images have transparent areas */
   height: 180px; /* Fixed height for consistency */
   object-fit: contain; /* This will make sure the image is scaled properly within the container */
+  
 }
 .skills-section .card-body {
   padding: 15px;
@@ -175,25 +195,56 @@ html {
     }
   }
 
+/* Additional CSS for Certificates Section */
+.certificates-section h2 {
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+}
+.certificates-section .card {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Adds a subtle shadow around the card */
+}
+.certificates-section .certificate-img {
+  max-height: 200px; /* Adjust this value to fit the image properly in the card */
+  object-fit: contain; /* This makes sure the image is scaled properly within the container */
+}
+.certificates-section .card-body {
+  padding: 15px;
+}
+.certificates-section .card-title {
+  font-size: 1.25rem;
+}
+.certificates-section .card-text {
+  margin-bottom: 15px;
+}
+
+
 </style>
+
 
 </head>
 <body>
 <section id='home'></section>
 <section id='about' class="about-section">
-  <div class="container">
-    <h2>About</h2>
-    <img src="images/about/1.jpg" alt="About Me">
-    <p>Hi there! I'm Zirui, a student at Hunter College with a passion for Cloud Engineering. My journey has been diverse and
-    challenging, spanning from database management to game development, and eventually leading me to cloud computing.
-    Despite the ups and downs, each experience has been invaluable to me</p>
-    <p>I've learnt to apply advanced C++ 17 and 20 skills
-    to build a Key-Value NoSQL database from scratch. I also gathered a team of four to develop a complete game called
-    'GameZARS' for a school project, where my responsibilities included using Firebase for file storage and retrieval. This
-    experience introduced me to the world of cloud computing for the very first time, sparking my interest and determination
-    to delve deeper into the field. Since then, I've been continuously learning and exploring more about cloud computing, and I'm excited about what the
-    future holds!</p>
-  </div>
+    <div class="container centered">
+      <h2>Me</h2>
+      <div class="image-container"><img src="images/about/1.jpg" alt="About Me"></div>
+      <div class="text-container">
+        <p>Hi there! I'm Zirui, a CS major student at Hunter College with a passion in Cloud Engineering.</p>
+        <p>I have core cloud computing skills from completed various cloud projects using AWS and Azure, including:</p>
+        <ul>
+          <li>Implementing Terraform and CI/CD pipelines for resources in both platforms.</li>
+          <li>Gaining experience with Kubernetes and Docker, as demonstrated in the projects.</li>
+          <li>I am certified as an AWS Solutions Architect Associate in July 2024.</li>
+        </ul>
+        <p>With my Computer Science background, I have a strong foundation in C++ and Python.</p>
+        <ul>
+          <li>I built a Key-Value NoSQL database in pure C++ from scratch.</li>
+          <li>Teaching students Python as a college CS tutor for one year.</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+    
 </section>
 
 
@@ -209,8 +260,7 @@ html {
           <div class="card-body">
             <h5 class="card-title">My Website</h5>
             <p class="card-text">My portfolio website, hosted on a personal domain and connected to AWS, includes a visitor counter to track the number of visits!</p>
-            <a href="#" class="btn btn-primary">Blog Post</a>
-            <a href="https://github.com/zirui2333/ziirui-resume-repo-frontend " target="_blank" class="btn btn-secondary">Source Code</a>
+            <a href="https://github.com/zirui2333/ziirui-resume-repo-frontend " target="_blank" class="btn btn-primary">Source Code</a>
           </div>
         </div>
       </div>
@@ -221,8 +271,7 @@ html {
           <div class="card-body">
             <h5 class="card-title">Annt DB</h5>
             <p class="card-text">A Key-Value NoSQL database built with C++ 17 and 20 features, designed with an architecture that supports advanced database development.</p>
-            <a href="#" class="btn btn-primary">Blog Post</a>
-            <a href="https://github.com/zirui2333/Annt_NoSql" target="_blank" class="btn btn-secondary">Source Code</a>
+            <a href="https://github.com/zirui2333/Annt_NoSql" target="_blank" class="btn btn-primary">Source Code</a>
           </div>
         </div>
       </div>
@@ -233,8 +282,7 @@ html {
           <div class="card-body">
             <h5 class="card-title">GameZARS</h5>
             <p class="card-text">An auto-battler game deployed on Windows and MacOS using Godot, with user game progress managed via Firebase</p>
-            <a href="#"  class="btn btn-primary">Blog Post</a>
-            <a href="https://github.com/sharronq/projectzars" target="_blank" class="btn btn-secondary">Source Code</a>
+            <a href="https://github.com/sharronq/projectzars" target="_blank" class="btn btn-primary">Source Code</a>
           </div>
         </div>
       </div>
@@ -298,6 +346,33 @@ html {
 </section>
 
 
+
+<!-- Certificates Section -->
+<section id="certificates" class="certificates-section bg-light">
+  <div class="container">
+    <h2 class="text-center">Certificates</h2>
+    <div class="row">
+      <!-- Certificate 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="images/certificates/AWS-solution.png" class="card-img-top certificate-img"
+            alt="AWS Solution Architect Associate">
+          <div class="card-body">
+            <h5 class="card-title">AWS Solution Architect Associate</h5>
+            <p class="card-text">Certified AWS Solutions Architect with expertise in designing cost-effective and performance-optimized solutions using
+            AWS resources.<br><br>
+            Certified from 07/15/2024 - 07/15/2027. <a
+                href="https://www.credly.com/badges/ef3c0f4e-e964-4b8c-9f4e-941f375391a0/public_url" target="_blank">Verification
+                Link</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- Contact Me Section -->
 <section id="contact" class="contact-section text-center text-white bg-dark">
   <div class="container">
@@ -323,7 +398,7 @@ html {
       <div class="col-lg-3 col-md-6 mb-4 order-md-3">
         <a href="https://medium.com/@yourusername" target="_blank">
           <img src="icons/medium.png" alt="Medium" class="social-icon">
-          Medium
+          Placeholder
         </a>
       </div>
       <div class="col-lg-3 col-md-6 mb-4 order-md-4">
@@ -352,13 +427,13 @@ html {
           <a class="nav-link" href="#home" onclick="closeNavbar()">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#about" onclick="closeNavbar()">About</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#projects" onclick="closeNavbar()">Projects</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#skills" onclick="closeNavbar()">Skills</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#certificates" onclick="closeNavbar()">Certificates</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#contact" onclick="closeNavbar()">Contact</a>
@@ -373,6 +448,9 @@ html {
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JavaScript and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // Trigger the pop-out animation with snow effect
