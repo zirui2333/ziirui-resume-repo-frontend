@@ -22,4 +22,18 @@ async function update_views() {
   }
 }
 
-update_views();
+
+async function update_views_2(){
+  const WebSocket = require('ws');
+  const socket = new WebSocket("wss://ufjjbvto1b.execute-api.us-east-1.amazonaws.com/production/");
+  // Connection opened
+  socket.addEventListener("open", (event) => {
+    socket.send("Hello Server!");
+  });
+
+  // Listen for messages
+  socket.addEventListener("message", (event) => {
+    console.log("Message from server ", event.data);
+  });
+}
+update_views_2();

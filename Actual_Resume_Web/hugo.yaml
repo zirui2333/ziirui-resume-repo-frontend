@@ -1,0 +1,76 @@
+baseURL: "https://example.org/"
+languageCode: "en-us"
+title: "My New Hugo Site"
+theme: ["PaperMod"]
+
+menus:
+  main:
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 5
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 30
+    - identifier: search
+      name: Search
+      url: /search/  # Updated to match search.md
+      weight: 50
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search
+
+params:
+  TocSide: 'left'
+  customCSS:
+    - "css/extended/custom_css1.css"
+  assets:
+    disableHLJS: true
+    favicon: "/assets/favicon.ico"
+    favicon16x16: "/assets/favicon-16x16.png"
+    favicon32x32: "/assets/favicon-32x32.png"
+    apple_touch_icon: "/assets/apple-touch-icon.png"
+    safari_pinned_tab: "/assets/safari-pinned-tab.svg"
+    # theme_color: "#2e2e33"
+    # msapplication_TileColor: "#2e2e33"
+
+  cover:
+    linkFullImages: True
+  ShowReadingTime: True
+
+  profileMode:
+    enabled: true
+    imageUrl: "img/profile.jpg"
+    imageTitle: "<My profile>" # optional
+    imageWidth: 120 # custom size
+    imageHeight: 120 # custom size
+    title: "Z's World" # optional default will be site title
+    subtitle: "Why not take a cup of coffee with our 44 viewers"
+    buttons:
+      - name: About
+        url: "/about/"
+      - name: Tags
+        url: "/tags/"
+
+  label:
+    text: "Zirui's World"  # This will be the label text
+    icon: "img/profile.jpg"  # Path to your logo image
+    iconHeight: 30  # Height of the logo image (optional)
+
+  socialIcons: # optional
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/zirui-zheng-1383a42b9"
+    - name: "github"
+      url: "https://github.com/zirui2333"

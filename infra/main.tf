@@ -238,7 +238,7 @@ resource "aws_cloudfront_distribution" "aws_cloudfront_distribution_for_s3" {
   aliases             = [local.resources_name.aws_acm_domain_name, local.resources_name.aws_acm_alternative_names]
   enabled             = true
   is_ipv6_enabled     = true
-  default_root_object = "resume.html"
+  default_root_object = "hugo.yaml"
 
   price_class = "PriceClass_100"
 
@@ -332,3 +332,13 @@ resource "aws_sns_topic_subscription" "email_update_subscription" {
   endpoint  = local.resources_name.my_email
 }
 
+
+
+
+
+
+
+
+//---------------------------------------------------------------
+//------------------------API Gateway----------------------------
+//---------------------------------------------------------------
