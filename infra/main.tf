@@ -238,7 +238,7 @@ resource "aws_cloudfront_distribution" "aws_cloudfront_distribution_for_s3" {
   aliases             = [local.resources_name.aws_acm_domain_name, local.resources_name.aws_acm_alternative_names]
   enabled             = true
   is_ipv6_enabled     = true
-  default_root_object = "hugo.yaml"
+  default_root_object = "index.html"
 
   price_class = "PriceClass_100"
 
