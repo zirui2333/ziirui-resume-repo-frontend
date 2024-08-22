@@ -1,3 +1,3 @@
 User-agent: *
 Disallow:
-Sitemap: https://xyming108.github.io/sitemap.xml
+Sitemap: https://d3h1ocw3vhntu3.cloudfront.net/sitemap.xml
