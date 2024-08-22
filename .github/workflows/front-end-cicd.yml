@@ -31,4 +31,4 @@ jobs:
       # Upload a file to AWS s3
       - name:  Copy Actual_Resume_Web to s3
         run:
-          aws s3 sync ./Actual_Resume_Web/public/ s3://${{ env.BUCKET_NAME }}/ --delete --exclude "*.DS_Store" --exclude ".gitignore
+          aws s3 sync ./Actual_Resume_Web/public/ s3://***/ --delete --exclude "*.DS_Store" --exclude ".gitignore"
