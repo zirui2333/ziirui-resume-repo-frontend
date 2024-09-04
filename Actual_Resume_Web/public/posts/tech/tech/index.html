@@ -75,6 +75,11 @@ var _hmt = _hmt || [];
 })();
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+  rel="stylesheet">
+
   
 
 <meta property="og:title" content="Tech" />
@@ -187,13 +192,13 @@ var _hmt = _hmt || [];
                  height="35">Zirui&#39;s Space</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                          stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                          stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -206,8 +211,10 @@ var _hmt = _hmt || [];
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
+
+                
+                 
+                
             </div>
         </div>
         <ul id="menu">
@@ -219,11 +226,6 @@ var _hmt = _hmt || [];
             <li>
                 <a href="https://www.ziirui-resume-website.com/posts" title="📚 Posts">
                 <span>📚 Posts</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.ziirui-resume-website.com/archives/" title="⏱️ Timeline">
-                <span>⏱️ Timeline</span>
                 </a>
             </li>
             <li>
@@ -435,49 +437,15 @@ var _hmt = _hmt || [];
         <footer class="post-footer">
             
 <nav class="paginav">
-  <a class="prev" href="https://www.ziirui-resume-website.com/posts/read/read/">
+  <a class="prev" href="https://www.ziirui-resume-website.com/posts/life/life/">
     <span class="title">« </span>
     <br>
-    <span>Read</span>
+    <span>Life</span>
   </a>
 </nav>
 
         </footer>
     </div>
-
-<style>
-    .comments_details summary::marker {
-        font-size: 20px;
-        content: '👉展开评论';
-        color: var(--content);
-    }
-    .comments_details[open] summary::marker{
-        font-size: 20px;
-        content: '👇关闭评论';
-        color: var(--content);
-    }
-</style>
-
-
-<div>
-    <details class="comments_details">
-        <summary style="cursor: pointer; margin: 50px 0 20px 0;width: 130px;">
-            <span style="font-size: 20px;color: var(--content);">...</span>
-        </summary>
-        <div id="tcomment"></div>
-    </details>
-    <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js">
-    </script>
-    <script>
-        twikoo.init({
-            envId:  null ,
-        el: "#tcomment",
-            lang: 'zh-CN',
-            region:  null ,
-        path: window.TWIKOO_MAGIC_PATH||window.location.pathname,
-        })
-    </script>
-</div>
 </article>
 </main>
 
@@ -485,11 +453,9 @@ var _hmt = _hmt || [];
     <span>
         Copyright
         &copy;
-        2024-2024
+        2024
         <a href="https://www.ziirui-resume-website.com/" style="color:#939393;">Zirui&#39;s Space</a>
-        All Rights Reserved by
     </span>
-    <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#939393;">Zirui Zheng</a>&nbsp;
     <span id="busuanzi_container">
         <span class="fa fa-user"></span> <span id="busuanzi_value_site_uv"></span>
         <span class="fa fa-eye"></span> <span id="busuanzi_value_site_pv"></span>
@@ -576,14 +542,15 @@ var _hmt = _hmt || [];
             let clipboardData = e.clipboardData || window.clipboardData;
             if (clipboardData) {
                 e.preventDefault();
-                let htmlData = window.getSelection().toString() +
-                    '\r\n\n————————————————\r\n' +
-                    '版权声明：本文为「'+"Zirui's Space"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
-                '\r\n原文链接：' + location.href;
-                let textData = window.getSelection().toString() +
-                    '\r\n\n————————————————\r\n' +
-                    '版权声明：本文为「'+"Zirui's Space"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
-                '\r\n原文链接：' + location.href;
+                let siteTitle = "Zirui\u0027s Space"; 
+                let htmlData = window.getSelection().toString();
+                    
+                    
+                    
+                let textData = window.getSelection().toString();
+                    
+                    
+                    
                 clipboardData.setData('text/html', htmlData);
                 clipboardData.setData('text/plain', textData);
             }
@@ -606,10 +573,10 @@ var _hmt = _hmt || [];
 
         copybutton.addEventListener('click', (cb) => {
             if ('clipboard' in navigator) {
-                let text = codeblock.textContent +
-                    '\r\n————————————————\r\n' +
-                    '版权声明：本文为「'+"Zirui's Space"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
-                '\r\n原文链接：' + location.href;
+                let text = codeblock.textContent;
+                    
+                    
+                
                 navigator.clipboard.writeText(text);
                 copyingDone();
                 return;
