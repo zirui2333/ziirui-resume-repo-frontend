@@ -19,6 +19,11 @@ This is my first cloud project at cloud resume challenge by using AWS. What is C
 > - Infrastructure as Code all the AWS resouces mentioned above by terraform
 > - Create CI/CD for frontend and backend on github
 
+## Graph
+
+![Cloud Diagram.jpg](https://github.com/zirui2333/ziirui-resume-repo-frontend/blob/main/Readme_Item/Cloud-resume-diagram.jpg?raw=true)
+
+
 ## 1. Git clone pull code
 
 ① Use `git clone` to clone the repository to your desktop. At this time, the Hugo papermod directory will be generated.
@@ -59,6 +64,4 @@ There are many personal information in the template that need to be configured b
 
 2. For any PaperMod specific issues, feel free to visit [PaperMod] ( https://github.com/adityatelange/hugo-PaperMod?tab=readme-ov-file#faqs--how-tos-guide- )
 
-## Graph
 
-![Cloud Diagram.jpg](https://github.com/zirui2333/ziirui-resume-repo-frontend/blob/main/Readme_Item/Cloud-resume-diagram.jpg?raw=true)
