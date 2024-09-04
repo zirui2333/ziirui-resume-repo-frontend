@@ -37,7 +37,7 @@ There are many personal information in the template that need to be configured b
 
 🎉🎉 787018782 🎉🎉
 
-## 5. How to use shortcodes
+## 5. How to use shortcode
 
 `bilibili: {{< bilibili BV1Fh411e7ZH(填 bvid) >}}`
 
