@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>👨🏻‍💻 Tech on Zirui&#39;s Space</title>
+    <link>https://www.ziirui-resume-website.com/posts/tech/</link>
+    <description>Recent content in 👨🏻‍💻 Tech on Zirui&#39;s Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 05 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.ziirui-resume-website.com/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leetcode 150</title>
+      <link>https://www.ziirui-resume-website.com/posts/tech/leetcode_150/</link>
+      <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ziirui-resume-website.com/posts/tech/leetcode_150/</guid>
+      <description>This post is my journey of conquring leetcode problems. </description>
+    </item>
+    
+  </channel>
+</rss>
