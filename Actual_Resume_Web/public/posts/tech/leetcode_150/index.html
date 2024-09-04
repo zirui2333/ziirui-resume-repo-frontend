@@ -134,8 +134,8 @@ var _hmt = _hmt || [];
   "keywords": [
     "stack", "leetcode", "neetcode"
   ],
-  "articleBody": "Introduction Neetcode 150 is a popular set of Leetcode problems designed to help programmers prepare for coding interviews. I’ve decided to document my thought process while solving these problems, hoping they might help some of my readers.\nNote: This post won't cover all the questions from Neetcode 150. Instead, I'll focus on the ones I found particularly tricky / challenging. I trust in your ability to know basic logic behind each topic. Sliding window Key factor: The use of unordered_map / array Use l and r, which l stays [only change when certain condition met], r keep moving Compare array for char 26 Keep each index / count in map 424.Longest Repeating Character Replacement The key for Longest Repeating is to count the appearance of each letter in current window That leads us to know the maxCurrent in the window To make sure the window is valid, the replacement is not over k (current length - maxCurrent \u003c= k). If not, move i → decrement vector[i] by 1 Two ways to do:\nvector count to keep track of numbers appearance in current window, we know the string only contains uppercase, vector 26 fit\nFind the max appearance in the current window, to do so, have a function check through the vector to find the maxCurrent everytime To make sure the window is valid, the replacement is not over k (current length - maxCurrent \u003c= k). If not, move i, decrement vector[i] by 1 Update Longest Have maxf only update when a greater num appears.\nreplace if statement by (j - i + 1 - maxf \u003e k) class Solution { public: int findMax(const vector\u003cint\u003e\u0026 nums){ int longest = 0; for(const int\u0026 num : nums){ longest = max(num, longest); } return longest; } int characterReplacement(string s, int k) { vector\u003cint\u003e m (26, 0); int i = 0; int longest = 0; int maxf = 0; for(int j = 0; j \u003c s.length(); ++j){ m[s[j] - 'A']++; maxf = max(maxf, m[s[j] - 'A']); while(i \u003c s.length() \u0026\u0026 j - i + 1 - maxf \u003e k){ m[s[i] - 'A']--; i++; } longest = max(j - i + 1, longest); } return longest; } }; 425. Minimum Window Substring Mininum Window: Have two maps check currentWindow size, same thing as sliding window. The key is to Have a “form” to check if the window is valid (form == 0), once valid, start moving it until the form != 0. Have an arr[2] = {length, starting} to update the answer. Step:\nCreate two maps (dict, currentWindow), store target string into dict Create arr for answer, “form” and i Increment in currentWindow, if (dict also contain the letter and two numbers are the same), decrease “form”; While form == 0, update arr and remove s[i] from currentWindow. Same as step 3 if dict has it and dict[i] \u003e currentWindow[i], increase the form. (Means the letter in currentWindow is less than / not in requirement) Return arr, or “” class Solution { public: string minWindow(string s, string t) { unordered_map\u003cchar, int\u003e dict; unordered_map\u003cchar, int\u003e currentWindow; for(const char\u0026 c : t){ dict[c]++; } int i = 0; int form = dict.size(); int arr [] = {-1, 0}; for(int j = 0; j \u003c s.length(); ++j){ currentWindow[s[j]]++; if(dict.count(s[j]) \u0026\u0026 dict[s[j]] == currentWindow[s[j]]){ form--; } while(i \u003c= j \u0026\u0026 form == 0){ if(arr[0] == -1 || j - i + 1 \u003c arr[0]){ arr[0] = j - i + 1; arr[1] = i; } currentWindow[s[i]]--; if(dict.count(s[i]) \u0026\u0026 dict[s[i]] \u003e currentWindow[s[i]]){ ++form; } ++i; } } return arr[0] == -1? \"\" : s.substr(arr[1], arr[0]); } }; 426. Sliding Window Maximum The key for Sliding Window Maximum is if a num is maxCurrent, we don’t need any number before it. And if the incoming number is greater than deque back, we can smash it Step:\nCreate a deque to store index If deque not empty and incoming is greater, smash anything is smaller Check if dq front is out of bound (i \u003e dq.front()) if(j + 1 \u003e= k) push_back result and move the i. (The if statement checks if j+1 \u003c k, which we haven’t insert enough elements to meet the window size, j is index, ex. If k = 3, j at least should be 2 in index) class Solution { public: vector\u003cint\u003e maxSlidingWindow(vector\u003cint\u003e\u0026 nums, int k) { deque\u003cint\u003e sta; // store index int i = 0; vector\u003cint\u003e answer; for(int j = 0; j \u003c nums.size(); ++j){ while(!sta.empty() \u0026\u0026 nums[sta.back()] \u003c= nums[j]){ sta.pop_back(); } sta.push_back(j); if(sta.front() \u003c i){ sta.pop_front(); } if(j - i + 1 \u003e= k){ answer.push_back(nums[sta.front()]); ++i; } } return answer; } }; Stack 155. Min Stack The key of Min Stack is to use two stacks: nums and min_stack. The nums stack stores all the values, while the min_stack only stores the current minimum values and updates when a new value is less than or equal to the top of the stack.\nYou might wonder, “What about when the incoming value is greater than the top of the stack? Shouldn’t it be stored in min_stack too?” The answer is no. You might think that if a larger value should be stored somewhere at the bottom of min_stack so that when all the smaller numbers are popped, this larger value will be needed. But that’s not true. When pop() is called, larger numbers will be popped before smaller ones, so there’s no need to store them in min_stack.\nThere are two approaches to solving this:\nCreate nums and min_stack.\nFor Push(): push the value into nums and push into min_stack only if the condition is met.\nFor Pop(): pop from min_stack only if nums.top() == min_stack.top().\nConsider a scenario where the input is something like // 2 2 2 2 2. We don’t want to store all these values in the stack. Instead, create a pair to keep track of the numbers and their frequencies.\nclass MinStack { public: //2 2 2 2 2 2 2 // {2, 7} stack\u003cint\u003e nums; stack\u003cpair\u003cint, int\u003e\u003e min_stack; MinStack() { } void push(int val) { nums.push(val); if(min_stack.empty() || val \u003c min_stack.top().first){ min_stack.push({val, 1}); }else if(val == min_stack.top().first){ min_stack.top().second++; } } void pop() { if(!min_stack.empty() \u0026\u0026 min_stack.top().first == nums.top()){ min_stack.top().second--; if(min_stack.top().second == 0){ min_stack.pop(); } } nums.pop(); } int top() { return nums.top(); } int getMin() { return min_stack.top().first; } }; 150. Evaluate Reverse Polish Notation Polish Notation should be straightforward, the key is pushed back to stack every time the calculation is done! Step:\nCreate a stack\nCheck if val is digit, if so, push to stack and continue; If(token.size() \u003e 1 || isdigit(token[0])) If we skip step 2, then val is an operator. Perform the operator and store it back to stack. Eventually the stack will have only one num (the answer), return stack.top() class Solution { public: bool isoper(string s){ return s.length() == 1 \u0026\u0026 (s == \"+\" || s== \"-\" || s== \"*\" || s== \"/\"); } int calculator(int num1, int num2, char op){ switch(op){ case '+': return num1 + num2; case '-': return num1 - num2; case '*': return num1 * num2; case '/': return num1 / num2; } return 0; } int evalRPN(vector\u003cstring\u003e\u0026 tokens) { if(tokens.size() == 1){ return stoi(tokens[0]); } stack\u003cint\u003e sta; int answer = 0; for(int i = 0; i \u003c tokens.size(); ++i){ if(!isoper(tokens[i])){ sta.push(stoi(tokens[i])); }else{ int num2 = sta.top(); sta.pop(); int num1 = sta.top(); sta.pop(); answer = calculator(num1, num2, tokens[i][0]); sta.push(answer); } } return answer; } }; 22. Generate Parentheses For generate parentheses We should know that we need “open” and “close” to both equal to n to push Whenever open == close, ex: () / (( )) // () (), we could only add an open bracket. Therefore we should visit open bracket first Only adding a close bracket if close \u003c open, means we have extra open to be matched. Step:\nBacktracking, we should create a helper function (vector answer, string temp, int n, int open, int close) If open and close both == n, push into answer If open \u003c n, temp push an open bracket and helper(open + 1), finally remove temp.back If open \u003e close, same thing, but push close bracket. class Solution { public: void helper(vector\u003cstring\u003e\u0026 answer, string\u0026 temp, int n, int open, int close){ if(open == n \u0026\u0026 close == n){ answer.push_back(temp); return; } if(open \u003c n){ temp += '('; helper(answer, temp, n, open + 1, close); temp.pop_back(); } if(open \u003e close){ temp += ')'; helper(answer, temp, n, open, close + 1); temp.pop_back(); } } vector\u003cstring\u003e generateParenthesis(int n) { vector\u003cstring\u003e answer; string temp = \"\"; helper(answer, temp, n, 0, 0); return answer; } }; 23. Daily Temperatures For Daily Temperatures, I’m correct with monolithic stack in the first place and obtained a solution by myself. The key is having a pair {temperature, index} in the stack. And pop only if currentTemp is higher [warmer], else push into stack Step:\nCreate a stack and vector for answer If sta not empty \u0026\u0026 currentTemp \u003e sta.top() answer[sta.top().second] = the gap in days pop from stack Else, push into stack class Solution { public: //monolithic stack vector\u003cint\u003e dailyTemperatures(vector\u003cint\u003e\u0026 temperatures) { stack\u003cpair\u003cint,int\u003e\u003e sta; vector\u003cint\u003e answer (temperatures.size()); for(int i = 0; i \u003c temperatures.size(); ++i){ // if(sta.empty() || sta.top().first \u003e= temperatures[i]){ // sta.push({temperatures[i], i}); // continue; // } while(!sta.empty() \u0026\u0026 sta.top().first \u003c temperatures[i]){ answer[sta.top().second] = i - sta.top().second; sta.pop(); } sta.push({temperatures[i],i}); } return answer; } }; 24. Car Fleet The key of Car Fleet that we are dealing with the time cars get to the destination based on position and speed. Then if two cars spend the same time getting to the final, they will meet. Or the car behind spends less time (faster) to reach, they will also meet. Step:\nCreate a vector and store all the values Sort the vector based on position Make a fleet counter and maxTime Start from the back where the car is the closest to destination, and if the time it spends is greater than maxTime means the currentTime is not catching the previous carfleet, we should therefore increment the carfleet by one and update maxTime class Solution { public: int carFleet(int target, vector\u003cint\u003e\u0026 position, vector\u003cint\u003e\u0026 speed) { vector\u003cpair\u003cint, double\u003e\u003e cars(position.size()); //(destination - position[i] / speed[i]) for(int i = 0; i \u003c position.size(); ++i){ double time = (double)(target - position[i]) / speed[i]; cars[i] = {position[i], time}; } sort(cars.begin(), cars.end()); int carFleet = 0; double maxTime = 0.0; for(int i = cars.size() - 1; i \u003e= 0; --i){ double time = cars[i].second; if(time \u003e maxTime){ maxTime = time; carFleet++; } } return carFleet; } }; 84. Largest Rectangle in Histogram The idea for Largest Rectangle is we should know how far a unit can expand, and we should maintain it in the stack before that happens. And until when we reach a smaller height, we reach the end point, then we should pop from the stack and calculate the width (the initial point to expanding end) and height(initial height).\nFor the currentHeight, because we pop from stack until reaching a smaller unit where currentHeight cannot expand, we make that as our initial height for current.\nStep:\nCreate a stack , maxArea for answer When stack is not empty and currentHeight is smaller, we pop the stack and update maxArea and start position of currentHeight Then push {start position, currentHeight} to stack After the loop, there are elements left in the stack which means these are heights that can expand till the end. Therefore we should update the maxArea by height * width (width is endpoint - start) class Solution { public: int largestRectangleArea(vector\u003cint\u003e\u0026 heights) { stack\u003cpair\u003cint, int\u003e\u003e sta; // int maxArea = 0; for(int i = 0; i \u003c heights.size(); ++i){ int start = i; while(!sta.empty() \u0026\u0026 heights[i] \u003c sta.top().second){ int width = i - sta.top().first; int height = sta.top().second; maxArea = max(maxArea, height * width); start = sta.top().first; sta.pop(); } sta.push({start,heights[i]}); } int n = heights.size(); while(!sta.empty()){ pair\u003cint, int\u003e p = sta.top(); sta.pop(); maxArea = max(maxArea, p.second * (n - p.first)); } return maxArea; } }; ",
-  "wordCount" : "2042",
+  "articleBody": "Introduction Neetcode 150 is a popular collection of Leetcode problems designed to help programmers prepare for coding interviews. However, the tutorial videos may not always provide the most comprehensive explanations for full understanding. Therefore, I’ve decided to document my thought process while solving these problems, in the hope that it might help some of my readers.\nNote: This post won't cover all the questions from Neetcode 150. Instead, I'll focus on the ones I found particularly tricky / challenging. I trust in your ability to know the basic logic behind each topic. Sliding window Key factor: The use of unordered_map / array Use l and r, which l stays [only change when certain condition met], r keep moving Compare array for char 26 Keep each index / count in map 424.Longest Repeating Character Replacement The key for Longest Repeating is to count the appearance of each letter in current window That leads us to know the maxCurrent in the window To make sure the window is valid, the replacement is not over k (current length - maxCurrent \u003c= k). If not, move i → decrement vector[i] by 1 Two ways to do:\nvector count to keep track of numbers appearance in current window, we know the string only contains uppercase, vector 26 fit\nFind the max appearance in the current window, to do so, have a function check through the vector to find the maxCurrent everytime To make sure the window is valid, the replacement is not over k (current length - maxCurrent \u003c= k). If not, move i, decrement vector[i] by 1 Update Longest Have maxf only update when a greater num appears.\nreplace if statement by (j - i + 1 - maxf \u003e k) class Solution { public: int findMax(const vector\u003cint\u003e\u0026 nums){ int longest = 0; for(const int\u0026 num : nums){ longest = max(num, longest); } return longest; } int characterReplacement(string s, int k) { vector\u003cint\u003e m (26, 0); int i = 0; int longest = 0; int maxf = 0; for(int j = 0; j \u003c s.length(); ++j){ m[s[j] - 'A']++; maxf = max(maxf, m[s[j] - 'A']); while(i \u003c s.length() \u0026\u0026 j - i + 1 - maxf \u003e k){ m[s[i] - 'A']--; i++; } longest = max(j - i + 1, longest); } return longest; } }; 425. Minimum Window Substring Mininum Window: Have two maps check currentWindow size, same thing as sliding window. The key is to Have a “form” to check if the window is valid (form == 0), once valid, start moving it until the form != 0. Have an arr[2] = {length, starting} to update the answer. Step:\nCreate two maps (dict, currentWindow), store target string into dict Create arr for answer, “form” and i Increment in currentWindow, if (dict also contain the letter and two numbers are the same), decrease “form”; While form == 0, update arr and remove s[i] from currentWindow. Same as step 3 if dict has it and dict[i] \u003e currentWindow[i], increase the form. (Means the letter in currentWindow is less than / not in requirement) Return arr, or “” class Solution { public: string minWindow(string s, string t) { unordered_map\u003cchar, int\u003e dict; unordered_map\u003cchar, int\u003e currentWindow; for(const char\u0026 c : t){ dict[c]++; } int i = 0; int form = dict.size(); int arr [] = {-1, 0}; for(int j = 0; j \u003c s.length(); ++j){ currentWindow[s[j]]++; if(dict.count(s[j]) \u0026\u0026 dict[s[j]] == currentWindow[s[j]]){ form--; } while(i \u003c= j \u0026\u0026 form == 0){ if(arr[0] == -1 || j - i + 1 \u003c arr[0]){ arr[0] = j - i + 1; arr[1] = i; } currentWindow[s[i]]--; if(dict.count(s[i]) \u0026\u0026 dict[s[i]] \u003e currentWindow[s[i]]){ ++form; } ++i; } } return arr[0] == -1? \"\" : s.substr(arr[1], arr[0]); } }; 426. Sliding Window Maximum The key for Sliding Window Maximum is if a num is maxCurrent, we don’t need any number before it. And if the incoming number is greater than deque back, we can smash it Step:\nCreate a deque to store index If deque not empty and incoming is greater, smash anything is smaller Check if dq front is out of bound (i \u003e dq.front()) if(j + 1 \u003e= k) push_back result and move the i. (The if statement checks if j+1 \u003c k, which we haven’t insert enough elements to meet the window size, j is index, ex. If k = 3, j at least should be 2 in index) class Solution { public: vector\u003cint\u003e maxSlidingWindow(vector\u003cint\u003e\u0026 nums, int k) { deque\u003cint\u003e sta; // store index int i = 0; vector\u003cint\u003e answer; for(int j = 0; j \u003c nums.size(); ++j){ while(!sta.empty() \u0026\u0026 nums[sta.back()] \u003c= nums[j]){ sta.pop_back(); } sta.push_back(j); if(sta.front() \u003c i){ sta.pop_front(); } if(j - i + 1 \u003e= k){ answer.push_back(nums[sta.front()]); ++i; } } return answer; } }; Stack 155. Min Stack The key of Min Stack is to use two stacks: nums and min_stack. The nums stack stores all the values, while the min_stack only stores the current minimum values and updates when a new value is less than or equal to the top of the stack.\nYou might wonder, “What about when the incoming value is greater than the top of the stack? Shouldn’t it be stored in min_stack too?” The answer is no. You might think that if a larger value should be stored somewhere at the bottom of min_stack so that when all the smaller numbers are popped, this larger value will be needed. But that’s not true. When pop() is called, larger numbers will be popped before smaller ones, so there’s no need to store them in min_stack.\nThere are two approaches to solving this:\nCreate nums and min_stack.\nFor Push(): push the value into nums and push into min_stack only if the condition is met.\nFor Pop(): pop from min_stack only if nums.top() == min_stack.top().\nConsider a scenario where the input is something like // 2 2 2 2 2. We don’t want to store all these values in the stack. Instead, create a pair to keep track of the numbers and their frequencies.\nclass MinStack { public: //2 2 2 2 2 2 2 // {2, 7} stack\u003cint\u003e nums; stack\u003cpair\u003cint, int\u003e\u003e min_stack; MinStack() { } void push(int val) { nums.push(val); if(min_stack.empty() || val \u003c min_stack.top().first){ min_stack.push({val, 1}); }else if(val == min_stack.top().first){ min_stack.top().second++; } } void pop() { if(!min_stack.empty() \u0026\u0026 min_stack.top().first == nums.top()){ min_stack.top().second--; if(min_stack.top().second == 0){ min_stack.pop(); } } nums.pop(); } int top() { return nums.top(); } int getMin() { return min_stack.top().first; } }; 150. Evaluate Reverse Polish Notation Polish Notation should be straightforward, the key is pushed back to stack every time the calculation is done! Step:\nCreate a stack\nCheck if val is digit, if so, push to stack and continue; If(token.size() \u003e 1 || isdigit(token[0])) If we skip step 2, then val is an operator. Perform the operator and store it back to stack. Eventually the stack will have only one num (the answer), return stack.top() class Solution { public: bool isoper(string s){ return s.length() == 1 \u0026\u0026 (s == \"+\" || s== \"-\" || s== \"*\" || s== \"/\"); } int calculator(int num1, int num2, char op){ switch(op){ case '+': return num1 + num2; case '-': return num1 - num2; case '*': return num1 * num2; case '/': return num1 / num2; } return 0; } int evalRPN(vector\u003cstring\u003e\u0026 tokens) { if(tokens.size() == 1){ return stoi(tokens[0]); } stack\u003cint\u003e sta; int answer = 0; for(int i = 0; i \u003c tokens.size(); ++i){ if(!isoper(tokens[i])){ sta.push(stoi(tokens[i])); }else{ int num2 = sta.top(); sta.pop(); int num1 = sta.top(); sta.pop(); answer = calculator(num1, num2, tokens[i][0]); sta.push(answer); } } return answer; } }; 22. Generate Parentheses For generate parentheses We should know that we need “open” and “close” to both equal to n to push Whenever open == close, ex: () / (( )) // () (), we could only add an open bracket. Therefore we should visit open bracket first Only adding a close bracket if close \u003c open, means we have extra open to be matched. Step:\nBacktracking, we should create a helper function (vector answer, string temp, int n, int open, int close) If open and close both == n, push into answer If open \u003c n, temp push an open bracket and helper(open + 1), finally remove temp.back If open \u003e close, same thing, but push close bracket. class Solution { public: void helper(vector\u003cstring\u003e\u0026 answer, string\u0026 temp, int n, int open, int close){ if(open == n \u0026\u0026 close == n){ answer.push_back(temp); return; } if(open \u003c n){ temp += '('; helper(answer, temp, n, open + 1, close); temp.pop_back(); } if(open \u003e close){ temp += ')'; helper(answer, temp, n, open, close + 1); temp.pop_back(); } } vector\u003cstring\u003e generateParenthesis(int n) { vector\u003cstring\u003e answer; string temp = \"\"; helper(answer, temp, n, 0, 0); return answer; } }; 23. Daily Temperatures For Daily Temperatures, I’m correct with monolithic stack in the first place and obtained a solution by myself. The key is having a pair {temperature, index} in the stack. And pop only if currentTemp is higher [warmer], else push into stack Step:\nCreate a stack and vector for answer If sta not empty \u0026\u0026 currentTemp \u003e sta.top() answer[sta.top().second] = the gap in days pop from stack Else, push into stack class Solution { public: //monolithic stack vector\u003cint\u003e dailyTemperatures(vector\u003cint\u003e\u0026 temperatures) { stack\u003cpair\u003cint,int\u003e\u003e sta; vector\u003cint\u003e answer (temperatures.size()); for(int i = 0; i \u003c temperatures.size(); ++i){ // if(sta.empty() || sta.top().first \u003e= temperatures[i]){ // sta.push({temperatures[i], i}); // continue; // } while(!sta.empty() \u0026\u0026 sta.top().first \u003c temperatures[i]){ answer[sta.top().second] = i - sta.top().second; sta.pop(); } sta.push({temperatures[i],i}); } return answer; } }; 24. Car Fleet The key of Car Fleet that we are dealing with the time cars get to the destination based on position and speed. Then if two cars spend the same time getting to the final, they will meet. Or the car behind spends less time (faster) to reach, they will also meet. Step:\nCreate a vector and store all the values Sort the vector based on position Make a fleet counter and maxTime Start from the back where the car is the closest to destination, and if the time it spends is greater than maxTime means the currentTime is not catching the previous carfleet, we should therefore increment the carfleet by one and update maxTime class Solution { public: int carFleet(int target, vector\u003cint\u003e\u0026 position, vector\u003cint\u003e\u0026 speed) { vector\u003cpair\u003cint, double\u003e\u003e cars(position.size()); //(destination - position[i] / speed[i]) for(int i = 0; i \u003c position.size(); ++i){ double time = (double)(target - position[i]) / speed[i]; cars[i] = {position[i], time}; } sort(cars.begin(), cars.end()); int carFleet = 0; double maxTime = 0.0; for(int i = cars.size() - 1; i \u003e= 0; --i){ double time = cars[i].second; if(time \u003e maxTime){ maxTime = time; carFleet++; } } return carFleet; } }; 84. Largest Rectangle in Histogram The idea for Largest Rectangle is we should know how far a unit can expand, and we should maintain it in the stack before that happens. And until when we reach a smaller height, we reach the end point, then we should pop from the stack and calculate the width (the initial point to expanding end) and height(initial height).\nFor the currentHeight, because we pop from stack until reaching a smaller unit where currentHeight cannot expand, we make that as our initial height for current.\nStep:\nCreate a stack , maxArea for answer When stack is not empty and currentHeight is smaller, we pop the stack and update maxArea and start position of currentHeight Then push {start position, currentHeight} to stack After the loop, there are elements left in the stack which means these are heights that can expand till the end. Therefore we should update the maxArea by height * width (width is endpoint - start) class Solution { public: int largestRectangleArea(vector\u003cint\u003e\u0026 heights) { stack\u003cpair\u003cint, int\u003e\u003e sta; // int maxArea = 0; for(int i = 0; i \u003c heights.size(); ++i){ int start = i; while(!sta.empty() \u0026\u0026 heights[i] \u003c sta.top().second){ int width = i - sta.top().first; int height = sta.top().second; maxArea = max(maxArea, height * width); start = sta.top().first; sta.pop(); } sta.push({start,heights[i]}); } int n = heights.size(); while(!sta.empty()){ pair\u003cint, int\u003e p = sta.top(); sta.pop(); maxArea = max(maxArea, p.second * (n - p.first)); } return maxArea; } }; Binary Search 74. Search a 2D Matrix The key of 2D Matrix is to recognize that not only is each row ordered, but each horizontal line is also ordered. This allows us to perform a binary search on the horizontal lines to find the target row, followed by a normal binary search within that row. Step:\nCreate an up and down variable Check if the target is greater than mid[0] and less than mid.back() if so, we find the row and break. For the while loop condition, we can do up \u003c down, if they equal, don’t need to check, row must be it. Else increase or decrease up and down by condition Create left and right, check matrix[row][mid], same procedure. class Solution { public: bool searchMatrix(vector\u003cvector\u003cint\u003e\u003e\u0026 matrix, int target) { int m = matrix.size(), n = matrix[0].size(); int left = 0, right = m - 1, mid = 0; while(left \u003c= right){ mid = (right - left) / 2 + left; if(matrix[mid][0] \u003c= target \u0026\u0026 target \u003c= matrix[mid].back()){ break; } if(matrix[mid][0] \u003e target){ right = mid - 1; }else{ left = mid + 1; } } int row = mid; left = 0, right = n - 1; while(left \u003c= right){ int mid = (right - left) / 2 + left; if(matrix[row][mid] == target){ return true; }else if(target \u003e matrix[row][mid]){ ++left; }else{ --right; } } return false; } }; 875. Koko Eating Bananas The key of Koko Eating Bananas is that we should decide what k bananas Koko eats, it can eat anywhere from 1 to the max in the piles, because anymore it will stop eating for one round. Therefore do a binary search based on 1 to max Step:\nCreate low = 1, high to be maxPile, answer Create an hour counting, put it long int for number floating, binary search through the array. If the hour is within time, update the answer to be minimum of (mid, answer) Hour can be calculated as: hour += pile / mid + (pile % mid != 0) Or hour += ceil((double) pile / mid) Return answer; class Solution { public: int minEatingSpeed(vector\u003cint\u003e\u0026 piles, int h) { int low = 1, high = 0; for(const int\u0026 pile : piles){ high = max(high, pile); } int answer = high; while(low \u003c= high){ int mid = (high - low) / 2 + low; long int hour = 0; for(const int\u0026 pile : piles){ hour += pile / mid + (pile % mid != 0); } if(hour \u003c= h){ answer = min(mid, answer); high = mid - 1; }else{ low = mid + 1; } } return answer; } }; 153. Find Minimum in Rotated Sorted Array For Find Minimum in Rotated Array, I am right in the first place:\nin a normal situation: left \u003c mid \u003c right, if rotation happens, where mid \u003e right : “4 5 6 7 1 2 3”, left = mid + 1. Else, it means mid \u003c= right, which is a normal array or “6 7 1 2 3” where mid is the number. Set right = mid; Also for the while condition, we do left \u003c right, we don’t need to check left == right. Because if left even equals to right, we found the minimum value\nStep:\nCreate left and right while(left \u003c right), if (mid \u003e right) left = mid + 1. Else right = mid; Return nums[left] or nums[right] class Solution { public: int findMin(vector\u003cint\u003e\u0026 nums) { //find the rotation point // suppose: Left \u003c right // left \u003c mid \u003c right // right \u003c mid: 4 5 6 7 1 2 3, left = mid + 1 // right \u003e mid: 8 2 3 4 5 6 7, right = mid int left = 0, right = nums.size() - 1, mid = 0; while(left \u003c right){ mid = (right - left) / 2 + left; if(nums[right] \u003e= nums[mid]){ right = mid; }else{ left = mid + 1; } } return nums[left]; //binary search } }; 33. Search in Rotated Sorted Array There are two ways to do Search in Rotated Sorted Array. One as we know, find the minimum rotation starter, and see if the target is a left or right sorted array. Another way is to do everything in one shot, which determines if the array is left sorted or right sorted. Here only explain the situation of second method which is harder Step:\nCreate left and right ptr while(left \u003c= right), if(mid == target), return mid. If (left \u003c= mid), it’s left sorted “//1 2 3 4 5 6 7 or //3 4 5 6 7 1 2”, we need to figure out if the target is on the left or right. If (target \u003e nums[mid] || target \u003c nums[left]) left = mid + 1. Else right = mid - 1; Because mid \u003e left, so if target \u003e mid, that means target is also \u003e left, we eliminate the entire left side, so we should go to right. If target \u003c= mid, it could be the second case where mid = 6, and we have nums on left and right meet the condition, so if target \u003c left, we go right. Right side the same idea. class Solution { public: int search(vector\u003cint\u003e\u0026 nums, int target) { int left = 0, right = nums.size() - 1; while(left \u003c= right){ int mid = (right - left) / 2 + left; if(nums[mid] == target){ return mid; }else if(nums[mid] \u003e nums[right]){ if(target \u003e= nums[left] \u0026\u0026 target \u003c nums[mid]){ right = mid - 1; }else{ left = mid + 1; } }else{ if(target \u003c= nums[right] \u0026\u0026 target \u003e nums[mid]){ left = mid + 1; }else{ right = mid - 1; } } //4 5 6 7 0 1 2 //3 4 5 6 7 0 1 //5 6 7 0 1 2 4 //6 7 0 1 3 4 5 } return -1; } }; //0 1 2 3 4 5 6 7 //4 5 6 7 0 1 2 3 4. Median of Two Sorted Arrays There are three approaches for Median of Two Sorted Arrays: Merge the two arrays and perform a binary search. This takes O(m + n) time. Start from the beginning of both arr1 and arr2. Since we are looking for the median (the middle value), we can compare values one by one and move the pointer forward until we reach log(m+n) comparisons. Perform a binary search in the smaller array, which is the method I will explain. Steps:\nCompare the two arrays and place the smaller array first. This is important because performing the search on the smaller array helps to eliminate the case where one array is empty.\nCreate high and low pointers for the binary search on arr1.\nWhile low \u003c= high, create a mid pointer for arr1 and a corresponding mid pointer for arr2. The total + 1 adjustment accounts for odd numbers, as we want to find the middle number.\nDefine left1 as arr1[i - 1] and right1 as arr1[i] (the middle value in arr1). Define left2 as arr2[j - 1] and right2 as arr2[j](the middle value in arr2).\nBy the nature of sorted arrays, left1 \u003c right1 and left2 \u003c right2 by default.\nWe should check if left1 \u003c= right2 and left2 \u003c= right1. If both conditions are met, we’ve found the left sorted partition. Update the result based on whether the total length is odd or even, then exit the loop. If left1 \u003e right1, it means the current partition is too large, so adjust by setting right = i - 1. Otherwise, if left2 \u003e right1, it indicates that arr1 is too small, so expand the search by setting left = i + 1.\nclass Solution { public: int p1 = 0, p2 = 0; int mergeSort(vector\u003cint\u003e\u0026 nums1, vector\u003cint\u003e\u0026 nums2){ if(p1 \u003c nums1.size() \u0026\u0026 p2 \u003c nums2.size()){ return nums1[p1] \u003c nums2[p2] ? nums1[p1++] : nums2[p2++]; }else if(p1 \u003c nums1.size()){ return nums1[p1++]; }else{ return nums2[p2++]; } return -1; } double findMedianSortedArrays(vector\u003cint\u003e\u0026 nums1, vector\u003cint\u003e\u0026 nums2) { int m = nums1.size(), n = nums2.size(); if((m+n) % 2 == 0){ for(int i = 0; i \u003c (m+n) / 2 - 1; ++i){ mergeSort(nums1, nums2); } return (double)(mergeSort(nums1, nums2) + mergeSort(nums1, nums2)) / 2; }else{ for(int i = 0; i \u003c (m+n) / 2; ++i){ mergeSort(nums1, nums2); } return mergeSort(nums1, nums2); } } }; ",
+  "wordCount" : "3461",
   "inLanguage": "en-us",
   "image":"https://www.ziirui-resume-website.com/posts/tech/leetcode/neetcode.jpg","datePublished": "2023-10-05T00:00:00Z",
   "dateModified": "2023-10-09T00:00:00Z",
@@ -292,13 +292,13 @@ var _hmt = _hmt || [];
     
     <span id="post_meta_style_3">
         <span class="fa fa-file-word-o"></span>
-        <span>2042字
+        <span>3461字
             &nbsp;&nbsp;
         </span>
     </span>
     <span id="post_meta_style_4">
         <span class="fa fa-clock-o"></span>
-        <span>5分钟
+        <span>7分钟
             &nbsp;&nbsp;
         </span>
     </span>
@@ -403,7 +403,21 @@ var _hmt = _hmt || [];
                 <li>
                     <a href="#24-car-fleet" aria-label="24. Car Fleet">24. Car Fleet</a></li>
                 <li>
-                    <a href="#84-largest-rectangle-in-histogram" aria-label="84. Largest Rectangle in Histogram">84. Largest Rectangle in Histogram</a>
+                    <a href="#84-largest-rectangle-in-histogram" aria-label="84. Largest Rectangle in Histogram">84. Largest Rectangle in Histogram</a></li></ul>
+                </li>
+                <li>
+                    <a href="#binary-search" aria-label="Binary Search">Binary Search</a><ul>
+                        
+                <li>
+                    <a href="#74-search-a-2d-matrix" aria-label="74. Search a 2D Matrix">74. Search a 2D Matrix</a></li>
+                <li>
+                    <a href="#875-koko-eating-bananas" aria-label="875. Koko Eating Bananas">875. Koko Eating Bananas</a></li>
+                <li>
+                    <a href="#153-find-minimum-in-rotated-sorted-array" aria-label="153. Find Minimum in Rotated Sorted Array">153. Find Minimum in Rotated Sorted Array</a></li>
+                <li>
+                    <a href="#33-search-in-rotated-sorted-array" aria-label="33. Search in Rotated Sorted Array">33. Search in Rotated Sorted Array</a></li>
+                <li>
+                    <a href="#4-median-of-two-sorted-arrays" aria-label="4. Median of Two Sorted Arrays">4. Median of Two Sorted Arrays</a>
                 </li>
             </ul>
             </li>
@@ -473,8 +487,8 @@ var _hmt = _hmt || [];
     }
 </script>
         <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
-<p><a href="https://neetcode.io/practice" target="_blank">Neetcode 150</a> is a popular set of Leetcode problems designed to help programmers prepare for coding interviews. I&rsquo;ve decided to document my thought process while solving these problems, hoping they might help some of my readers.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>Note: This post won&#39;t cover all the questions from Neetcode 150. Instead, I&#39;ll focus on the ones I found particularly tricky / challenging. I trust in your ability to know basic logic behind each topic.
+<p><a href="https://neetcode.io/practice" target="_blank">Neetcode 150</a> is a popular collection of Leetcode problems designed to help programmers prepare for coding interviews. However, the tutorial videos may not always provide the most comprehensive explanations for full understanding. Therefore, I&rsquo;ve decided to document my thought process while solving these problems, in the hope that it might help some of my readers.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>Note: This post won&#39;t cover all the questions from Neetcode 150. Instead, I&#39;ll focus on the ones I found particularly tricky / challenging. I trust in your ability to know the basic logic behind each topic.
 </span></span></code></pre></div><h1 id="sliding-window">Sliding window<a hidden class="anchor" aria-hidden="true" href="#sliding-window">#</a></h1>
 <ul>
 <li>Key factor:
@@ -915,6 +929,289 @@ if<code>(j + 1 &gt;= k)</code> push_back result and move the i. (The if statemen
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> maxArea;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h1 id="binary-search">Binary Search<a hidden class="anchor" aria-hidden="true" href="#binary-search">#</a></h1>
+<h2 id="74-search-a-2d-matrix">74. Search a 2D Matrix<a hidden class="anchor" aria-hidden="true" href="#74-search-a-2d-matrix">#</a></h2>
+<ul>
+<li>The key of <a href="https://neetcode.io/problems/search-2d-matrix" target="_blank">2D Matrix</a> is to recognize that not only is each row ordered, but each horizontal line is also ordered. This allows us to perform a binary search on the horizontal lines to find the target row, followed by a normal binary search within that row.</li>
+</ul>
+<p>Step:</p>
+<ol>
+<li>Create an <code>up</code> and <code>down</code> variable</li>
+<li>Check if the target is greater than <code>mid[0]</code> and less than <code>mid.back()</code>
+<ul>
+<li>if so, we find the row and break.</li>
+<li>For the while loop condition, we can do <code>up &lt; down</code>, if they equal, don&rsquo;t need to check, row must be it.</li>
+</ul>
+</li>
+<li>Else increase or decrease <code>up</code> and <code>down</code> by condition</li>
+<li>Create <code>left</code> and <code>right</code>, check <code>matrix[row][mid]</code>, same procedure.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> searchMatrix(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> matrix, <span style="color:#66d9ef">int</span> target) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> matrix.size(), n <span style="color:#f92672">=</span> matrix[<span style="color:#ae81ff">0</span>].size();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, right <span style="color:#f92672">=</span> m <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(left <span style="color:#f92672">&lt;=</span> right){
+</span></span><span style="display:flex;"><span>            mid <span style="color:#f92672">=</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> left;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(matrix[mid][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;=</span> target <span style="color:#f92672">&amp;&amp;</span> target <span style="color:#f92672">&lt;=</span> matrix[mid].back()){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(matrix[mid][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&gt;</span> target){
+</span></span><span style="display:flex;"><span>                right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> row <span style="color:#f92672">=</span> mid;
+</span></span><span style="display:flex;"><span>        left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, right <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(left <span style="color:#f92672">&lt;=</span> right){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> left;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(matrix[row][mid] <span style="color:#f92672">==</span> target){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(target <span style="color:#f92672">&gt;</span> matrix[row][mid]){
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">++</span>left;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">--</span>right;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="875-koko-eating-bananas">875. Koko Eating Bananas<a hidden class="anchor" aria-hidden="true" href="#875-koko-eating-bananas">#</a></h2>
+<ul>
+<li>The key of <a href="https://neetcode.io/problems/eating-bananas" target="_blank">Koko Eating Bananas</a> is that we should decide what <code>k</code> bananas Koko eats, it can eat anywhere from 1 to the <code>max</code> in the piles, because anymore it will stop eating for one round.</li>
+<li>Therefore do a binary search based on 1 to <code>max</code></li>
+</ul>
+<p>Step:</p>
+<ol>
+<li>Create <code>low = 1</code>, high to be <code>maxPile</code>, <code>answer</code></li>
+<li>Create an <code>hour</code> counting, put it long int for number floating, binary search through the array.
+<ul>
+<li>If the <code>hour</code> is within time, update the answer to be minimum of (mid, answer)</li>
+</ul>
+</li>
+<li><code>Hour</code> can be calculated as:
+<ul>
+<li><code>hour += pile / mid + (pile % mid != 0)</code> Or</li>
+<li><code>hour += ceil((double) pile / mid)</code></li>
+</ul>
+</li>
+<li>Return <code>answer</code>;</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> minEatingSpeed(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> piles, <span style="color:#66d9ef">int</span> h) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> low <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, high <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> pile : piles){
+</span></span><span style="display:flex;"><span>            high <span style="color:#f92672">=</span> max(high, pile);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> answer <span style="color:#f92672">=</span> high;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(low <span style="color:#f92672">&lt;=</span> high){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (high <span style="color:#f92672">-</span> low) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> low;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">int</span> hour <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> pile : piles){
+</span></span><span style="display:flex;"><span>                hour <span style="color:#f92672">+=</span> pile <span style="color:#f92672">/</span> mid <span style="color:#f92672">+</span> (pile <span style="color:#f92672">%</span> mid <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(hour <span style="color:#f92672">&lt;=</span> h){
+</span></span><span style="display:flex;"><span>                answer <span style="color:#f92672">=</span> min(mid, answer);
+</span></span><span style="display:flex;"><span>                high <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                low <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> answer;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="153-find-minimum-in-rotated-sorted-array">153. Find Minimum in Rotated Sorted Array<a hidden class="anchor" aria-hidden="true" href="#153-find-minimum-in-rotated-sorted-array">#</a></h2>
+<ul>
+<li>
+<p>For <a href="https://neetcode.io/problems/find-minimum-in-rotated-sorted-array" target="_blank">Find Minimum in Rotated Array</a>, I am right in the first place:</p>
+<ol>
+<li>in a normal situation: <code>left &lt; mid &lt; right</code>, if rotation happens, where <code>mid &gt; right</code> : “4 5 6 7 1 2 3”, <code>left = mid + 1</code>.</li>
+<li>Else, it means <code>mid &lt;= right</code>, which is a normal array or “6 7 1 2 3” where mid is the number. Set <code>right = mid</code>;</li>
+</ol>
+</li>
+<li>
+<p>Also for the while condition, we do <code>left &lt; right</code>, we don&rsquo;t need to check left == right. Because if left even equals to right, we found the minimum value</p>
+</li>
+</ul>
+<p>Step:</p>
+<ol>
+<li>Create <code>left</code> and <code>right</code></li>
+<li><code>while(left &lt; right)</code>, <code>if (mid &gt; right)</code>
+<ul>
+<li>left = mid + 1.</li>
+<li>Else right = mid;</li>
+</ul>
+</li>
+<li>Return <code>nums[left]</code> or <code>nums[right]</code></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> findMin(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//find the rotation point
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// suppose: Left &lt; right
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// left &lt; mid &lt; right
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// right &lt; mid: 4 5 6 7 1 2 3, left = mid + 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// right &gt; mid: 8 2 3 4 5 6 7, right = mid
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, right <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(left <span style="color:#f92672">&lt;</span> right){
+</span></span><span style="display:flex;"><span>            mid <span style="color:#f92672">=</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> left;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(nums[right] <span style="color:#f92672">&gt;=</span> nums[mid]){
+</span></span><span style="display:flex;"><span>                right <span style="color:#f92672">=</span> mid;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> nums[left];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//binary search
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="33-search-in-rotated-sorted-array">33. Search in Rotated Sorted Array<a hidden class="anchor" aria-hidden="true" href="#33-search-in-rotated-sorted-array">#</a></h2>
+<ul>
+<li>There are two ways to do <a href="https://neetcode.io/problems/find-target-in-rotated-sorted-array" target="_blank">Search in Rotated Sorted Array.</a>
+<ol>
+<li>One as we know, find the minimum rotation starter, and see if the target is a <code>left</code> or <code>right</code> sorted array.</li>
+<li>Another way is to do everything in one shot, which determines if the array is left sorted or right sorted. Here only explain the situation of second method which is harder</li>
+</ol>
+</li>
+</ul>
+<p>Step:</p>
+<ol>
+<li>Create <code>left</code> and <code>right</code> ptr</li>
+<li><code>while(left &lt;= right)</code>, <code>if(mid == target)</code>, return <code>mid</code>.
+<ul>
+<li>If <code>(left &lt;= mid)</code>, it&rsquo;s left sorted “//1 2 3 4 5 6 7 or //3 4 5 6 7 1 2”, we need to figure out if the target is on the left or right.</li>
+<li>If <code>(target &gt; nums[mid] || target &lt; nums[left])</code> <code>left = mid + 1</code>.</li>
+<li>Else <code>right = mid - 1</code>;
+<ol>
+<li>Because <code>mid &gt; left</code>, so if <code>target &gt; mid</code>, that means <code>target</code> is also &gt; <code>left</code>, we eliminate the entire left side, so we should go to right.</li>
+<li>If <code>target &lt;= mid</code>, it could be the second case where <code>mid</code> = 6, and we have nums on left and right meet the condition, so if <code>target &lt; left</code>, we go right.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Right side the same idea.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> search(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> target) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, right <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(left <span style="color:#f92672">&lt;=</span> right){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> left;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(nums[mid] <span style="color:#f92672">==</span> target){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> mid;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(nums[mid] <span style="color:#f92672">&gt;</span> nums[right]){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(target <span style="color:#f92672">&gt;=</span> nums[left] <span style="color:#f92672">&amp;&amp;</span> target <span style="color:#f92672">&lt;</span> nums[mid]){
+</span></span><span style="display:flex;"><span>                    right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(target <span style="color:#f92672">&lt;=</span> nums[right] <span style="color:#f92672">&amp;&amp;</span> target <span style="color:#f92672">&gt;</span> nums[mid]){
+</span></span><span style="display:flex;"><span>                    left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//4 5 6 7 0 1 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//3 4 5 6 7 0 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//5 6 7 0 1 2 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//6 7 0 1 3 4 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//0 1 2 3 4 5 6 7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//4 5 6 7 0 1 2 3
+</span></span></span></code></pre></div><h2 id="4-median-of-two-sorted-arrays">4. Median of Two Sorted Arrays<a hidden class="anchor" aria-hidden="true" href="#4-median-of-two-sorted-arrays">#</a></h2>
+<ul>
+<li>There are three approaches for <a href="https://neetcode.io/problems/median-of-two-sorted-arrays" target="_blank">Median of Two Sorted Arrays</a>:
+<ol>
+<li>Merge the two arrays and perform a binary search. This takes <code>O(m + n)</code> time.</li>
+<li>Start from the beginning of both <code>arr1</code> and <code>arr2</code>. Since we are looking for the median (the middle value), we can compare values one by one and move the pointer forward until we reach <code>log(m+n)</code> comparisons.</li>
+<li>Perform a binary search in the smaller array, which is the method I will explain.</li>
+</ol>
+</li>
+</ul>
+<p>Steps:</p>
+<ol>
+<li>
+<p>Compare the two arrays and place the smaller array first. This is important because performing the search on the smaller array helps to eliminate the case where one array is empty.</p>
+</li>
+<li>
+<p>Create <code>high</code> and <code>low</code> pointers for the binary search on <code>arr1</code>.</p>
+</li>
+<li>
+<p><code>While low &lt;= high</code>, create a <code>mid</code> pointer for <code>arr1</code> and a corresponding <code>mid</code> pointer for <code>arr2</code>. The <code>total + 1</code> adjustment accounts for odd numbers, as we want to find the middle number.</p>
+</li>
+<li>
+<p>Define <code>left1</code> as <code>arr1[i - 1]</code> and <code>right1</code> as <code>arr1[i]</code> (the middle value in <code>arr1</code>). Define <code>left2</code> as <code>arr2[j - 1]</code> and <code>right2</code> as <code>arr2[j]</code>(the middle value in <code>arr2</code>).</p>
+</li>
+<li>
+<p>By the nature of sorted arrays, <code>left1 &lt; right1</code> and <code>left2 &lt; right2</code> by default.</p>
+<ul>
+<li>We should check if <code>left1 &lt;= right2 and left2 &lt;= right1</code>.</li>
+<li>If both conditions are met, we&rsquo;ve found the left sorted partition. Update the result based on whether the total length is odd or even, then exit the loop.</li>
+</ul>
+</li>
+<li>
+<p><code>If left1 &gt; right1</code>, it means the current partition is too large, so adjust by setting <code>right = i - 1</code>. Otherwise, <code>if left2 &gt; right1</code>, it indicates that <code>arr1</code> is too small, so expand the search by setting <code>left = i + 1</code>.</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> p1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, p2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">mergeSort</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums1, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums2){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(p1 <span style="color:#f92672">&lt;</span> nums1.size() <span style="color:#f92672">&amp;&amp;</span> p2 <span style="color:#f92672">&lt;</span> nums2.size()){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nums1[p1] <span style="color:#f92672">&lt;</span> nums2[p2] <span style="color:#f92672">?</span> nums1[p1<span style="color:#f92672">++</span>] <span style="color:#f92672">:</span> nums2[p2<span style="color:#f92672">++</span>];
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(p1 <span style="color:#f92672">&lt;</span> nums1.size()){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nums1[p1<span style="color:#f92672">++</span>];
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nums2[p2<span style="color:#f92672">++</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">findMedianSortedArrays</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums1, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums2) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> nums1.size(), n <span style="color:#f92672">=</span> nums2.size();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>((m<span style="color:#f92672">+</span>n) <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> (m<span style="color:#f92672">+</span>n) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#f92672">++</span>i){
+</span></span><span style="display:flex;"><span>                mergeSort(nums1, nums2);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">double</span>)(mergeSort(nums1, nums2) <span style="color:#f92672">+</span> mergeSort(nums1, nums2)) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> (m<span style="color:#f92672">+</span>n) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; <span style="color:#f92672">++</span>i){
+</span></span><span style="display:flex;"><span>                mergeSort(nums1, nums2);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> mergeSort(nums1, nums2);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div>
 
         </div>
@@ -922,10 +1219,10 @@ if<code>(j + 1 &gt;= k)</code> push_back result and move the i. (The if statemen
         <footer class="post-footer">
             
 <nav class="paginav">
-  <a class="next" href="https://www.ziirui-resume-website.com/posts/tech/tech1/">
+  <a class="next" href="https://www.ziirui-resume-website.com/posts/life/life/">
     <span class="title"> »</span>
     <br>
-    <span>Redis scan命令学习</span>
+    <span>Life</span>
   </a>
 </nav>
 
