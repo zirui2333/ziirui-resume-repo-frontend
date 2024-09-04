@@ -23,7 +23,6 @@ This is my first cloud project at cloud resume challenge by using AWS. What is C
 
 ![Cloud Diagram.jpg](https://github.com/zirui2333/ziirui-resume-repo-frontend/blob/main/Readme_Item/Cloud-resume-diagram.jpg?raw=true)
 
-
 ## 1. Git clone pull code
 
 ① Use `git clone` to clone the repository to your desktop. At this time, the Hugo papermod directory will be generated.
@@ -36,7 +35,7 @@ This is my first cloud project at cloud resume challenge by using AWS. What is C
 
 ## 3. Modify information
 
-There are many personal information in the template that need to be configured by yourself. Please be patient to modify it. You can refer to the blogger's website building tutorial:[中文](https://www.sulvblog.cn/posts/blog/) | [En] ( https://kyxie.github.io/en/blog/tech/papermod/ )
+There are many personal information in the template that need to be configured by yourself. Please be patient to modify it. You can refer to the blogger's website building tutorial:[中文](https://www.sulvblog.cn/posts/blog/) | [En](https://kyxie.github.io/en/blog/tech/papermod/)
 
 ## 4. Hugo blog exchange group
 
@@ -62,6 +61,4 @@ There are many personal information in the template that need to be configured b
 
 1. Some users will deploy to GitHub and may encounter cross system problems, such as the prompt `lf will be replaced by CRLF in *******`, if so, enter the command: `git config core.autocrlf false`, which solves the problem of automatic conversion of line breaks。
 
-2. For any PaperMod specific issues, feel free to visit [PaperMod] ( https://github.com/adityatelange/hugo-PaperMod?tab=readme-ov-file#faqs--how-tos-guide- )
-
-
+2. For any PaperMod specific issues, feel free to visit [PaperMod](https://github.com/adityatelange/hugo-PaperMod?tab=readme-ov-file#faqs--how-tos-guide-)
