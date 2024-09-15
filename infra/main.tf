@@ -110,7 +110,7 @@ resource "aws_lambda_function_url" "url1" {
 
 resource "aws_s3_bucket" "my-s3-bucket" {
   bucket        = local.resources_name.aws_s3_bucket
-  force_destroy = true
+  force_destroy = false
 }
 
 resource "aws_s3_bucket_ownership_controls" "ownership_controls_for_s3" {
@@ -228,6 +228,32 @@ resource "aws_cloudfront_origin_access_control" "default" {
   signing_protocol                  = "sigv4"
 }
 
+resource "aws_cloudfront_cache_policy" "cache_policy_for_resume_cloudfront" {
+  name    = "cache_policy_for_resume_cloudfront"
+  comment = "Optimized cache policy for Markdown posts"
+
+  # TTL settings
+  default_ttl = 86400    # 1 day
+  max_ttl     = 31536000 # 1 year
+  min_ttl     = 86400    # 1 minute
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+    enable_accept_encoding_gzip   = true
+    enable_accept_encoding_brotli = true
+  }
+
+}
+
+
 resource "aws_cloudfront_distribution" "aws_cloudfront_distribution_for_s3" {
   origin {
     domain_name              = aws_s3_bucket.my-s3-bucket.bucket_regional_domain_name
@@ -235,19 +261,27 @@ resource "aws_cloudfront_distribution" "aws_cloudfront_distribution_for_s3" {
     origin_id                = "cloudfront_for_s3"
   }
 
-  aliases             = [local.resources_name.aws_acm_domain_name, local.resources_name.aws_acm_alternative_names]
-  enabled             = true
-  is_ipv6_enabled     = true
-  default_root_object = "index.html"
+  aliases         = [local.resources_name.aws_acm_domain_name, local.resources_name.aws_acm_alternative_names]
+  enabled         = true
+  is_ipv6_enabled = true
+
+  # Don't need for hugo, we're using lambdaEdge to redirect index.html in subfolder
+  # default_root_object = "index.html"
 
   price_class = "PriceClass_100"
 
   default_cache_behavior {
     viewer_protocol_policy = "redirect-to-https"
-    cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+    cache_policy_id        = aws_cloudfront_cache_policy.cache_policy_for_resume_cloudfront.id
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = "cloudfront_for_s3"
+    compress               = true
+
+    lambda_function_association {
+      event_type = "origin-request"
+      lambda_arn = aws_lambda_function.cloudfront_lambdaEdge_function.qualified_arn
+    }
   }
 
   restrictions {
@@ -263,6 +297,7 @@ resource "aws_cloudfront_distribution" "aws_cloudfront_distribution_for_s3" {
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
+
 
 }
 
@@ -340,5 +375,44 @@ resource "aws_sns_topic_subscription" "email_update_subscription" {
 
 
 //---------------------------------------------------------------
-//------------------------API Gateway----------------------------
+//------------------------Lambda Edge----------------------------
 //---------------------------------------------------------------
+resource "aws_iam_role" "cloudfront_lambdaEdge_role" {
+  assume_role_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+          "Service": ["lambda.amazonaws.com", "edgelambda.amazonaws.com"]
+        },
+        "Effect": "Allow"
+      }
+    ]
+  }
+  EOF
+}
+
+data "archive_file" "zip_lambda_edge" {
+  type        = "zip"
+  source_dir  = "${path.module}/lambda_edge/"
+  output_path = "${path.module}/lambda_edge/packedlambda.zip"
+}
+
+resource "aws_lambda_function" "cloudfront_lambdaEdge_function" {
+  filename         = data.archive_file.zip_lambda_edge.output_path
+  source_code_hash = data.archive_file.zip_lambda_edge.output_base64sha256
+  function_name    = local.resources_name.cloudfront_lambdaEdge_function
+  role             = aws_iam_role.cloudfront_lambdaEdge_role.arn
+  handler          = "func.lambda_handler"
+  runtime          = "nodejs18.x"
+  publish          = true
+  provider         = aws.us_east_1
+}
+
+
+resource "aws_iam_role_policy_attachment" "lambda_execution_policy" {
+  role       = aws_iam_role.cloudfront_lambdaEdge_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}

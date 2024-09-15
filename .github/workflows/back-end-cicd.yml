@@ -12,6 +12,7 @@ env:
   AWS_REGION : "us-east-1"
   cy_actions_working_dir: "./cypress"
   tf_actions_working_dir: "./infra"
+  py_function_name: ${{ secrets.AWS_Lambda_Function }}
 #  permission can be added at job level or workflow level
 permissions:
   id-token: write   # This is required for requesting the JWT
@@ -24,12 +25,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      # - name: Cypress_Test
-      #   uses: cypress-io/github-action@v6
-      #   with: 
-      #     working-directory: ${{ env.cy_actions_working_dir }}
-      #     auto-cancel-after-failures: 1
-
+      
       #Setup hashicorp terraform
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -37,6 +33,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE_TO_ASSUME }}
           role-session-name: aws_frontend_workflow
           aws-region: ${{ env.AWS_REGION }}
+
       - name: Hashicorp
         uses: hashicorp/setup-terraform@v3
         with: 
@@ -46,13 +43,36 @@ jobs:
         run: |
           terraform init
           terraform validate -no-color
+
       # terraform plan
       - name: Plan
         working-directory: ${{ env.tf_actions_working_dir }}
         run:
           terraform plan -no-color
+
+      # Store the current version of python code in case the updated version fails the test
+      - name: Backup python code 
+        run: |
+          aws lambda get-function --function-name ${{ env.py_function_name }} --query 'Code.Location' --output text | xargs curl -o backup_lambda.zip
+
       # terraform apply
       - name: Apply
         working-directory: ${{ env.tf_actions_working_dir }}
         run:
           terraform apply -auto-approve -no-color
+
+      # Cypress test
+      - name: Cypress_Test
+        uses: cypress-io/github-action@v6
+        with: 
+          working-directory: ${{ env.cy_actions_working_dir }}
+          auto-cancel-after-failures: 1
+        continue-on-error: true
+
+      - name: Restore Lambda Function Code if Tests Fail
+        if: failure()
+        run: |
+          aws lambda update-function-code --function-name ${{ env.py_function_name }} --zip-file fileb://backup_lambda.zip
+        env:
+          AWS_REGION: ${{ env.AWS_REGION }}
+

@@ -8,14 +8,15 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "tfbackend-for-resume"
-    key     = "terraform.tfstate"
+    bucket = "tfbackend-for-resume"
+    key    = "terraform.tfstate"
     region = "us-east-1"
   }
 }
 
 provider "aws" {
-  region  = "us-east-1"
+  alias  = "us_east_1"
+  region = "us-east-1"
 }
 
 
