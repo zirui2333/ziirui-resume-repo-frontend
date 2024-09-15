@@ -1,966 +1,137 @@
-<!DOCTYPE html>
-<html lang="en-us" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>Tutorial - An Entry DevOps project | Zirui&#39;s Space</title>
-<meta name="keywords" content="aws, cloud">
-<meta name="description" content="A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code...">
-<meta name="author" content="Zirui">
-<link rel="canonical" href="https://www.ziirui-resume-website.com/posts/tech/cloud_website/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://www.ziirui-resume-website.com/img/Q.jpg">
-<link rel="icon" type="image/png" sizes="16x16" href="https://www.ziirui-resume-website.com/img/Q.jpg">
-<link rel="icon" type="image/png" sizes="32x32" href="https://www.ziirui-resume-website.com/img/Q.jpg">
-<link rel="apple-touch-icon" href="https://www.ziirui-resume-website.com/img/Q.jpgf">
-<link rel="mask-icon" href="https://www.ziirui-resume-website.com/img/Q.jpg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en-us" href="https://www.ziirui-resume-website.com/posts/tech/cloud_website/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
-<script defer src="https://unpkg.com/mermaid@8.8.1/dist/mermaid.min.js"></script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
-
-
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = ""; 
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
-  rel="stylesheet">
-
-  
-
-<meta property="og:title" content="Tutorial - An Entry DevOps project" />
-<meta property="og:description" content="A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code..." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.ziirui-resume-website.com/posts/tech/cloud_website/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-08-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-08-15T00:00:00+00:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tutorial - An Entry DevOps project"/>
-<meta name="twitter:description" content="A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code..."/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-
-        {
-          "@type": "ListItem",
-          "position":  1 ,
-          "name": "📚Posts",
-          "item": "https://www.ziirui-resume-website.com/posts/"
-        },
-
-        {
-          "@type": "ListItem",
-          "position":  2 ,
-          "name": "👨🏻‍💻 Tech",
-          "item": "https://www.ziirui-resume-website.com/posts/tech/"
-        }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "Tutorial - An Entry DevOps project",
-      "item": "https://www.ziirui-resume-website.com/posts/tech/cloud_website/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Tutorial - An Entry DevOps project",
-  "name": "Tutorial - An Entry DevOps project",
-  "description": "A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code...",
-  "keywords": [
-    "aws", "cloud"
-  ],
-  "articleBody": " Introduction This guide is based on the Cloud Resume Challenge and follows the steps listed inside it. That said, I strongly recommend purchasing the original book as it covers much more details. This post will only show the method I’ve done for my challenge. Think of this post as a helpful guide rather than a complete answer key.\nThe elements cover in this post:\nAWS (S3 bucket, Cloudfront, IAM, Lambda Function, DynamoDB, DNS, SSL Manager) CI/CD (Git Action) infrastructure as code (Terraform) Frontend Language (HTML, CSS) -\u003e Now switch to Hugo Backend Language (Python, Javascript) Test (Cypress) Please read through the on the offical website before looking into my post, because I will directly dive into how I solve the problem. 1. Certification The challenge recommonds the Certified Cloud Practitioner as a basic level. However I passed the Solutions Architect - Associate for a higher level approach. Ultimately the certificate offers professional knowledge regarding cloud services.\nQ\u0026A Q: Is getting a certificate worthy? A: The short answer: yes and no. If you want to become a cloud engineer or similar role (Site reliabilty Engineer, DevOps engineer), the answer is yes! If your goal is just to learn cloud services, then a certificate will not be worthy. Here are 2 major benefits: 1. Experience from the Certificate: The resume challenge will guide you through a limited set of AWS resources, specifically focusing on how to host a static website. Most of the time, you will need to handle various scenarios. Let me offer you some cases: - Are you familiar with VPC networks and EC2 instances, which are commonly used by companies? - How to prevent accidental deletion in bucket? (Versioning / MFA) - Do you understand the architectural difference between a company that wants to migrate services from on-premise to the cloud while treating the on-premise data center as a backup, versus a company that wants to extend its data storage to the cloud but keep all services hosted on-premises? - ... These values are not provided in resume challenge , but you will encounter in certification test. So like I said, define your goal of this challenge, whether you want to dive deep into the cloud world or not. 2. Career: It does add some values to your resume to help you stand out from other candidates, especially with this cloud project. Q: Any good resources you recommond to prepare for the exam? A: I used the Dojo bundle along with their exam. This was the only resource I used to prepare for the exam. You are absolutely free to explore any other lessons. (Note: I do not receive any compensation from Dojo and have no personal affiliation with them. I recommend it simply because it was the only resource I used; I cannot guarantee the quality of other materials). *Impotant* Don't pay full price for the certification exam! Look for coupons or vouchers online! 2. Getting Started with AWS and IAM role Head over to AWS and register an account. Yes, you’ll need to enter your credit card info, but don’t panic, AWS has a free plan that lasts for a year.\nAs for the IAM role, I recommend just sticking with the root user for now. It gives you full access to all the services, otherwise you’ll be tired with a lot of access denials later on.\nWarning: This is a bad practice for security reasons. Don't do this long term! Especially if you're setting this up in a real production environment! 3. HTML \u0026 CSS The foundation of building a website’s frontend: How you code it depends on your own style and taste. I use Hugo along with its Papermod theme to build my website. I strongly recommend using an existing tool to build your portfolio instead of hand-coding everything with plain HTML and CSS. Here’s why:\nIf you’re just starting out and don’t plan on becoming a frontend developer, it’s really not the best use of your time. Let’s be real, writing perfect CSS for a beautifully designed website is super hard, especially when you’re still learning. Even if you manage to finish your website and the design meets your expectations, consider whether the time spent was worth the result you achieved. Some other popular tools: Adobe, Notion, Wix\nI’m definitely not trying to discourage anyone from writing their own HTML and CSS. In fact, I absolutely take my hat off for anyone who practice writing good CSS code. My point is just a friendly heads-up. I personally spent over 30 hours coding my site from scratch, and honestly, it still didn’t come close to what Hugo gave me in way less time. Switching to Hugo was a game changer.\nI came across an HTML \u0026 CSS Tutorial that I found really interesting. Just to clarify, I didn’t use this tutorial in my own learning journey, but I thought the course designer’s final task of building a YouTube-style webpage was pretty cool.\n4. Static Website We store the HTML \u0026 CSS files on S3 bucket. Here’s how you can do it:\nLog in to your AWS S3 console. Click on “Create bucket” (it’s in an orange box). Enter a unique bucket name. This name has to be unique across all AWS accounts in globe. Then, hit “Create bucket”. [You don’t need to change any other settings.] Go to your newly created bucket, click Upload, and upload your files. Make sure that your index.html file is right in the root directory of the bucket. This means when you click on your bucket, you should see index.html directly in the file section, not inside any folder! For future convinience, use AWS CLI to upload the files by terminal. A useful tutorial video from Frank if you need\nCommands we oftenly use:\n// This command updates new file and delete the files that are not presented in the new updated repository. aws s3 sync ./your_folder/ s3://your-bucket --delete --exclude \"*.DS_Store\" --exclude \".gitignore\" --exclude \".git/*\" // Clean up all files in your bucket aws aws s3 rm s3://your-bucket --recursive 5. HTTPS Using HTTPS with CloudFront has several benefits:\nEncryption: HTTPS encrypts your content while it’s being transferred between AWS and the user’s PC, keeping it secure. Traffic Control: CloudFront helps manage traffic more efficiently and scales with demand. (Distribution got its name for a reason :) Cost: Serving S3 content via CloudFront is FREE. (Just a note: if you’re hosting your website via S3, AWS does charge for read times.) Let me break down the CloudFront setup for you:\nLog in to your AWS CloudFront console. Click on “Create distribution” (it’s in an orange box). Update the following sections: Origin domain: Choose the bucket you created. Origin access: Set this to Origin access control settings to ensure that only your distribution can access the S3 content. Click Create New OAC, then Create. Viewer Protocol policy: Select Redirect HTTP to HTTPS. WAF: Do Not Enable Default root object:Only change this if your index.html is named something different, like “project1.html” or “random_name.html”. CloudFront needs to know the name of the root object to serve your content correctly. After creating your distribution, wait about 3-5 minutes for it to deploy. Once it’s ready, go to your new distribution details. You’ll find a section prompting you to create a policy and paste it into S3. Go to S3 -\u003e Permission in the navbar -\u003e Scroll down to Bucket Policy -\u003e Paste your policy there. If you need a policy template, here’s one you can use:\n{ \"Version\": \"2008-10-17\", \"Id\": \"PolicyForCloudFrontPrivateContent\", \"Statement\": [ { \"Sid\": \"AllowCloudFrontServicePrincipal\", \"Effect\": \"Allow\", \"Principal\": { \"Service\": \"cloudfront.amazonaws.com\" }, \"Action\": \"s3:GetObject\", \"Resource\": \"arn:aws:s3:::your_bucket/*\", \"Condition\": { \"StringEquals\": { \"AWS:SourceArn\": \"your_cloudfront_arn\" } }, }, ], } Find your ARN Until now, you should be able to see your site from CloudFront URL (Distribution domain name in The above picture) 6. DNS You can buy a domain from anywhere. Some popular options are Route S3, Cloudflare, or any other DNS provider.\nA domain typically costs around $10 a year, and that’s the only real expense for this project. Refer to your DNS provider for a simple guide on purchasing the domain, it’s usually just a simple process of typing the desired domain name, paying, and you’re good to go. Now, let’s move on to connecting your domain with CloudFront so your S3 content can be accessed through your domain (just like how my site is at https://www.ziirui-resume-website.com). We’ll also use AWS Certificate Manager to add SSL for security.\nSteps for Creating SSL and Verifying Your Domain Log in to the Certificate Manager Console CLick Request (orange button) and then Next Enter your domain name (ex: example.com), then hit Request You’ve now created an SSL certificate, but we need to verify that the domain is yours. Here’s how to do that:\nScroll down to the Domains section of your new SSL. You’ll see a CNAME name and a CNAME value. these are like a key and value pair. You’ll need to create a record in your DNS provider for each of them. Don’t panic! Just search “add record in [Your_DNS_provider_name]” on your browser for step-by-step videos online. Reminder:\nThe record type is CNMAE. The record name is CNAME name. Record target is the CNAME value. Record status is No Proxy. The Do this step for all of your SSL domains. Once you’ve added those records, check back in the Certificate Manager. If everything’s set up correctly, you’ll see “Success.” After verification, we have proved the DNS ownership to Certificate Manager, now we can connect DNS with our CloudFront. Step below:\nCopy your CloudFront URL Go to your DNS provider and create two CNAME records: One with Name = www and Target = CloudFront URL. Another with Name = your root domain (e.g., example.com) and Target = CloudFront URL. Final look for DNS provider console:\nSetting SSL in CloudFront (Don't panic! It's simple, you've done most of the job): Go to your CloudFront distribution Under General, click Edit Settings. In Alternate domain name (CNAME), enter your domain (“your_root_domain” and “www.your_root_domain”) In Custom SSL certificate, Select your SSL. Under Custom SSL certificate, select the SSL certificate you created. Now, test your website using your domain. If all went well, your content should be accessible via your personal DNS!\n7. Database For this part, we’ll be using DynamoDB to keep track of our visitor count.\nHere’s how to create a DynamoDB table:\nSame as always, open your DynamoDB console Click the Create Table (it’s orange). Fill out the form: Table Name: You can choose any name you like. Partition Key: Enter id and select String Table Setting: Choose Customize settings Read/write capacity settings: Set this to On-demand instead of Provisioned to avoid extra charges. Click Create Table Explanation: The partition key can be anything; it’s just a way to retrieve the visitor counter from Python later on. We choose On-demand for the table settings to only pay for what we use, rather than the default Provisioned setting which can lead to charge overhead.\nOnce your table is created, click Explore items (found in the orange box at the top right). Scroll down and hit the Create item button. For the id value section, you can enter 1 for simplicity. In the top right corner, click Add new attribute and select Number for the attribute type. This will be used for the visitor count. Create an attribute named count and set its value to 1. Here’s what it should look like: Now you have an item with an id of 1 and a count value of 1. Next, we’ll set up a Lambda Function to retrieve and increment this value.\n8. Lambda API \u0026 Python Setting up a Lambda Fucntion should be pretty straightforward for you. Just a quick tip: make sure to choose the programming language (the Runtime) you prefer for interacting with the database. For this guide, we’ll use Python. Remember, this Lambda function will trigger every time someone visits your domain.\nWe’ll be using the Boto3 library for working with DynamoDB in Python. Without further word, here’s a complete code template for your Lambda function:\nWarning: Don’t copy this code if you’re not familiar with Python or the Boto3 library. Doing so without understanding could lead to issues and will only cause you more trouble in the long run. import json import boto3 #connect to table dynamodb = boto3.resource(\"dynamodb\") table_name = \"your_table_name\" table = dynamodb.Table(table_name) def lambda_handler(event, context): id = \"your_id\" response = table.get_item(Key={ 'id':id }) # # If the item exists, increment the count by 1 if \"Item\" in response: views = response[\"Item\"][\"your_number_type_key_name\"] views += 1 table.put_item(Item = { \"id\" : id, \"views\" : views }) # # If the item doesn’t exist,indicating this is the 1st time our site being visited, then create a view of 1 else: views = 1 table.put_item(Item = { \"id\" : id, \"views\" : views }) # The content our javascript will receive in html file. return_format = { 'statusCode': 200, 'body': json.dumps({ 'message': 'success', 'count': int(views), 'event': event }) } return return_format 8. Javascript Now that we’ve got the Lambda function reading data from DynamoDB, the next step is getting that data into our HTML file so we can display it on the website. This is where JavaScript comes in handy!\nWe’ll be using a simple format from AWS to help us fetch and display the DynamoDB values.\n(Here is a Javascript tutorial if you need.)\n// Be sure to attch this id in your HTML, (e.g. times\n) const counter = document.querySelector(\".your_counter_id_in_html\"); async function update_views() { try { const response = await fetch(\"your_lambda_function_URL\", { method: \"POST\", // Set the method to POST headers: { \"Content-Type\": \"application/json/update_counter\", }, body: JSON.stringify({}), }); const data = await response.json(); counter.innerHTML = `${data.count}`; } catch (error) { counter.innerHTML = `43`; } } update_views(); 9. CI/CD Here’s how we’ll use Github Action. If you’re not familiar with CI/CD (Continuous Integration and Continuous Deployment), let me give you a quick scenario.\nImagine you push your files to GitHub, but you need those files to be updated on AWS. Without CI/CD, you’d have to manually update them on AWS, uploading HTML and CSS files to an S3 bucket, updating your Python code in a Lambda function, and possibly adjusting policies in different places. And if a bug pops up after all that work, guess what? You’d have to go through the whole process again LOL!\nCI/CD automates these tasks, so you don’t have to handle all that manual work every time you make a change. In our final result, all you need to do is push your code to GitHub using git push origin main, and GitHub will automatically update the changes on AWS for you.\nThis section is still in progress, so stay tuned!\nFeel free to check out my other feature in my portfolio!\n10. Test Cypress This section is still in progress, so stay tuned!\nFeel free to check out my other feature in my portfolio!\n11. Infrastructure as code This section is still in progress, so stay tuned!\nFeel free to check out my other feature in my portfolio!\n",
-  "wordCount" : "2662",
-  "inLanguage": "en-us",
-  "datePublished": "2024-08-15T00:00:00Z",
-  "dateModified": "2024-08-15T00:00:00Z",
-  "author":[{
-    "@type": "Person",
-    "name": "Zirui"
-  }],
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://www.ziirui-resume-website.com/posts/tech/cloud_website/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Zirui's Space",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.ziirui-resume-website.com/img/Q.jpg"
-    }
-  }
-}
-</script>
-</head>
-
-<body class="" id="top">
-<script>
-    (function () {
-        let  arr,reg = new RegExp("(^| )"+"change-themes"+"=([^;]*)(;|$)");
-        if(arr = document.cookie.match(reg)) {
-        } else {
-            if (new Date().getHours() >= 19 || new Date().getHours() < 6) {
-                document.body.classList.add('dark');
-                localStorage.setItem("pref-theme", 'dark');
-            } else {
-                document.body.classList.remove('dark');
-                localStorage.setItem("pref-theme", 'light');
-            }
-        }
-    })()
-
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://www.ziirui-resume-website.com/" accesskey="h" title="Zirui&#39;s Space (Alt + H)">
-            <img src="https://www.ziirui-resume-website.com/img/Q.jpg" alt="logo" aria-label="logo"
-                 height="35">Zirui&#39;s Space</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-
-                
-                 
-                
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://www.ziirui-resume-website.com/" title="🏠 Home">
-                <span>🏠 Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.ziirui-resume-website.com/posts" title="📚 Posts">
-                <span>📚 Posts</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.ziirui-resume-website.com/about" title="🙋🏻‍♂️ About">
-                <span>🙋🏻‍♂️ About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.ziirui-resume-website.com/search" title="🔍 Search (Alt &#43; /)" accesskey=/>
-                <span>🔍 Search</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main page">
-<style>
-    i[id*="post_meta_style"] {
-        display: flex;
-        align-items: center;
-        margin: 0 0 10px 0;
-    }
-</style>
-
-<article class="post-single">
-    <div id="single-content">
-        <header class="post-header">
-            <div class="breadcrumbs"><a href="https://www.ziirui-resume-website.com/">🏠 Home</a>&nbsp;»&nbsp;<a href="https://www.ziirui-resume-website.com/posts/">📚Posts</a>&nbsp;»&nbsp;<a href="https://www.ziirui-resume-website.com/posts/tech/">👨🏻‍💻 Tech</a></div>
-            <h1 class="post-title">
-                Tutorial - An Entry DevOps project
-            </h1>
-            <div class="post-description">
-                A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code...
-            </div>
-            <div class="post-meta">
-
-<style>
-    i[id*="post_meta_style"] {
-        display: flex;
-        align-items: center;
-        margin: 0 0 10px 0;
-    }
-
-    .parent-post-meta {
-        display: flex;
-        flex-wrap: wrap;
-        opacity: 0.8;
-    }
-</style>
-
-<span class="parent-post-meta">
-    <span id="post_meta_style_1">
-        <span class="fa fa-calendar-check-o"></span>
-        <span>2024-08-15
-            &nbsp;&nbsp;
-        </span>
-    </span>
-    
-    
-    
-    
-    
-    
-    
-    <span id="post_meta_style_3">
-        <span class="fa fa-file-word-o"></span>
-        <span>2662字
-            &nbsp;&nbsp;
-        </span>
-    </span>
-    <span id="post_meta_style_4">
-        <span class="fa fa-clock-o"></span>
-        <span>6分钟
-            &nbsp;&nbsp;
-        </span>
-    </span>
-    <span id="post_meta_style_5">
-        <span class="fa fa-user-o"></span>
-        <span>Zirui
-            &nbsp;&nbsp;
-        </span>
-    </span>
-    <span id="post_meta_style_6">
-        <span class="fa fa-tags" style="opacity: 0.8"></span>
-        <span>
-            <span class="post-tags-meta">
-                <a href="https://www.ziirui-resume-website.com/tags/cloud/" style="color: var(--secondary)!important;">Cloud</a>
-            </span>
-        </span>
-    </span>
-</span>
-<span style="opacity: 0.8;">
-                    <span id="post_meta_style_7">
-                        &nbsp;&nbsp;
-                        <span class="fa fa-eye" ></span>
-                        <span>
-                            <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
-                            &nbsp;&nbsp;
-                        </span>
-                    </span>
-                    <span id="post_meta_style_8">
-                        <span class="fa fa-commenting-o"></span>
-                        <span>
-                            <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js"></script>
-                            <script>
-                                let url = document.documentURI
-                                
-                                let dnsUrl = "https://www.ziirui-resume-website.com/"
-                                let urlSplit = url.split(dnsUrl)
-                                let finalUrl = urlSplit[1]
-                                if (finalUrl[0] !== '/') {
-                                    finalUrl = '/'+finalUrl
-                                }
-                                twikoo.getCommentsCount({
-                                    envId:  null , 
-                                region:  null , 
-                                urls: [ 
-                                    
-                                    finalUrl,
-                                ],
-                                    includeReply: false 
-                                }).then(function (res) {
-                                    let count = res[0].count
-                                    const obj = document.getElementById("comment_count");
-                                    obj.innerText = count
-                                    
-                                    
-                                    
-                                }).catch(function (err) {
-                                    
-                                    console.error(err);
-                                });
-                            </script>
-                            <span id="comment_count"></span>
-                        </span>
-                    </span>
-                </span>
-
-</div>
-        </header> <aside id="toc-container" class="toc-container wide">
-    <div class="toc">
-        <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><ul><ul>
-                <li>
-                    <a href="#introduction" aria-label="Introduction">Introduction</a></li></ul>
-                    
-                <li>
-                    <a href="#1-certification" aria-label="1. Certification">1. Certification</a><ul>
-                        
-                <li>
-                    <a href="#qa" aria-label="Q&amp;A">Q&amp;A</a></li></ul>
-                </li>
-                <li>
-                    <a href="#2-getting-started-with-aws-and-iam-role" aria-label="2. Getting Started with AWS and IAM role">2. Getting Started with AWS and IAM role</a></li>
-                <li>
-                    <a href="#3-html--css" aria-label="3. HTML &amp; CSS">3. HTML &amp; CSS</a></li>
-                <li>
-                    <a href="#4-static-website" aria-label="4. Static Website">4. Static Website</a></li>
-                <li>
-                    <a href="#5-https" aria-label="5. HTTPS">5. HTTPS</a></li>
-                <li>
-                    <a href="#6-dns" aria-label="6. DNS">6. DNS</a></li>
-                <li>
-                    <a href="#7-database" aria-label="7. Database">7. Database</a></li>
-                <li>
-                    <a href="#8-lambda-api--python" aria-label="8. Lambda API &amp; Python">8. Lambda API &amp; Python</a></li>
-                <li>
-                    <a href="#8-javascript" aria-label="8. Javascript">8. Javascript</a></li>
-                <li>
-                    <a href="#9-cicd" aria-label="9. CI/CD">9. CI/CD</a></li>
-                <li>
-                    <a href="#10-test-cypress" aria-label="10. Test Cypress">10. Test Cypress</a></li>
-                <li>
-                    <a href="#11-infrastructure-as-code" aria-label="11. Infrastructure as code">11. Infrastructure as code</a>
-                </li>
-            </ul>
-        </div>
-        </details>
-    </div>
-</aside>
-<script>
-    let activeElement;
-    let elements;
-    window.addEventListener('DOMContentLoaded', function (event) {
-        checkTocPosition();
-
-        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
-        
-        activeElement = elements[0];
-        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
-        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-    }, false);
-
-    window.addEventListener('resize', function(event) {
-        checkTocPosition();
-    }, false);
-
-    window.addEventListener('scroll', () => {
-        
-        if (elements) {
-            activeElement = Array.from(elements).find((element) => {
-                if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
-                    (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
-                    return element;
-                }
-            }) || activeElement
-
-            elements.forEach(element => {
-                const id = encodeURI(element.getAttribute('id')).toLowerCase();
-                if (element === activeElement){
-                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-                } else {
-                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
-                }
-            })
-        }
-    }, false);
-
-    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
-    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
-    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
-
-    function checkTocPosition() {
-        const width = document.body.scrollWidth;
-        if (width - main - (toc * 2) - (gap * 4) > 0) {
-            document.getElementById("toc-container").classList.add("wide");
-        } else {
-            document.getElementById("toc-container").classList.remove("wide");
-        }
-    }
-
-    function getOffsetTop(element) {
-        if (!element.getClientRects().length) {
-            return 0;
-        }
-        let rect = element.getBoundingClientRect();
-        let win = element.ownerDocument.defaultView;
-        return rect.top + win.pageYOffset;
-    }
-</script>
-        <div class="post-content"><style>
-.post-content img {
-    max-width: 750px;
-    height: auto;
-}
-</style>
-<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
-<p>This guide is based on the <a href='https://cloudresumechallenge.dev/docs/the-challenge/aws/' target='_blank'>Cloud Resume Challenge</a> and follows the steps listed inside it. That said, I strongly recommend purchasing the original book as it covers much more details. This post will only show the method I&rsquo;ve done for my challenge. Think of this post as a helpful guide rather than a complete answer key.</p>
-<p>The elements cover in this post:</p>
-<ol>
-<li><strong>AWS</strong> (S3 bucket, Cloudfront, IAM, Lambda Function, DynamoDB, DNS, SSL Manager)</li>
-<li><strong>CI/CD</strong> (Git Action)</li>
-<li><strong>infrastructure as code</strong> (Terraform)</li>
-<li><strong>Frontend Language</strong> (HTML, CSS) -&gt; Now switch to Hugo</li>
-<li><strong>Backend Language</strong> (Python, Javascript)</li>
-<li><strong>Test</strong> (Cypress)</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">Please read through the &lt;challenge&gt; on the offical website before looking into my post, because I will directly dive into how I solve the problem.</span>
-</span></span></code></pre></div><h1 id="1-certification">1. Certification<a hidden class="anchor" aria-hidden="true" href="#1-certification">#</a></h1>
-<p>The challenge recommonds the <a href="https://aws.amazon.com/certification/certified-cloud-practitioner/" target="_blank">Certified Cloud Practitioner</a> as a basic level. However I passed the <a href="https://aws.amazon.com/certification/certified-solutions-architect-associate/" target="_blank">Solutions Architect - Associate</a> for a higher level approach. Ultimately the certificate offers professional knowledge regarding cloud services.</p>
-<h2 id="qa">Q&amp;A<a hidden class="anchor" aria-hidden="true" href="#qa">#</a></h2>
-<ul>
-<li>Q: Is getting a certificate worthy?</li>
-<li>A: The short answer: yes and no. If you want to become a cloud engineer or similar role (Site reliabilty Engineer, DevOps engineer), the answer is yes! If your goal is just to learn cloud services, then a certificate will not be worthy. Here are 2 major benefits:</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">1. Experience from the Certificate</span>: <span style="color:#ae81ff">The resume challenge will guide you through a limited set of AWS resources, specifically focusing on how to host a static website. Most of the time, you will need to handle various scenarios.</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">Let me offer you some cases</span>:
-</span></span><span style="display:flex;"><span>   - <span style="color:#ae81ff">Are you familiar with VPC networks and EC2 instances, which are commonly used by companies?</span>
-</span></span><span style="display:flex;"><span>   - <span style="color:#ae81ff">How to prevent accidental deletion in bucket? (Versioning / MFA)</span>
-</span></span><span style="display:flex;"><span>   - <span style="color:#ae81ff">Do you understand the architectural difference between a company that wants to migrate services from on-premise to the cloud while treating the on-premise data center as a backup, versus a company that wants to extend its data storage to the cloud but keep all services hosted on-premises?</span>
-</span></span><span style="display:flex;"><span>   - <span style="color:#ae81ff">...</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">These values are not provided in resume challenge , but you will encounter in certification test. So like I said, define your goal of this challenge, whether you want to dive deep into the cloud world or not.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">2. Career</span>: <span style="color:#ae81ff">It does add some values to your resume to help you stand out from other candidates, especially with this cloud project.</span>
-</span></span></code></pre></div><br>
-<ul>
-<li>Q: Any good resources you recommond to prepare for the exam?</li>
-<li>A: I used the <a href="https://portal.tutorialsdojo.com/video-course-practice-test/" target="_blank">Dojo bundle</a> along with their exam. This was the only resource I used to prepare for the exam. You are absolutely free to explore any other lessons. (Note: I do not receive any compensation from Dojo and have no personal affiliation with them. I recommend it simply because it was the only resource I used; I cannot guarantee the quality of other materials).</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e">*Impotant*</span> <span style="color:#ae81ff">Don&#39;t pay full price for the certification exam! Look for coupons or vouchers online!</span>
-</span></span></code></pre></div><h1 id="2-getting-started-with-aws-and-iam-role">2. Getting Started with AWS and IAM role<a hidden class="anchor" aria-hidden="true" href="#2-getting-started-with-aws-and-iam-role">#</a></h1>
-<p>Head over to <a href="https://aws.amazon.com/free/?gclid=CjwKCAjwxY-3BhAuEiwAu7Y6s5OVtdXjaHVkG9k79n5iiGcp5FbbmCkHe4FTIk8G1MRq8nIFz-8R4hoCgNoQAvD_BwE&trk=fce796e8-4ceb-48e0-9767-89f7873fac3d&sc_channel=ps&ef_id=CjwKCAjwxY-3BhAuEiwAu7Y6s5OVtdXjaHVkG9k79n5iiGcp5FbbmCkHe4FTIk8G1MRq8nIFz-8R4hoCgNoQAvD_BwE:G:s&s_kwcid=AL!4422!3!432339156150!e!!g!!aws!1644045032!68366401852&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all" target="_blank">AWS</a> and register an account. Yes, you’ll need to enter your credit card info, but don’t panic, AWS has a free plan that lasts for a year.</p>
-<p>As for the IAM role, I recommend just sticking with the root user for now. It gives you full access to all the services, otherwise you&rsquo;ll be tired with a lot of access denials later on.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">Warning</span>: <span style="color:#ae81ff">This is a bad practice for security reasons. Don&#39;t do this long term! Especially if you&#39;re setting this up in a real production environment!</span>
-</span></span></code></pre></div><h1 id="3-html--css">3. HTML &amp; CSS<a hidden class="anchor" aria-hidden="true" href="#3-html--css">#</a></h1>
-<p>The foundation of building a website&rsquo;s frontend:
-How you code it depends on your own style and taste. I use <a href="https://gohugo.io/" target="_blank">Hugo</a> along with its <a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank">Papermod</a> theme to build my website. I <strong>strongly recommend</strong> using an existing tool to build your portfolio instead of hand-coding everything with plain HTML and CSS. Here’s why:</p>
-<ol>
-<li>If you&rsquo;re just starting out and don&rsquo;t plan on becoming a frontend developer, it&rsquo;s really not the best use of your time.</li>
-<li>Let’s be real, writing perfect CSS for a beautifully designed website is super hard, especially when you&rsquo;re still learning.</li>
-<li>Even if you manage to finish your website and the design meets your expectations, consider whether the time spent was worth the result you achieved.</li>
-</ol>
-<p>Some other popular tools: <a href="https://www.adobe.com/express/create/online-portfolio" target="_blank">Adobe</a>, <a href="https://www.notion.so/templates/category/portfolio" target="_blank">Notion</a>, <a href="https://www.wix.com/" target="_blank">Wix</a></p>
-<p>I&rsquo;m definitely not trying to discourage anyone from writing their own HTML and CSS. In fact, I absolutely take my hat off for anyone who practice writing good CSS code. My point is just a friendly heads-up. I personally spent over 30 hours coding my site from scratch, and honestly, it still didn’t come close to what Hugo gave me in way less time. Switching to Hugo was a game changer.</p>
-<p>I came across an <a href="https://www.youtube.com/watch?v=G3e-cpL7ofc&ab_channel=SuperSimpleDev" target="_blank">HTML &amp; CSS Tutorial</a> that I found really interesting. Just to clarify, I didn’t use this tutorial in my own learning journey, but I thought the course designer’s final task of building a YouTube-style webpage was pretty cool.</p>
-<h1 id="4-static-website">4. Static Website<a hidden class="anchor" aria-hidden="true" href="#4-static-website">#</a></h1>
-<p>We store the HTML &amp; CSS files on S3 bucket. Here&rsquo;s how you can do it:</p>
-<ol>
-<li>Log in to your <a href="https://us-east-1.console.aws.amazon.com/s3/home?region=us-east-1#" target="_blank">AWS S3 console</a>.</li>
-<li>Click on <strong>&ldquo;Create bucket&rdquo;</strong> (it&rsquo;s in an orange box).</li>
-<li>Enter a unique <code>bucket name</code>. This name has to be unique across all AWS accounts in globe. Then, hit &ldquo;Create bucket&rdquo;. [You don’t need to change any other settings.]
-<img loading="lazy" src="posts/tech/cloud_website/create_bucket.png" alt="Create Bucket"  />
-</li>
-<li>Go to your newly created bucket, click <strong>Upload</strong>, and upload your files. <strong>Make sure that your index.html file is right in the root directory of the bucket</strong>. This means when you click on your bucket, you should see index.html directly in the file section, not inside any folder!</li>
-</ol>
-<p>For future convinience, use <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">AWS CLI</a> to upload the files by terminal. A useful <a href=" https://www.youtube.com/watch?v=IZj_2p1_V1E&ab_channel=networkwithfrank" target="_blank">tutorial video from Frank</a> if you need</p>
-<p>Commands we oftenly use:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>// This command updates new file and delete the files that are not presented in the new updated repository.
-</span></span><span style="display:flex;"><span>aws s3 sync ./your_folder/ s3://your-bucket --delete --exclude <span style="color:#e6db74">&#34;*.DS_Store&#34;</span> --exclude <span style="color:#e6db74">&#34;.gitignore&#34;</span> --exclude <span style="color:#e6db74">&#34;.git/*&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>// Clean up all files in your bucket
-</span></span><span style="display:flex;"><span>aws aws s3 rm s3://your-bucket --recursive
-</span></span></code></pre></div><h1 id="5-https">5. HTTPS<a hidden class="anchor" aria-hidden="true" href="#5-https">#</a></h1>
-<p>Using HTTPS with CloudFront has several benefits:</p>
-<ol>
-<li><strong>Encryption</strong>: HTTPS encrypts your content while it&rsquo;s being transferred between AWS and the user&rsquo;s PC, keeping it secure.</li>
-<li><strong>Traffic Control</strong>: CloudFront helps manage traffic more efficiently and scales with demand. (Distribution got its name for a reason :)</li>
-<li><strong>Cost</strong>: Serving S3 content via CloudFront is <strong>FREE</strong>. (Just a note: if you&rsquo;re hosting your website via <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step2-create-bucket-config-as-website" target="_blank">S3</a>, AWS does charge for read times.)</li>
-</ol>
-<p>Let me break down the CloudFront setup for you:</p>
-<ol>
-<li>Log in to your <a href="https://us-east-1.console.aws.amazon.com/cloudfront/v4/home?region=us-east-1#/distributions" target="_blank">AWS CloudFront console</a>.</li>
-<li>Click on <strong>&ldquo;Create distribution&rdquo;</strong> (it&rsquo;s in an orange box).</li>
-<li>Update the following sections:
-<ul>
-<li><strong>Origin domain</strong>: Choose the bucket you created.</li>
-<li><strong>Origin access</strong>: Set this to <code>Origin access control settings</code> to ensure that only your distribution can access the S3 content.
-<ul>
-<li>Click <strong>Create New OAC</strong>, then <strong>Create</strong>.</li>
-</ul>
-</li>
-<li><strong>Viewer Protocol policy</strong>: Select <code>Redirect HTTP to HTTPS</code>.</li>
-<li><strong>WAF</strong>: <code>Do Not Enable</code></li>
-<li><strong>Default root object</strong>:Only change this if your <code>index.html</code> is named something different, like &ldquo;project1.html&rdquo; or &ldquo;random_name.html&rdquo;. CloudFront needs to know the name of the root object to serve your content correctly.</li>
-</ul>
-</li>
-<li>After creating your distribution, wait about 3-5 minutes for it to deploy. Once it&rsquo;s ready, go to your new distribution details. You&rsquo;ll find a section prompting you to create a policy and paste it into S3.
-<ul>
-<li>Go to S3 -&gt; <strong>Permission</strong> in the navbar -&gt; Scroll down to <strong>Bucket Policy</strong> -&gt; Paste your policy there.</li>
-</ul>
-</li>
-</ol>
-<p>If you need a policy template, here&rsquo;s one you can use:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Version&#34;: </span><span style="color:#e6db74">&#34;2008-10-17&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Id&#34;: </span><span style="color:#e6db74">&#34;PolicyForCloudFrontPrivateContent&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;Statement&#34;</span>:
-</span></span><span style="display:flex;"><span>    [
-</span></span><span style="display:flex;"><span>      {
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Sid&#34;: </span><span style="color:#e6db74">&#34;AllowCloudFrontServicePrincipal&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Effect&#34;: </span><span style="color:#e6db74">&#34;Allow&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Principal&#34;: { &#34;Service&#34;: </span><span style="color:#e6db74">&#34;cloudfront.amazonaws.com&#34;</span> },
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Action&#34;: </span><span style="color:#e6db74">&#34;s3:GetObject&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Resource&#34;: </span><span style="color:#e6db74">&#34;arn:aws:s3:::your_bucket/*&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Condition&#34;</span>:
-</span></span><span style="display:flex;"><span>          { <span style="color:#f92672">&#34;StringEquals&#34;: { &#34;AWS:SourceArn&#34;: </span><span style="color:#e6db74">&#34;your_cloudfront_arn&#34;</span> } },
-</span></span><span style="display:flex;"><span>      },
-</span></span><span style="display:flex;"><span>    ],
-</span></span><span style="display:flex;"><span>}
+<!doctype html><html lang=en-us dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Tutorial - An Entry DevOps project | Zirui's Space</title>
+<meta name=keywords content="aws,cloud"><meta name=description content="A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code..."><meta name=author content="Zirui"><link rel=canonical href=https://www.ziirui-resume-website.com/posts/tech/cloud_website/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.js onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=https://www.ziirui-resume-website.com/img/Q.jpg><link rel=icon type=image/png sizes=16x16 href=https://www.ziirui-resume-website.com/img/Q.jpg><link rel=icon type=image/png sizes=32x32 href=https://www.ziirui-resume-website.com/img/Q.jpg><link rel=apple-touch-icon href=https://www.ziirui-resume-website.com/img/Q.jpgf><link rel=mask-icon href=https://www.ziirui-resume-website.com/img/Q.jpg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en-us href=https://www.ziirui-resume-website.com/posts/tech/cloud_website/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script defer src=https://unpkg.com/mermaid@8.8.1/dist/mermaid.min.js></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css><script src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script src=https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js></script><script>var _hmt=_hmt||[];(function(){var e,t=document.createElement("script");t.src="",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e)})()</script><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel=stylesheet><meta property="og:title" content="Tutorial - An Entry DevOps project"><meta property="og:description" content="A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code..."><meta property="og:type" content="article"><meta property="og:url" content="https://www.ziirui-resume-website.com/posts/tech/cloud_website/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-08-15T00:00:00+00:00"><meta property="article:modified_time" content="2024-08-15T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Tutorial - An Entry DevOps project"><meta name=twitter:description content="A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code..."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"📚Posts","item":"https://www.ziirui-resume-website.com/posts/"},{"@type":"ListItem","position":2,"name":"👨🏻‍💻 Tech","item":"https://www.ziirui-resume-website.com/posts/tech/"},{"@type":"ListItem","position":3,"name":"Tutorial - An Entry DevOps project","item":"https://www.ziirui-resume-website.com/posts/tech/cloud_website/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Tutorial - An Entry DevOps project","name":"Tutorial - An Entry DevOps project","description":"A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code...","keywords":["aws","cloud"],"articleBody":" Introduction This guide is based on the Cloud Resume Challenge and follows the steps listed inside it. That said, I strongly recommend purchasing the original book as it covers much more details. This post will only show the method I’ve done for my challenge. Think of this post as a helpful guide rather than a complete answer key.\nThe elements cover in this post:\nAWS (S3 bucket, Cloudfront, IAM, Lambda Function, DynamoDB, DNS, SSL Manager) CI/CD (Git Action) infrastructure as code (Terraform) Frontend Language (HTML, CSS) -\u003e Now switch to Hugo Backend Language (Python, Javascript) Test (Cypress) Please read through the on the offical website before looking into my post, because I will directly dive into how I solve the problem. 1. Certification The challenge recommonds the Certified Cloud Practitioner as a basic level. However I passed the Solutions Architect - Associate for a higher level approach. Ultimately the certificate offers professional knowledge regarding cloud services.\nQ\u0026A Q: Is getting a certificate worthy? A: The short answer: yes and no. If you want to become a cloud engineer or similar role (Site reliabilty Engineer, DevOps engineer), the answer is yes! If your goal is just to learn cloud services, then a certificate will not be worthy. Here are 2 major benefits: 1. Experience from the Certificate: The resume challenge will guide you through a limited set of AWS resources, specifically focusing on how to host a static website. Most of the time, you will need to handle various scenarios. Let me offer you some cases: - Are you familiar with VPC networks and EC2 instances, which are commonly used by companies? - How to prevent accidental deletion in bucket? (Versioning / MFA) - Do you understand the architectural difference between a company that wants to migrate services from on-premise to the cloud while treating the on-premise data center as a backup, versus a company that wants to extend its data storage to the cloud but keep all services hosted on-premises? - ... These values are not provided in resume challenge , but you will encounter in certification test. So like I said, define your goal of this challenge, whether you want to dive deep into the cloud world or not. 2. Career: It does add some values to your resume to help you stand out from other candidates, especially with this cloud project. Q: Any good resources you recommond to prepare for the exam? A: I used the Dojo bundle along with their exam. This was the only resource I used to prepare for the exam. You are absolutely free to explore any other lessons. (Note: I do not receive any compensation from Dojo and have no personal affiliation with them. I recommend it simply because it was the only resource I used; I cannot guarantee the quality of other materials). *Impotant* Don't pay full price for the certification exam! Look for coupons or vouchers online! 2. Getting Started with AWS and IAM role Head over to AWS and register an account. Yes, you’ll need to enter your credit card info, but don’t panic, AWS has a free plan that lasts for a year.\nAs for the IAM role, I recommend just sticking with the root user for now. It gives you full access to all the services, otherwise you’ll be tired with a lot of access denials later on.\nWarning: This is a bad practice for security reasons. Don't do this long term! Especially if you're setting this up in a real production environment! 3. HTML \u0026 CSS The foundation of building a website’s frontend: How you code it depends on your own style and taste. I use Hugo along with its Papermod theme to build my website. I strongly recommend using an existing tool to build your portfolio instead of hand-coding everything with plain HTML and CSS. Here’s why:\nIf you’re just starting out and don’t plan on becoming a frontend developer, it’s really not the best use of your time. Let’s be real, writing perfect CSS for a beautifully designed website is super hard, especially when you’re still learning. Even if you manage to finish your website and the design meets your expectations, consider whether the time spent was worth the result you achieved. Some other popular tools: Adobe, Notion, Wix\nI’m definitely not trying to discourage anyone from writing their own HTML and CSS. In fact, I absolutely take my hat off for anyone who practice writing good CSS code. My point is just a friendly heads-up. I personally spent over 30 hours coding my site from scratch, and honestly, it still didn’t come close to what Hugo gave me in way less time. Switching to Hugo was a game changer.\nI came across an HTML \u0026 CSS Tutorial that I found really interesting. Just to clarify, I didn’t use this tutorial in my own learning journey, but I thought the course designer’s final task of building a YouTube-style webpage was pretty cool.\n4. Static Website We store the HTML \u0026 CSS files on S3 bucket. Here’s how you can do it:\nLog in to your AWS S3 console. Click on “Create bucket” (it’s in an orange box). Enter a unique bucket name. This name has to be unique across all AWS accounts in globe. Then, hit “Create bucket”. [You don’t need to change any other settings.] {loading=“lazy”} Go to your newly created bucket, click Upload, and upload your files. Make sure that your index.html file is right in the root directory of the bucket. This means when you click on your bucket, you should see index.html directly in the file section, not inside any folder! For future convinience, use AWS CLI to upload the files by terminal. A useful tutorial video from Frank if you need\nCommands we oftenly use:\n// This command updates new file and delete the files that are not presented in the new updated repository. aws s3 sync ./your_folder/ s3://your-bucket --delete --exclude \"*.DS_Store\" --exclude \".gitignore\" --exclude \".git/*\" // Clean up all files in your bucket aws aws s3 rm s3://your-bucket --recursive 5. HTTPS Using HTTPS with CloudFront has several benefits:\nEncryption: HTTPS encrypts your content while it’s being transferred between AWS and the user’s PC, keeping it secure. Traffic Control: CloudFront helps manage traffic more efficiently and scales with demand. (Distribution got its name for a reason :) Cost: Serving S3 content via CloudFront is FREE. (Just a note: if you’re hosting your website via S3, AWS does charge for read times.) Let me break down the CloudFront setup for you:\nLog in to your AWS CloudFront console. Click on “Create distribution” (it’s in an orange box). Update the following sections: Origin domain: Choose the bucket you created. Origin access: Set this to Origin access control settings to ensure that only your distribution can access the S3 content. Click Create New OAC, then Create. Viewer Protocol policy: Select Redirect HTTP to HTTPS. WAF: Do Not Enable Default root object:Only change this if your index.html is named something different, like “project1.html” or “random_name.html”. CloudFront needs to know the name of the root object to serve your content correctly. After creating your distribution, wait about 3-5 minutes for it to deploy. Once it’s ready, go to your new distribution details. You’ll find a section prompting you to create a policy and paste it into S3. Go to S3 -\u003e Permission in the navbar -\u003e Scroll down to Bucket Policy -\u003e Paste your policy there. If you need a policy template, here’s one you can use:\n{ \"Version\": \"2008-10-17\", \"Id\": \"PolicyForCloudFrontPrivateContent\", \"Statement\": [ { \"Sid\": \"AllowCloudFrontServicePrincipal\", \"Effect\": \"Allow\", \"Principal\": { \"Service\": \"cloudfront.amazonaws.com\" }, \"Action\": \"s3:GetObject\", \"Resource\": \"arn:aws:s3:::your_bucket/*\", \"Condition\": { \"StringEquals\": { \"AWS:SourceArn\": \"your_cloudfront_arn\" } }, }, ], } Find your ARN {loading=“lazy”}\nUntil now, you should be able to see your site from CloudFront URL (Distribution domain name in The above picture) 6. DNS You can buy a domain from anywhere. Some popular options are Route S3, Cloudflare, or any other DNS provider.\nA domain typically costs around $10 a year, and that’s the only real expense for this project. Refer to your DNS provider for a simple guide on purchasing the domain, it’s usually just a simple process of typing the desired domain name, paying, and you’re good to go. Now, let’s move on to connecting your domain with CloudFront so your S3 content can be accessed through your domain (just like how my site is at https://www.ziirui-resume-website.com). We’ll also use AWS Certificate Manager to add SSL for security.\nSteps for Creating SSL and Verifying Your Domain Log in to the Certificate Manager Console CLick Request (orange button) and then Next Enter your domain name (ex: example.com), then hit Request You’ve now created an SSL certificate, but we need to verify that the domain is yours. Here’s how to do that:\nScroll down to the Domains section of your new SSL. You’ll see a CNAME name and a CNAME value. these are like a key and value pair. You’ll need to create a record in your DNS provider for each of them. Don’t panic! Just search “add record in [Your_DNS_provider_name]” on your browser for step-by-step videos online. Reminder:\nThe record type is CNMAE. The record name is CNAME name. Record target is the CNAME value. Record status is No Proxy. The Do this step for all of your SSL domains. Once you’ve added those records, check back in the Certificate Manager. If everything’s set up correctly, you’ll see “Success.” {loading=“lazy”}\nAfter verification, we have proved the DNS ownership to Certificate Manager, now we can connect DNS with our CloudFront. Step below:\nCopy your CloudFront URL Go to your DNS provider and create two CNAME records: One with Name = www and Target = CloudFront URL. Another with Name = your root domain (e.g., example.com) and Target = CloudFront URL. Final look for DNS provider console:\n{loading=“lazy”}\nSetting SSL in CloudFront (Don't panic! It's simple, you've done most of the job): Go to your CloudFront distribution Under General, click Edit Settings. In Alternate domain name (CNAME), enter your domain (“your_root_domain” and “www.your_root_domain”) In Custom SSL certificate, Select your SSL. {loading=“lazy”} Under Custom SSL certificate, select the SSL certificate you created. Now, test your website using your domain. If all went well, your content should be accessible via your personal DNS!\n7. Database For this part, we’ll be using DynamoDB to keep track of our visitor count.\nHere’s how to create a DynamoDB table:\nSame as always, open your DynamoDB console Click the Create Table (it’s orange). Fill out the form: Table Name: You can choose any name you like. Partition Key: Enter id and select String Table Setting: Choose Customize settings Read/write capacity settings: Set this to On-demand instead of Provisioned to avoid extra charges. Click Create Table Explanation: The partition key can be anything; it’s just a way to retrieve the visitor counter from Python later on. We choose On-demand for the table settings to only pay for what we use, rather than the default Provisioned setting which can lead to charge overhead.\nOnce your table is created, click Explore items (found in the orange box at the top right). Scroll down and hit the Create item button. For the id value section, you can enter 1 for simplicity. In the top right corner, click Add new attribute and select Number for the attribute type. This will be used for the visitor count. Create an attribute named count and set its value to 1. Here’s what it should look like: {loading=“lazy”}\nNow you have an item with an id of 1 and a count value of 1. Next, we’ll set up a Lambda Function to retrieve and increment this value.\n8. Lambda API \u0026 Python Setting up a Lambda Fucntion should be pretty straightforward for you. Just a quick tip: make sure to choose the programming language (the Runtime) you prefer for interacting with the database. For this guide, we’ll use Python. Remember, this Lambda function will trigger every time someone visits your domain.\nWe’ll be using the Boto3 library for working with DynamoDB in Python. Without further word, here’s a complete code template for your Lambda function:\nWarning: Don’t copy this code if you’re not familiar with Python or the Boto3 library. Doing so without understanding could lead to issues and will only cause you more trouble in the long run. import json import boto3 #connect to table dynamodb = boto3.resource(\"dynamodb\") table_name = \"your_table_name\" table = dynamodb.Table(table_name) def lambda_handler(event, context): id = \"your_id\" response = table.get_item(Key={ 'id':id }) # # If the item exists, increment the count by 1 if \"Item\" in response: views = response[\"Item\"][\"your_number_type_key_name\"] views += 1 table.put_item(Item = { \"id\" : id, \"views\" : views }) # # If the item doesn’t exist,indicating this is the 1st time our site being visited, then create a view of 1 else: views = 1 table.put_item(Item = { \"id\" : id, \"views\" : views }) # The content our javascript will receive in html file. return_format = { 'statusCode': 200, 'body': json.dumps({ 'message': 'success', 'count': int(views), 'event': event }) } return return_format 8. Javascript Now that we’ve got the Lambda function reading data from DynamoDB, the next step is getting that data into our HTML file so we can display it on the website. This is where JavaScript comes in handy!\nWe’ll be using a simple format from AWS to help us fetch and display the DynamoDB values.\n(Here is a Javascript tutorial if you need.)\n// Be sure to attch this id in your HTML, (e.g. times\n) const counter = document.querySelector(\".your_counter_id_in_html\"); async function update_views() { try { const response = await fetch(\"your_lambda_function_URL\", { method: \"POST\", // Set the method to POST headers: { \"Content-Type\": \"application/json/update_counter\", }, body: JSON.stringify({}), }); const data = await response.json(); counter.innerHTML = `${data.count}`; } catch (error) { counter.innerHTML = `43`; } } update_views(); 9. CI/CD Here’s how we’ll use Github Action. If you’re not familiar with CI/CD (Continuous Integration and Continuous Deployment), let me give you a quick scenario.\nImagine you push your files to GitHub, but you need those files to be updated on AWS. Without CI/CD, you’d have to manually update them on AWS, uploading HTML and CSS files to an S3 bucket, updating your Python code in a Lambda function, and possibly adjusting policies in different places. And if a bug pops up after all that work, guess what? You’d have to go through the whole process again LOL!\nCI/CD automates these tasks, so you don’t have to handle all that manual work every time you make a change. In our final result, all you need to do is push your code to GitHub using git push origin main, and GitHub will automatically update the changes on AWS for you.\nThis section is still in progress, so stay tuned!\nFeel free to check out my other feature in my portfolio!\n10. Test Cypress This section is still in progress, so stay tuned!\nFeel free to check out my other feature in my portfolio!\n11. Infrastructure as code This section is still in progress, so stay tuned!\nFeel free to check out my other feature in my portfolio!\n","wordCount":"2668","inLanguage":"en-us","datePublished":"2024-08-15T00:00:00Z","dateModified":"2024-08-15T00:00:00Z","author":[{"@type":"Person","name":"Zirui"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.ziirui-resume-website.com/posts/tech/cloud_website/"},"publisher":{"@type":"Organization","name":"Zirui's Space","logo":{"@type":"ImageObject","url":"https://www.ziirui-resume-website.com/img/Q.jpg"}}}</script></head><body id=top><script>(function(){let e,t=new RegExp("(^| )change-themes=([^;]*)(;|$)");(e=document.cookie.match(t))||((new Date).getHours()>=19||(new Date).getHours()<6?(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark")):(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")))})(),localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://www.ziirui-resume-website.com/ accesskey=h title="Zirui's Space (Alt + H)"><img src=https://www.ziirui-resume-website.com/img/Q.jpg alt=logo aria-label=logo height=35>Zirui's Space</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://www.ziirui-resume-website.com/ title="🏠 Home"><span>🏠 Home</span></a></li><li><a href=https://www.ziirui-resume-website.com/posts title="📚 Posts"><span>📚 Posts</span></a></li><li><a href=https://www.ziirui-resume-website.com/about title="🙋🏻‍♂️ About"><span>🙋🏻‍♂️ About</span></a></li><li><a href=https://www.ziirui-resume-website.com/search title="🔍 Search (Alt + /)" accesskey=/><span>🔍 Search</span></a></li></ul></nav></header><main class="main page"><style>i[id*=post_meta_style]{display:flex;align-items:center;margin:0 0 10px}</style><article class=post-single><div id=single-content><header class=post-header><div class=breadcrumbs><a href=https://www.ziirui-resume-website.com/>🏠 Home</a>&nbsp;»&nbsp;<a href=https://www.ziirui-resume-website.com/posts/>📚Posts</a>&nbsp;»&nbsp;<a href=https://www.ziirui-resume-website.com/posts/tech/>👨🏻‍💻 Tech</a></div><h1 class=post-title>Tutorial - An Entry DevOps project</h1><div class=post-description>A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code...</div><div class=post-meta><style>i[id*=post_meta_style]{display:flex;align-items:center;margin:0 0 10px}.parent-post-meta{display:flex;flex-wrap:wrap;opacity:.8}</style><span class=parent-post-meta><span id=post_meta_style_1><span class="fa fa-calendar-check-o"></span>
+<span>2024-08-15
+&nbsp;&nbsp;
+</span></span><span id=post_meta_style_3><span class="fa fa-file-word-o"></span>
+<span>2668字
+&nbsp;&nbsp;
+</span></span><span id=post_meta_style_4><span class="fa fa-clock-o"></span>
+<span>6分钟
+&nbsp;&nbsp;
+</span></span><span id=post_meta_style_5><span class="fa fa-user-o"></span>
+<span>Zirui
+&nbsp;&nbsp;
+</span></span><span id=post_meta_style_6><span class="fa fa-tags" style=opacity:.8></span>
+<span><span class=post-tags-meta><a href=https://www.ziirui-resume-website.com/tags/cloud/ style=color:var(--secondary)!important>Cloud</a>
+</span></span></span></span><span style=opacity:.8><span id=post_meta_style_7>&nbsp;&nbsp;
+<span class="fa fa-eye"></span>
+<span><span id=busuanzi_container_page_pv><span id=busuanzi_value_page_pv></span></span>
+&nbsp;&nbsp;</span></span></span></div></header><aside id=toc-container class="toc-container wide"><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><ul><li><a href=#introduction aria-label=Introduction>Introduction</a></li></ul><li><a href=#1-certification aria-label="1. Certification">1. Certification</a><ul><li><a href=#qa aria-label=Q&amp;A>Q&amp;A</a></li></ul></li><li><a href=#2-getting-started-with-aws-and-iam-role aria-label="2. Getting Started with AWS and IAM role">2. Getting Started with AWS and IAM role</a></li><li><a href=#3-html--css aria-label="3. HTML & CSS">3. HTML & CSS</a></li><li><a href=#4-static-website aria-label="4. Static Website">4. Static Website</a></li><li><a href=#5-https aria-label="5. HTTPS">5. HTTPS</a></li><li><a href=#6-dns aria-label="6. DNS">6. DNS</a></li><li><a href=#7-database aria-label="7. Database">7. Database</a></li><li><a href=#8-lambda-api--python aria-label="8. Lambda API & Python">8. Lambda API & Python</a></li><li><a href=#8-javascript aria-label="8. Javascript">8. Javascript</a></li><li><a href=#9-cicd aria-label="9. CI/CD">9. CI/CD</a></li><li><a href=#10-test-cypress aria-label="10. Test Cypress">10. Test Cypress</a></li><li><a href=#11-infrastructure-as-code aria-label="11. Infrastructure as code">11. Infrastructure as code</a></li></ul></div></details></div></aside><script>let activeElement,elements;window.addEventListener("DOMContentLoaded",function(){checkTocPosition(),elements=document.querySelectorAll("h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]"),activeElement=elements[0];const t=encodeURI(activeElement.getAttribute("id")).toLowerCase();document.querySelector(`.inner ul li a[href="#${t}"]`).classList.add("active")},!1),window.addEventListener("resize",function(){checkTocPosition()},!1),window.addEventListener("scroll",()=>{elements&&(activeElement=Array.from(elements).find(e=>{if(getOffsetTop(e)-window.pageYOffset>0&&getOffsetTop(e)-window.pageYOffset<window.innerHeight/2)return e})||activeElement,elements.forEach(e=>{const t=encodeURI(e.getAttribute("id")).toLowerCase();e===activeElement?document.querySelector(`.inner ul li a[href="#${t}"]`).classList.add("active"):document.querySelector(`.inner ul li a[href="#${t}"]`).classList.remove("active")}))},!1);const main=parseInt(getComputedStyle(document.body).getPropertyValue("--article-width"),10),toc=parseInt(getComputedStyle(document.body).getPropertyValue("--toc-width"),10),gap=parseInt(getComputedStyle(document.body).getPropertyValue("--gap"),10);function checkTocPosition(){const e=document.body.scrollWidth;e-main-toc*2-gap*4>0?document.getElementById("toc-container").classList.add("wide"):document.getElementById("toc-container").classList.remove("wide")}function getOffsetTop(e){if(!e.getClientRects().length)return 0;let t=e.getBoundingClientRect(),n=e.ownerDocument.defaultView;return t.top+n.pageYOffset}</script><div class=post-content><style>.post-content img{max-width:750px;height:auto}</style><h2 id=introduction>Introduction<a hidden class=anchor aria-hidden=true href=#introduction>#</a></h2><p>This guide is based on the <a href=https://cloudresumechallenge.dev/docs/the-challenge/aws/ target=_blank>Cloud Resume Challenge</a> and follows the steps listed inside it. That said, I strongly recommend purchasing the original book as it covers much more details. This post will only show the method I&rsquo;ve done for my challenge. Think of this post as a helpful guide rather than a complete answer key.</p><p>The elements cover in this post:</p><ol><li><strong>AWS</strong> (S3 bucket, Cloudfront, IAM, Lambda Function, DynamoDB, DNS, SSL Manager)</li><li><strong>CI/CD</strong> (Git Action)</li><li><strong>infrastructure as code</strong> (Terraform)</li><li><strong>Frontend Language</strong> (HTML, CSS) -> Now switch to Hugo</li><li><strong>Backend Language</strong> (Python, Javascript)</li><li><strong>Test</strong> (Cypress)</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#ae81ff>Please read through the &lt;challenge&gt; on the offical website before looking into my post, because I will directly dive into how I solve the problem.</span>
+</span></span></code></pre></div><h1 id=1-certification>1. Certification<a hidden class=anchor aria-hidden=true href=#1-certification>#</a></h1><p>The challenge recommonds the <a href=https://aws.amazon.com/certification/certified-cloud-practitioner/ target=_blank>Certified Cloud Practitioner</a> as a basic level. However I passed the <a href=https://aws.amazon.com/certification/certified-solutions-architect-associate/ target=_blank>Solutions Architect - Associate</a> for a higher level approach. Ultimately the certificate offers professional knowledge regarding cloud services.</p><h2 id=qa>Q&amp;A<a hidden class=anchor aria-hidden=true href=#qa>#</a></h2><ul><li>Q: Is getting a certificate worthy?</li><li>A: The short answer: yes and no. If you want to become a cloud engineer or similar role (Site reliabilty Engineer, DevOps engineer), the answer is yes! If your goal is just to learn cloud services, then a certificate will not be worthy. Here are 2 major benefits:</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>1. Experience from the Certificate</span>: <span style=color:#ae81ff>The resume challenge will guide you through a limited set of AWS resources, specifically focusing on how to host a static website. Most of the time, you will need to handle various scenarios.</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>Let me offer you some cases</span>:
+</span></span><span style=display:flex><span>   - <span style=color:#ae81ff>Are you familiar with VPC networks and EC2 instances, which are commonly used by companies?</span>
+</span></span><span style=display:flex><span>   - <span style=color:#ae81ff>How to prevent accidental deletion in bucket? (Versioning / MFA)</span>
+</span></span><span style=display:flex><span>   - <span style=color:#ae81ff>Do you understand the architectural difference between a company that wants to migrate services from on-premise to the cloud while treating the on-premise data center as a backup, versus a company that wants to extend its data storage to the cloud but keep all services hosted on-premises?</span>
+</span></span><span style=display:flex><span>   - <span style=color:#ae81ff>...</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>These values are not provided in resume challenge , but you will encounter in certification test. So like I said, define your goal of this challenge, whether you want to dive deep into the cloud world or not.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>2. Career</span>: <span style=color:#ae81ff>It does add some values to your resume to help you stand out from other candidates, especially with this cloud project.</span>
+</span></span></code></pre></div><br><ul><li>Q: Any good resources you recommond to prepare for the exam?</li><li>A: I used the <a href=https://portal.tutorialsdojo.com/video-course-practice-test/ target=_blank>Dojo bundle</a> along with their exam. This was the only resource I used to prepare for the exam. You are absolutely free to explore any other lessons. (Note: I do not receive any compensation from Dojo and have no personal affiliation with them. I recommend it simply because it was the only resource I used; I cannot guarantee the quality of other materials).</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e>*Impotant*</span> <span style=color:#ae81ff>Don&#39;t pay full price for the certification exam! Look for coupons or vouchers online!</span>
+</span></span></code></pre></div><h1 id=2-getting-started-with-aws-and-iam-role>2. Getting Started with AWS and IAM role<a hidden class=anchor aria-hidden=true href=#2-getting-started-with-aws-and-iam-role>#</a></h1><p>Head over to <a href="https://aws.amazon.com/free/?gclid=CjwKCAjwxY-3BhAuEiwAu7Y6s5OVtdXjaHVkG9k79n5iiGcp5FbbmCkHe4FTIk8G1MRq8nIFz-8R4hoCgNoQAvD_BwE&trk=fce796e8-4ceb-48e0-9767-89f7873fac3d&sc_channel=ps&ef_id=CjwKCAjwxY-3BhAuEiwAu7Y6s5OVtdXjaHVkG9k79n5iiGcp5FbbmCkHe4FTIk8G1MRq8nIFz-8R4hoCgNoQAvD_BwE:G:s&s_kwcid=AL!4422!3!432339156150!e!!g!!aws!1644045032!68366401852&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all" target=_blank>AWS</a> and register an account. Yes, you’ll need to enter your credit card info, but don’t panic, AWS has a free plan that lasts for a year.</p><p>As for the IAM role, I recommend just sticking with the root user for now. It gives you full access to all the services, otherwise you&rsquo;ll be tired with a lot of access denials later on.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>Warning</span>: <span style=color:#ae81ff>This is a bad practice for security reasons. Don&#39;t do this long term! Especially if you&#39;re setting this up in a real production environment!</span>
+</span></span></code></pre></div><h1 id=3-html--css>3. HTML & CSS<a hidden class=anchor aria-hidden=true href=#3-html--css>#</a></h1><p>The foundation of building a website&rsquo;s frontend:
+How you code it depends on your own style and taste. I use <a href=https://gohugo.io/ target=_blank>Hugo</a> along with its <a href=https://github.com/adityatelange/hugo-PaperMod target=_blank>Papermod</a> theme to build my website. I <strong>strongly recommend</strong> using an existing tool to build your portfolio instead of hand-coding everything with plain HTML and CSS. Here’s why:</p><ol><li>If you&rsquo;re just starting out and don&rsquo;t plan on becoming a frontend developer, it&rsquo;s really not the best use of your time.</li><li>Let’s be real, writing perfect CSS for a beautifully designed website is super hard, especially when you&rsquo;re still learning.</li><li>Even if you manage to finish your website and the design meets your expectations, consider whether the time spent was worth the result you achieved.</li></ol><p>Some other popular tools: <a href=https://www.adobe.com/express/create/online-portfolio target=_blank>Adobe</a>, <a href=https://www.notion.so/templates/category/portfolio target=_blank>Notion</a>, <a href=https://www.wix.com/ target=_blank>Wix</a></p><p>I&rsquo;m definitely not trying to discourage anyone from writing their own HTML and CSS. In fact, I absolutely take my hat off for anyone who practice writing good CSS code. My point is just a friendly heads-up. I personally spent over 30 hours coding my site from scratch, and honestly, it still didn’t come close to what Hugo gave me in way less time. Switching to Hugo was a game changer.</p><p>I came across an <a href="https://www.youtube.com/watch?v=G3e-cpL7ofc&ab_channel=SuperSimpleDev" target=_blank>HTML & CSS Tutorial</a> that I found really interesting. Just to clarify, I didn’t use this tutorial in my own learning journey, but I thought the course designer’s final task of building a YouTube-style webpage was pretty cool.</p><h1 id=4-static-website>4. Static Website<a hidden class=anchor aria-hidden=true href=#4-static-website>#</a></h1><p>We store the HTML & CSS files on S3 bucket. Here&rsquo;s how you can do it:</p><ol><li>Log in to your <a href="https://us-east-1.console.aws.amazon.com/s3/home?region=us-east-1#" target=_blank>AWS S3 console</a>.</li><li>Click on <strong>&ldquo;Create bucket&rdquo;</strong> (it&rsquo;s in an orange box).</li><li>Enter a unique <code>bucket name</code>. This name has to be unique across all AWS accounts in globe. Then, hit &ldquo;Create bucket&rdquo;. [You don’t need to change any other settings.]
+<img loading=lazy src=posts/tech/cloud_website/create_bucket.png alt="Create Bucket">
+{loading=&ldquo;lazy&rdquo;}</li><li>Go to your newly created bucket, click <strong>Upload</strong>, and upload your files. <strong>Make sure that your index.html file is right in the root directory of the bucket</strong>. This means when you click on your bucket, you should see index.html directly in the file section, not inside any folder!</li></ol><p>For future convinience, use <a href=https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html target=_blank>AWS CLI</a> to upload the files by terminal. A useful <a href="https://www.youtube.com/watch?v=IZj_2p1_V1E&ab_channel=networkwithfrank" target=_blank>tutorial video from Frank</a> if you need</p><p>Commands we oftenly use:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>// This command updates new file and delete the files that are not presented in the new updated repository.
+</span></span><span style=display:flex><span>aws s3 sync ./your_folder/ s3://your-bucket --delete --exclude <span style=color:#e6db74>&#34;*.DS_Store&#34;</span> --exclude <span style=color:#e6db74>&#34;.gitignore&#34;</span> --exclude <span style=color:#e6db74>&#34;.git/*&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// Clean up all files in your bucket
+</span></span><span style=display:flex><span>aws aws s3 rm s3://your-bucket --recursive
+</span></span></code></pre></div><h1 id=5-https>5. HTTPS<a hidden class=anchor aria-hidden=true href=#5-https>#</a></h1><p>Using HTTPS with CloudFront has several benefits:</p><ol><li><strong>Encryption</strong>: HTTPS encrypts your content while it&rsquo;s being transferred between AWS and the user&rsquo;s PC, keeping it secure.</li><li><strong>Traffic Control</strong>: CloudFront helps manage traffic more efficiently and scales with demand. (Distribution got its name for a reason :)</li><li><strong>Cost</strong>: Serving S3 content via CloudFront is <strong>FREE</strong>. (Just a note: if you&rsquo;re hosting your website via <a href=https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html#step2-create-bucket-config-as-website target=_blank>S3</a>, AWS does charge for read times.)</li></ol><p>Let me break down the CloudFront setup for you:</p><ol><li>Log in to your <a href="https://us-east-1.console.aws.amazon.com/cloudfront/v4/home?region=us-east-1#/distributions" target=_blank>AWS CloudFront console</a>.</li><li>Click on <strong>&ldquo;Create distribution&rdquo;</strong> (it&rsquo;s in an orange box).</li><li>Update the following sections:<ul><li><strong>Origin domain</strong>: Choose the bucket you created.</li><li><strong>Origin access</strong>: Set this to <code>Origin access control settings</code> to ensure that only your distribution can access the S3 content.<ul><li>Click <strong>Create New OAC</strong>, then <strong>Create</strong>.</li></ul></li><li><strong>Viewer Protocol policy</strong>: Select <code>Redirect HTTP to HTTPS</code>.</li><li><strong>WAF</strong>: <code>Do Not Enable</code></li><li><strong>Default root object</strong>:Only change this if your <code>index.html</code> is named something different, like &ldquo;project1.html&rdquo; or &ldquo;random_name.html&rdquo;. CloudFront needs to know the name of the root object to serve your content correctly.</li></ul></li><li>After creating your distribution, wait about 3-5 minutes for it to deploy. Once it&rsquo;s ready, go to your new distribution details. You&rsquo;ll find a section prompting you to create a policy and paste it into S3.<ul><li>Go to S3 -> <strong>Permission</strong> in the navbar -> Scroll down to <strong>Bucket Policy</strong> -> Paste your policy there.</li></ul></li></ol><p>If you need a policy template, here&rsquo;s one you can use:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;: </span><span style=color:#e6db74>&#34;2008-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Id&#34;: </span><span style=color:#e6db74>&#34;PolicyForCloudFrontPrivateContent&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#34;Statement&#34;</span>:
+</span></span><span style=display:flex><span>    [
+</span></span><span style=display:flex><span>      {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Sid&#34;: </span><span style=color:#e6db74>&#34;AllowCloudFrontServicePrincipal&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Effect&#34;: </span><span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Principal&#34;: { &#34;Service&#34;: </span><span style=color:#e6db74>&#34;cloudfront.amazonaws.com&#34;</span> },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Action&#34;: </span><span style=color:#e6db74>&#34;s3:GetObject&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Resource&#34;: </span><span style=color:#e6db74>&#34;arn:aws:s3:::your_bucket/*&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Condition&#34;</span>:
+</span></span><span style=display:flex><span>          { <span style=color:#f92672>&#34;StringEquals&#34;: { &#34;AWS:SourceArn&#34;: </span><span style=color:#e6db74>&#34;your_cloudfront_arn&#34;</span> } },
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>}
 </span></span></code></pre></div><p>Find your ARN
-<img loading="lazy" src="posts/tech/cloud_website/cloudFront_arn.png" alt="ARN For Cloudfront"  />
-</p>
-<ol start="5">
-<li>Until now, you should be able to see your site from <code>CloudFront URL</code> (Distribution domain name in The above picture)</li>
-</ol>
-<h1 id="6-dns">6. DNS<a hidden class="anchor" aria-hidden="true" href="#6-dns">#</a></h1>
-<p>You can buy a domain from anywhere. Some popular options are <a href="https://us-east-1.console.aws.amazon.com/route53/v2/home?region=us-east-1#Home" target="_blank">Route S3</a>, <a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a>, or any other DNS provider.</p>
-<ol>
-<li>A domain typically costs around $10 a year, and that&rsquo;s the only real expense for this project.</li>
-<li>Refer to your DNS provider for a simple guide on purchasing the domain, it’s usually just a simple process of typing the desired domain name, paying, and you’re good to go.</li>
-</ol>
-<p>Now, let&rsquo;s move on to connecting your domain with CloudFront so your S3 content can be accessed through your domain (just like how my site is at <a href="https://www.ziirui-resume-website.com">https://www.ziirui-resume-website.com</a>). We’ll also use AWS Certificate Manager to add SSL for security.</p>
-<br>
-Steps for Creating SSL and Verifying Your Domain
-<ol>
-<li>Log in to the <a href="https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list" target="_blank">Certificate Manager Console</a></li>
-<li>CLick <strong>Request</strong> (orange button) and then <strong>Next</strong></li>
-<li>Enter your domain name (ex: example.com), then hit <strong>Request</strong></li>
-</ol>
-<p>You’ve now created an SSL certificate, but we need to verify that the domain is yours. Here&rsquo;s how to do that:</p>
-<ol start="4">
-<li>
-<p>Scroll down to the <strong>Domains</strong> section of your new SSL. You’ll see a <strong>CNAME name</strong> and a <strong>CNAME value</strong>. these are like a key and value pair. You’ll need to create a record in your DNS provider for each of them. Don&rsquo;t panic! Just search &ldquo;add record in [Your_DNS_provider_name]&rdquo; on your browser for step-by-step videos online. Reminder:</p>
-<ul>
-<li>The record type is <code>CNMAE</code>.</li>
-<li>The record name is <code>CNAME name</code>.</li>
-<li>Record target is the <code>CNAME value</code>.</li>
-<li>Record status is <code>No Proxy</code>.</li>
-</ul>
-</li>
-<li>
-<p>The Do this step for all of your SSL domains. Once you&rsquo;ve added those records, check back in the <a href="https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list" target="_blank">Certificate Manager</a>. If everything’s set up correctly, you’ll see &ldquo;Success.&rdquo;
-<img loading="lazy" src="posts/tech/cloud_website/Cname_ssl.png" alt="Cname success"  />
-</p>
-</li>
-<li>
-<p>After verification, we have proved the DNS ownership to Certificate Manager, now we can connect DNS with our CloudFront. Step below:</p>
-<ol>
-<li>Copy your CloudFront URL</li>
-<li>Go to your DNS provider and create two <code>CNAME</code> records:
-<ul>
-<li>One with Name = <code>www</code> and Target = CloudFront URL.</li>
-<li>Another with Name = your root domain (e.g., example.com) and Target = CloudFront URL.</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<p>Final look for DNS provider console:</p>
-<p><img loading="lazy" src="posts/tech/cloud_website/site_ssl.png" alt="Cname result"  />
-</p>
-<br>
-Setting SSL in CloudFront (Don't panic! It's simple, you've done most of the job):
-<ol>
-<li>Go to your <a href="https://us-east-1.console.aws.amazon.com/cloudfront/v4/home?region=us-east-1#/distributions" target="_blank">CloudFront distribution</a></li>
-<li>Under <strong>General</strong>, click <strong>Edit Settings</strong>.</li>
-<li>In <strong>Alternate domain name (CNAME)</strong>, enter your domain (&ldquo;your_root_domain&rdquo; and &ldquo;www.your_root_domain&rdquo;)</li>
-<li>In <strong>Custom SSL certificate</strong>, Select your SSL.
-<img loading="lazy" src="posts/tech/cloud_website/SSL_cloudfront.png" alt="Cloudfront SSL"  />
-</li>
-<li>Under <strong>Custom SSL certificate</strong>, select the SSL certificate you created.</li>
-</ol>
-<p>Now, test your website using your domain. If all went well, your content should be accessible via your personal DNS!</p>
-<h1 id="7-database">7. Database<a hidden class="anchor" aria-hidden="true" href="#7-database">#</a></h1>
-<p>For this part, we&rsquo;ll be using <a href="https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables" target="_blank">DynamoDB</a> to keep track of our visitor count.</p>
-<p>Here’s how to create a DynamoDB table:</p>
-<ol>
-<li>Same as always, open your <a href="https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables" target="_blank">DynamoDB console </a></li>
-<li>Click the <strong>Create Table</strong> (it&rsquo;s orange).</li>
-<li>Fill out the form:
-<ul>
-<li><strong>Table Name</strong>: You can choose any name you like.</li>
-<li><strong>Partition Key</strong>: Enter <code>id</code> and select <code>String</code></li>
-<li><strong>Table Setting</strong>: Choose <code>Customize settings</code></li>
-<li><strong>Read/write capacity settings</strong>: Set this to <code>On-demand</code> instead of <code>Provisioned</code> to avoid extra charges.</li>
-</ul>
-</li>
-<li>Click <strong>Create Table</strong></li>
-</ol>
-<p>Explanation: The partition key can be anything; it&rsquo;s just a way to retrieve the <code>visitor counter</code> from Python later on. We choose <code>On-demand</code> for the table settings to only pay for what we use, rather than the default <code>Provisioned</code> setting which can lead to charge overhead.</p>
-<ol start="5">
-<li>Once your table is created, click <strong>Explore items</strong> (found in the orange box at the top right).</li>
-<li>Scroll down and hit the <strong>Create item</strong> button.</li>
-<li>For the <code>id</code> value section, you can enter <code>1</code> for simplicity.</li>
-<li>In the top right corner, click <strong>Add new attribute</strong> and select <code>Number</code> for the attribute type. This will be used for the visitor count.</li>
-<li>Create an attribute named <code>count</code> and set its value to <code>1</code>.</li>
-</ol>
-<p>Here’s what it should look like:
-<img loading="lazy" src="posts/tech/cloud_website/dynamodb_table_item.png" alt="dynamodb_table_item"  />
-</p>
-<p>Now you have an item with an <code>id</code> of <code>1</code> and a count value of <code>1</code>. Next, we’ll set up a Lambda Function to retrieve and increment this value.</p>
-<h1 id="8-lambda-api--python">8. Lambda API &amp; Python<a hidden class="anchor" aria-hidden="true" href="#8-lambda-api--python">#</a></h1>
-<p>Setting up a <a href="https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions" target="_blank">Lambda Fucntion</a> should be pretty straightforward for you. Just a quick tip: make sure to choose the programming language (the <code>Runtime</code>) you prefer for interacting with the database. For this guide, we&rsquo;ll use Python. Remember, this Lambda function will trigger every time someone visits your domain.</p>
-<p>We’ll be using the <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html" target="_blank">Boto3</a> library for working with DynamoDB in Python. Without further word, here’s a complete code template for your Lambda function:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">Warning</span>: <span style="color:#ae81ff">Don’t copy this code if you’re not familiar with Python or the Boto3 library. Doing so without understanding could lead to issues and will only cause you more trouble in the long run.</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> <span style="color:#75715e">#connect to table</span>
-</span></span><span style="display:flex;"><span>dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#34;dynamodb&#34;</span>)
-</span></span><span style="display:flex;"><span>table_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your_table_name&#34;</span>
-</span></span><span style="display:flex;"><span>table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(table_name)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
-</span></span><span style="display:flex;"><span>  id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your_id&#34;</span>
-</span></span><span style="display:flex;"><span>  response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>get_item(Key<span style="color:#f92672">=</span>{
-</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#39;id&#39;</span>:id
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># # If the item exists, increment the count by 1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;Item&#34;</span> <span style="color:#f92672">in</span> response:
-</span></span><span style="display:flex;"><span>      views <span style="color:#f92672">=</span> response[<span style="color:#e6db74">&#34;Item&#34;</span>][<span style="color:#e6db74">&#34;your_number_type_key_name&#34;</span>]
-</span></span><span style="display:flex;"><span>      views <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>      table<span style="color:#f92672">.</span>put_item(Item <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;id&#34;</span> : id,
-</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;views&#34;</span> : views
-</span></span><span style="display:flex;"><span>      })
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># # If the item doesn’t exist,indicating this is the 1st time our site being visited, then create a view of 1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>      views <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>      table<span style="color:#f92672">.</span>put_item(Item <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;id&#34;</span> : id,
-</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;views&#34;</span> : views
-</span></span><span style="display:flex;"><span>      })
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># The content our javascript will receive in html file.</span>
-</span></span><span style="display:flex;"><span>  return_format <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
-</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps({
-</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;success&#39;</span>,
-</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;count&#39;</span>: int(views),
-</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;event&#39;</span>: event
-</span></span><span style="display:flex;"><span>          })
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> return_format
-</span></span></code></pre></div><h1 id="8-javascript">8. Javascript<a hidden class="anchor" aria-hidden="true" href="#8-javascript">#</a></h1>
-<p>Now that we’ve got the Lambda function reading data from DynamoDB, the next step is getting that data into our HTML file so we can display it on the website. This is where JavaScript comes in handy!</p>
-<p>We’ll be using a simple format from <a href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-js-challenge-api-fetch-wrapper.html" target="_blank">AWS</a> to help us fetch and display the DynamoDB values.</p>
-<p>(Here is a <a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank">Javascript tutorial</a> if you need.)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// Be sure to attch this id in your HTML, (e.g. &lt;p class=&#34;your_counter_id_in_html&#34;&gt; times&lt;/p&gt;)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">counter</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;.your_counter_id_in_html&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">update_views</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#34;your_lambda_function_URL&#34;</span>, {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#75715e">// Set the method to POST
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;application/json/update_counter&#34;</span>,
-</span></span><span style="display:flex;"><span>      },
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({}),
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">counter</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">count</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
-</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">counter</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`43`</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">update_views</span>();
-</span></span></code></pre></div><h1 id="9-cicd">9. CI/CD<a hidden class="anchor" aria-hidden="true" href="#9-cicd">#</a></h1>
-<p>Here&rsquo;s how we’ll use <a href="https://docs.github.com/en/actions/writing-workflows/quickstart" target="_blank">Github Action</a>. If you&rsquo;re not familiar with CI/CD (Continuous Integration and Continuous Deployment), let me give you a quick scenario.</p>
-<p>Imagine you push your files to GitHub, but you need those files to be updated on AWS. Without CI/CD, you’d have to manually update them on AWS, uploading HTML and CSS files to an S3 bucket, updating your Python code in a Lambda function, and possibly adjusting policies in different places. And if a bug pops up after all that work, guess what? You’d have to go through the whole process again LOL!</p>
-<p>CI/CD automates these tasks, so you don&rsquo;t have to handle all that manual work every time you make a change. In our final result, all you need to do is push your code to GitHub using <code>git push origin main</code>, and GitHub will automatically update the changes on AWS for you.</p>
-<p>This section is still in progress, so stay tuned!</p>
-<p>Feel free to check out my other feature in <a href="https://www.ziirui-resume-website.com" target="_blank">my portfolio</a>!</p>
-<h1 id="10-test-cypress">10. Test Cypress<a hidden class="anchor" aria-hidden="true" href="#10-test-cypress">#</a></h1>
-<p>This section is still in progress, so stay tuned!</p>
-<p>Feel free to check out my other feature in <a href="https://www.ziirui-resume-website.com" target="_blank">my portfolio</a>!</p>
-<h1 id="11-infrastructure-as-code">11. Infrastructure as code<a hidden class="anchor" aria-hidden="true" href="#11-infrastructure-as-code">#</a></h1>
-<p>This section is still in progress, so stay tuned!</p>
-<p>Feel free to check out my other feature in <a href="https://www.ziirui-resume-website.com" target="_blank">my portfolio</a>!</p>
-
-
-        </div>
-
-        <footer class="post-footer">
-            
-<nav class="paginav">
-  <a class="next" href="https://www.ziirui-resume-website.com/posts/tech/leetcode_150/">
-    <span class="title"> »</span>
-    <br>
-    <span>Leetcode 150</span>
-  </a>
-</nav>
-
-        </footer>
-    </div>
-</article>
-</main>
-
-<footer class="footer">
-    <span>
-        Copyright
-        &copy;
-        2024
-        <a href="https://www.ziirui-resume-website.com/" style="color:#939393;">Zirui&#39;s Space</a>
-    </span>
-    <span id="busuanzi_container">
-        <span class="fa fa-user"></span> <span id="busuanzi_value_site_uv"></span>
-        <span class="fa fa-eye"></span> <span id="busuanzi_value_site_pv"></span>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <span class="topInner">
-        <svg class="topSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-            <path d="M12 6H0l6-6z"/>
-        </svg>
-        <span id="read_progress"></span>
-    </span>
-</a>
-
-<script>
-    document.addEventListener('scroll', function (e) {
-        const readProgress = document.getElementById("read_progress");
-        const scrollHeight = document.documentElement.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight;
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        readProgress.innerText = ((scrollTop / (scrollHeight - clientHeight)).toFixed(2) * 100).toFixed(0);
-    })
-</script>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-</script>
-<script>
-    let mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        (function() {
-            document.cookie = "change-themes" + "="+ escape ("false");
-        })()
-
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    });
-</script>
-
-<script>
-    document.body.addEventListener('copy', function (e) {
-        if (window.getSelection().toString() && window.getSelection().toString().length > 50) {
-            let clipboardData = e.clipboardData || window.clipboardData;
-            if (clipboardData) {
-                e.preventDefault();
-                let siteTitle = "Zirui\u0027s Space"; 
-                let htmlData = window.getSelection().toString();
-                    
-                    
-                    
-                let textData = window.getSelection().toString();
-                    
-                    
-                    
-                clipboardData.setData('text/html', htmlData);
-                clipboardData.setData('text/plain', textData);
-            }
-        }
-    });
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerText = 'copy';
-
-        function copyingDone() {
-            copybutton.innerText = 'copied!';
-            setTimeout(() => {
-                copybutton.innerText = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                let text = codeblock.textContent;
-                    
-                    
-                
-                navigator.clipboard.writeText(text);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) {}
-            selection.removeRange(range);
-        });
-
-        let language = codeblock.className.replaceAll("language-", "")
-        let macTool = document.createElement("div")
-        let macTool1 = document.createElement("div")
-        let macTool2 = document.createElement("div")
-        let macTool3 = document.createElement("div")
-        let languageType = document.createElement("div")
-        languageType.innerText = language
-        macTool.setAttribute('class', 'mac-tool')
-        macTool1.setAttribute('class', 'mac bb1')
-        macTool2.setAttribute('class', 'mac bb2')
-        macTool3.setAttribute('class', 'mac bb3')
-        languageType.setAttribute('class', 'language-type')
-        macTool.appendChild(macTool1)
-        macTool.appendChild(macTool2)
-        macTool.appendChild(macTool3)
-        macTool.appendChild(languageType)
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-            container.appendChild(macTool)
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-            container.appendChild(macTool)
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-            container.appendChild(macTool)
-        }
-    });
-</script>
-</body>
-
-</html>
+<img loading=lazy src=posts/tech/cloud_website/cloudFront_arn.png alt="ARN For Cloudfront">
+{loading=&ldquo;lazy&rdquo;}</p><ol start=5><li>Until now, you should be able to see your site from <code>CloudFront URL</code> (Distribution domain name in The above picture)</li></ol><h1 id=6-dns>6. DNS<a hidden class=anchor aria-hidden=true href=#6-dns>#</a></h1><p>You can buy a domain from anywhere. Some popular options are <a href="https://us-east-1.console.aws.amazon.com/route53/v2/home?region=us-east-1#Home" target=_blank>Route S3</a>, <a href=https://www.cloudflare.com/ target=_blank>Cloudflare</a>, or any other DNS provider.</p><ol><li>A domain typically costs around $10 a year, and that&rsquo;s the only real expense for this project.</li><li>Refer to your DNS provider for a simple guide on purchasing the domain, it’s usually just a simple process of typing the desired domain name, paying, and you’re good to go.</li></ol><p>Now, let&rsquo;s move on to connecting your domain with CloudFront so your S3 content can be accessed through your domain (just like how my site is at <a href=https://www.ziirui-resume-website.com>https://www.ziirui-resume-website.com</a>). We’ll also use AWS Certificate Manager to add SSL for security.</p><br>Steps for Creating SSL and Verifying Your Domain<ol><li>Log in to the <a href="https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list" target=_blank>Certificate Manager Console</a></li><li>CLick <strong>Request</strong> (orange button) and then <strong>Next</strong></li><li>Enter your domain name (ex: example.com), then hit <strong>Request</strong></li></ol><p>You’ve now created an SSL certificate, but we need to verify that the domain is yours. Here&rsquo;s how to do that:</p><ol start=4><li><p>Scroll down to the <strong>Domains</strong> section of your new SSL. You’ll see a <strong>CNAME name</strong> and a <strong>CNAME value</strong>. these are like a key and value pair. You’ll need to create a record in your DNS provider for each of them. Don&rsquo;t panic! Just search &ldquo;add record in [Your_DNS_provider_name]&rdquo; on your browser for step-by-step videos online. Reminder:</p><ul><li>The record type is <code>CNMAE</code>.</li><li>The record name is <code>CNAME name</code>.</li><li>Record target is the <code>CNAME value</code>.</li><li>Record status is <code>No Proxy</code>.</li></ul></li><li><p>The Do this step for all of your SSL domains. Once you&rsquo;ve added those records, check back in the <a href="https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list" target=_blank>Certificate Manager</a>. If everything’s set up correctly, you’ll see &ldquo;Success.&rdquo;
+<img loading=lazy src=posts/tech/cloud_website/Cname_ssl.png alt="Cname success">
+{loading=&ldquo;lazy&rdquo;}</p></li><li><p>After verification, we have proved the DNS ownership to Certificate Manager, now we can connect DNS with our CloudFront. Step below:</p><ol><li>Copy your CloudFront URL</li><li>Go to your DNS provider and create two <code>CNAME</code> records:<ul><li>One with Name = <code>www</code> and Target = CloudFront URL.</li><li>Another with Name = your root domain (e.g., example.com) and Target = CloudFront URL.</li></ul></li></ol></li></ol><p>Final look for DNS provider console:</p><p><img loading=lazy src=posts/tech/cloud_website/site_ssl.png alt="Cname result">
+{loading=&ldquo;lazy&rdquo;}</p><br>Setting SSL in CloudFront (Don't panic! It's simple, you've done most of the job):<ol><li>Go to your <a href="https://us-east-1.console.aws.amazon.com/cloudfront/v4/home?region=us-east-1#/distributions" target=_blank>CloudFront distribution</a></li><li>Under <strong>General</strong>, click <strong>Edit Settings</strong>.</li><li>In <strong>Alternate domain name (CNAME)</strong>, enter your domain (&ldquo;your_root_domain&rdquo; and &ldquo;www.your_root_domain&rdquo;)</li><li>In <strong>Custom SSL certificate</strong>, Select your SSL.
+<img loading=lazy src=posts/tech/cloud_website/SSL_cloudfront.png alt="Cloudfront SSL">
+{loading=&ldquo;lazy&rdquo;}</li><li>Under <strong>Custom SSL certificate</strong>, select the SSL certificate you created.</li></ol><p>Now, test your website using your domain. If all went well, your content should be accessible via your personal DNS!</p><h1 id=7-database>7. Database<a hidden class=anchor aria-hidden=true href=#7-database>#</a></h1><p>For this part, we&rsquo;ll be using <a href="https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables" target=_blank>DynamoDB</a> to keep track of our visitor count.</p><p>Here’s how to create a DynamoDB table:</p><ol><li>Same as always, open your <a href="https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables" target=_blank>DynamoDB console</a></li><li>Click the <strong>Create Table</strong> (it&rsquo;s orange).</li><li>Fill out the form:<ul><li><strong>Table Name</strong>: You can choose any name you like.</li><li><strong>Partition Key</strong>: Enter <code>id</code> and select <code>String</code></li><li><strong>Table Setting</strong>: Choose <code>Customize settings</code></li><li><strong>Read/write capacity settings</strong>: Set this to <code>On-demand</code> instead of <code>Provisioned</code> to avoid extra charges.</li></ul></li><li>Click <strong>Create Table</strong></li></ol><p>Explanation: The partition key can be anything; it&rsquo;s just a way to retrieve the <code>visitor counter</code> from Python later on. We choose <code>On-demand</code> for the table settings to only pay for what we use, rather than the default <code>Provisioned</code> setting which can lead to charge overhead.</p><ol start=5><li>Once your table is created, click <strong>Explore items</strong> (found in the orange box at the top right).</li><li>Scroll down and hit the <strong>Create item</strong> button.</li><li>For the <code>id</code> value section, you can enter <code>1</code> for simplicity.</li><li>In the top right corner, click <strong>Add new attribute</strong> and select <code>Number</code> for the attribute type. This will be used for the visitor count.</li><li>Create an attribute named <code>count</code> and set its value to <code>1</code>.</li></ol><p>Here’s what it should look like:
+<img loading=lazy src=posts/tech/cloud_website/dynamodb_table_item.png alt=dynamodb_table_item>
+{loading=&ldquo;lazy&rdquo;}</p><p>Now you have an item with an <code>id</code> of <code>1</code> and a count value of <code>1</code>. Next, we’ll set up a Lambda Function to retrieve and increment this value.</p><h1 id=8-lambda-api--python>8. Lambda API & Python<a hidden class=anchor aria-hidden=true href=#8-lambda-api--python>#</a></h1><p>Setting up a <a href="https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions" target=_blank>Lambda Fucntion</a> should be pretty straightforward for you. Just a quick tip: make sure to choose the programming language (the <code>Runtime</code>) you prefer for interacting with the database. For this guide, we&rsquo;ll use Python. Remember, this Lambda function will trigger every time someone visits your domain.</p><p>We’ll be using the <a href=https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html target=_blank>Boto3</a> library for working with DynamoDB in Python. Without further word, here’s a complete code template for your Lambda function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>Warning</span>: <span style=color:#ae81ff>Don’t copy this code if you’re not familiar with Python or the Boto3 library. Doing so without understanding could lead to issues and will only cause you more trouble in the long run.</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>import</span> json
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> boto3
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> <span style=color:#75715e>#connect to table</span>
+</span></span><span style=display:flex><span>dynamodb <span style=color:#f92672>=</span> boto3<span style=color:#f92672>.</span>resource(<span style=color:#e6db74>&#34;dynamodb&#34;</span>)
+</span></span><span style=display:flex><span>table_name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;your_table_name&#34;</span>
+</span></span><span style=display:flex><span>table <span style=color:#f92672>=</span> dynamodb<span style=color:#f92672>.</span>Table(table_name)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>lambda_handler</span>(event, context):
+</span></span><span style=display:flex><span>  id <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;your_id&#34;</span>
+</span></span><span style=display:flex><span>  response <span style=color:#f92672>=</span> table<span style=color:#f92672>.</span>get_item(Key<span style=color:#f92672>=</span>{
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#39;id&#39;</span>:id
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># # If the item exists, increment the count by 1</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> <span style=color:#e6db74>&#34;Item&#34;</span> <span style=color:#f92672>in</span> response:
+</span></span><span style=display:flex><span>      views <span style=color:#f92672>=</span> response[<span style=color:#e6db74>&#34;Item&#34;</span>][<span style=color:#e6db74>&#34;your_number_type_key_name&#34;</span>]
+</span></span><span style=display:flex><span>      views <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>      table<span style=color:#f92672>.</span>put_item(Item <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;id&#34;</span> : id,
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;views&#34;</span> : views
+</span></span><span style=display:flex><span>      })
+</span></span><span style=display:flex><span>  <span style=color:#75715e># # If the item doesn’t exist,indicating this is the 1st time our site being visited, then create a view of 1</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>      views <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>      table<span style=color:#f92672>.</span>put_item(Item <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;id&#34;</span> : id,
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#34;views&#34;</span> : views
+</span></span><span style=display:flex><span>      })
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># The content our javascript will receive in html file.</span>
+</span></span><span style=display:flex><span>  return_format <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#39;statusCode&#39;</span>: <span style=color:#ae81ff>200</span>,
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>&#39;body&#39;</span>: json<span style=color:#f92672>.</span>dumps({
+</span></span><span style=display:flex><span>              <span style=color:#e6db74>&#39;message&#39;</span>: <span style=color:#e6db74>&#39;success&#39;</span>,
+</span></span><span style=display:flex><span>              <span style=color:#e6db74>&#39;count&#39;</span>: int(views),
+</span></span><span style=display:flex><span>              <span style=color:#e6db74>&#39;event&#39;</span>: event
+</span></span><span style=display:flex><span>          })
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> return_format
+</span></span></code></pre></div><h1 id=8-javascript>8. Javascript<a hidden class=anchor aria-hidden=true href=#8-javascript>#</a></h1><p>Now that we’ve got the Lambda function reading data from DynamoDB, the next step is getting that data into our HTML file so we can display it on the website. This is where JavaScript comes in handy!</p><p>We’ll be using a simple format from <a href=https://docs.aws.amazon.com/waf/latest/developerguide/waf-js-challenge-api-fetch-wrapper.html target=_blank>AWS</a> to help us fetch and display the DynamoDB values.</p><p>(Here is a <a href=https://www.codecademy.com/learn/introduction-to-javascript target=_blank>Javascript tutorial</a> if you need.)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#75715e>// Be sure to attch this id in your HTML, (e.g. &lt;p class=&#34;your_counter_id_in_html&#34;&gt; times&lt;/p&gt;)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>counter</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>querySelector</span>(<span style=color:#e6db74>&#34;.your_counter_id_in_html&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>update_views</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>&#34;your_lambda_function_URL&#34;</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>method</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;POST&#34;</span>, <span style=color:#75715e>// Set the method to POST
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#a6e22e>headers</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Content-Type&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;application/json/update_counter&#34;</span>,
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>body</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>({}),
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>json</span>();
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>count</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>counter</span>.<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`43`</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>update_views</span>();
+</span></span></code></pre></div><h1 id=9-cicd>9. CI/CD<a hidden class=anchor aria-hidden=true href=#9-cicd>#</a></h1><p>Here&rsquo;s how we’ll use <a href=https://docs.github.com/en/actions/writing-workflows/quickstart target=_blank>Github Action</a>. If you&rsquo;re not familiar with CI/CD (Continuous Integration and Continuous Deployment), let me give you a quick scenario.</p><p>Imagine you push your files to GitHub, but you need those files to be updated on AWS. Without CI/CD, you’d have to manually update them on AWS, uploading HTML and CSS files to an S3 bucket, updating your Python code in a Lambda function, and possibly adjusting policies in different places. And if a bug pops up after all that work, guess what? You’d have to go through the whole process again LOL!</p><p>CI/CD automates these tasks, so you don&rsquo;t have to handle all that manual work every time you make a change. In our final result, all you need to do is push your code to GitHub using <code>git push origin main</code>, and GitHub will automatically update the changes on AWS for you.</p><p>This section is still in progress, so stay tuned!</p><p>Feel free to check out my other feature in <a href=https://www.ziirui-resume-website.com target=_blank>my portfolio</a>!</p><h1 id=10-test-cypress>10. Test Cypress<a hidden class=anchor aria-hidden=true href=#10-test-cypress>#</a></h1><p>This section is still in progress, so stay tuned!</p><p>Feel free to check out my other feature in <a href=https://www.ziirui-resume-website.com target=_blank>my portfolio</a>!</p><h1 id=11-infrastructure-as-code>11. Infrastructure as code<a hidden class=anchor aria-hidden=true href=#11-infrastructure-as-code>#</a></h1><p>This section is still in progress, so stay tuned!</p><p>Feel free to check out my other feature in <a href=https://www.ziirui-resume-website.com target=_blank>my portfolio</a>!</p></div><footer class=post-footer><nav class=paginav><a class=next href=https://www.ziirui-resume-website.com/posts/tech/leetcode_150/><span class=title>»</span><br><span>Leetcode 150</span></a></nav></footer></div></article></main><footer class=footer><span>Copyright
+&copy;
+2024
+<a href=https://www.ziirui-resume-website.com/ style=color:#939393>Zirui's Space</a>
+</span><span id=busuanzi_container><span class="fa fa-user"></span> <span id=busuanzi_value_site_uv></span>
+<span class="fa fa-eye"></span> <span class=counter_views></span></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><span class=topInner><svg class="topSvg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+<span id=read_progress></span>
+</span></a><script>document.addEventListener("scroll",function(){const t=document.getElementById("read_progress"),n=document.documentElement.scrollHeight,s=document.documentElement.clientHeight,o=document.documentElement.scrollTop||document.body.scrollTop;t.innerText=((o/(n-s)).toFixed(2)*100).toFixed(0)})</script><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>let mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>200||document.documentElement.scrollTop>200?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{(function(){document.cookie="change-themes="+escape("false")})(),document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.body.addEventListener("copy",function(e){if(window.getSelection().toString()&&window.getSelection().toString().length>50){let t=e.clipboardData||window.clipboardData;if(t){e.preventDefault();let o="Zirui's Space",n=window.getSelection().toString(),s=window.getSelection().toString();t.setData("text/html",n),t.setData("text/plain",s)}}})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const s=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerText="copy";function i(){t.innerText="copied!",setTimeout(()=>{t.innerText="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){let t=e.textContent;navigator.clipboard.writeText(t),i();return}const n=document.createRange();n.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges(),s.addRange(n);try{document.execCommand("copy"),i()}catch{}s.removeRange(n)});let l=e.className.replaceAll("language-",""),n=document.createElement("div"),a=document.createElement("div"),r=document.createElement("div"),c=document.createElement("div"),o=document.createElement("div");o.innerText=l,n.setAttribute("class","mac-tool"),a.setAttribute("class","mac bb1"),r.setAttribute("class","mac bb2"),c.setAttribute("class","mac bb3"),o.setAttribute("class","language-type"),n.appendChild(a),n.appendChild(r),n.appendChild(c),n.appendChild(o),s.classList.contains("highlight")?(s.appendChild(t),s.appendChild(n)):s.parentNode.firstChild==s||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?(e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t),s.appendChild(n)):(e.parentNode.appendChild(t),s.appendChild(n)))})</script><script>const counter=document.querySelector(".counter_views");async function update_views(){try{const e=await fetch("https://c64v3yvtwepfmc5dd3mskmakn40tpsvk.lambda-url.us-east-1.on.aws/",{method:"POST",headers:{"Content-Type":"application/json/update_counter"},body:JSON.stringify({})}),t=await e.json();counter.innerHTML=`${t.count}`}catch{counter.innerHTML=`570`}}update_views()</script></body></html>
