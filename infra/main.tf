@@ -416,3 +416,59 @@ resource "aws_iam_role_policy_attachment" "lambda_execution_policy" {
   role       = aws_iam_role.cloudfront_lambdaEdge_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+
+
+
+//---------------------------------------------------------------
+//------------------------Identity Provider----------------------
+//---------------------------------------------------------------
+
+resource "aws_iam_openid_connect_provider" "openid_connect_provider_github_for_resume" {
+  url = "https://token.actions.githubusercontent.com"
+
+  client_id_list = [
+    "sts.amazonaws.com",
+  ]
+
+  thumbprint_list = [
+    "1b511abead59c6ce207077c0bf0e0043b1382612"
+  ]
+}
+
+
+resource "aws_iam_role" "github_cicd_for_resume" {
+  name = "github-cicd"
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Federated" : aws_iam_openid_connect_provider.openid_connect_provider_github_for_resume.arn
+        },
+        "Action" : "sts:AssumeRoleWithWebIdentity",
+        "Condition" : {
+          "StringEquals" : {
+            "token.actions.githubusercontent.com:aud" : "sts.amazonaws.com"
+          },
+          "StringLike" : {
+            "token.actions.githubusercontent.com:sub" : "repo:${local.resources_name.github_account}/*"
+          }
+        }
+      }
+    ]
+  })
+}
+
+data "aws_iam_policy" "AdministratorAccess" {
+  arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "github_cicd_for_resume_policy" {
+  role       = aws_iam_role.github_cicd_for_resume.id
+  policy_arn = data.aws_iam_policy.AdministratorAccess.arn
+}

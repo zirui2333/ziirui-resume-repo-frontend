@@ -10,5 +10,6 @@
     },
     "aws_dynamodb_table_1" : "dynamodb_table_for_resume",
     "my_email" : "zhengzirui43@gmail.com",
-    "cloudfront_lambdaEdge_function": "cloudfront_lambdaEdge"
+    "cloudfront_lambdaEdge_function": "cloudfront_lambdaEdge",
+    "github_account": "zirui2333"
 }
