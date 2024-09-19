@@ -1,22 +1,24 @@
-## Serverless cloud project on AWS for hosting a personal domain website
+# About the Project
+
+##
 
 Welcoming everyone to access my website: www.ziirui-resume-website.com
 
-Here is a Comprehensive tutorial I made for creating this cloud project: https://www.ziirui-resume-website.com/posts/tech/cloud_website/
+Here is a [Comprehensive Tutorial](https://www.ziirui-resume-website.com/posts/tech/cloud_website/) I made for creating this cloud projects
 
 ## Short Explaination of what my project does
 
-AWS Cloud Resume Challenge
+This is a Full stack serverless cloud project on AWS for hosting a personal domain website with DevOps skills
 
-This is my first cloud project at cloud resume challenge by using AWS. What is Cloud Resume Challenge? - The Cloud Resume Challenge is a multiple-step resume project which helps build and demonstrate skills fundamental to pursuing a career in Cloud. The project was published by Zirui Zheng.
+It's also my first cloud project at cloud resume challenge by using AWS. What is Cloud Resume Challenge? - The [Cloud Resume Challenge](https://cloudresumechallenge.dev/) is a multiple-step resume project which helps build and demonstrate skills fundamental to pursuing a career in Cloud. The project was published by Zirui Zheng.
 
 **Features:**
 
 > - Create personal resume website frame using **HTML & CSS**
-> - Deploy the webiste using AWS **S3** and **Cloudfront distribution**
-> - Connect the distribution by **CloudFare** custom domain name in the frontend
-> - A visitor counter displays how many people have accessed the site supported by **Javascript**
-> - Retrieve and update visitor counter value in **DynamoDB** Table
+> - Deploy the webiste using **AWS** S3 and Cloudfront distribution
+> - Connect the distribution by CloudFare custom domain name in the frontend
+> - Implement **Javascript** to create a visitor counter displays how many people have accessed the site.
+> - Retrieve and update visitor counter value in DynamoDB Table
 > - Interacting database with **Python** code in Lambda Function, trigger by AWS Function URL
 > - **Infrastructure as Code** all the AWS resouces mentioned above by **terraform**
 > - Create **CI/CD pipeline** for both frontend and backend on **GitHub Action**
@@ -30,7 +32,7 @@ This is my first cloud project at cloud resume challenge by using AWS. What is C
 
 ## 1. Installation
 
-Please checkout [Papermod](https://github.com/adityatelange/hugo-PaperMod/wiki/Installation#getting-started-) for setting up both Hugo and Papermod theme.
+If you're interesting at using my webiste style. Please checkout [Papermod](https://github.com/adityatelange/hugo-PaperMod/wiki/Installation#getting-started-) for setting up both Hugo and Papermod theme.
 You can also see **reference** section to get detailed implementation of cool features!
 
 ## 2. Reference
