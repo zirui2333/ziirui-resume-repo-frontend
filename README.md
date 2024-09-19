@@ -25,7 +25,7 @@ This is a Full stack serverless cloud project on AWS for hosting a personal doma
 
 It's also my first cloud project at cloud resume challenge by using AWS. What is Cloud Resume Challenge? - The [Cloud Resume Challenge](https://cloudresumechallenge.dev/) is a multiple-step resume project which helps build and demonstrate skills fundamental to pursuing a career in Cloud. The project was published by Zirui Zheng.
 
-**Features**
+## Features
 
 - Create personal resume website frame using **HTML & CSS**
 - Deploy the webiste using **AWS** S3 and Cloudfront distribution
