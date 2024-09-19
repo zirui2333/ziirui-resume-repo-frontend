@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>🧩 Tags on Zirui&#39;s Space</title>
-    <link>https://www.ziirui-resume-website.com/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in 🧩 Tags on Zirui&#39;s Space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.ziirui-resume-website.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cloud</title>
-      <link>https://www.ziirui-resume-website.com/tags/cloud/</link>
+      <link>http://localhost:1313/tags/cloud/</link>
       <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://www.ziirui-resume-website.com/tags/cloud/</guid>
+      <guid>http://localhost:1313/tags/cloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Leetcode</title>
-      <link>https://www.ziirui-resume-website.com/tags/leetcode/</link>
+      <link>http://localhost:1313/tags/leetcode/</link>
       <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://www.ziirui-resume-website.com/tags/leetcode/</guid>
+      <guid>http://localhost:1313/tags/leetcode/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Life</title>
-      <link>https://www.ziirui-resume-website.com/tags/life/</link>
+      <link>http://localhost:1313/tags/life/</link>
       <pubDate>Thu, 05 May 2022 00:18:15 +0800</pubDate>
       
-      <guid>https://www.ziirui-resume-website.com/tags/life/</guid>
+      <guid>http://localhost:1313/tags/life/</guid>
       <description></description>
     </item>
     
