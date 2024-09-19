@@ -6,6 +6,7 @@
   - [Features](#features)
   - [Architectural Graph](#architectural-graph)
   - [Kindly Note](#kindly-note)
+  - [License](#license)
 - [Hugo Thing](#hugo-thing)
   - [1. Installation](#1-installation)
   - [2. Reference](#2-reference)
@@ -44,6 +45,10 @@ It's also my first cloud project at cloud resume challenge by using AWS. What is
 ## Kindly Note
 
 Directly clone my repository will not do anything because most of my steps are done in AWS and Terraform. You can refer to my [website guildline](https://www.ziirui-resume-website.com/posts/tech/cloud_website/) to start.
+
+## License
+
+[![Licen](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
 <br>
 
 # Hugo Thing
