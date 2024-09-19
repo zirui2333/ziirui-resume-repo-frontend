@@ -14,14 +14,14 @@ It's also my first cloud project at cloud resume challenge by using AWS. What is
 
 **Features:**
 
-> - Create personal resume website frame using **HTML & CSS**
-> - Deploy the webiste using **AWS** S3 and Cloudfront distribution
-> - Connect the distribution by CloudFare custom domain name in the frontend
-> - Implement **Javascript** to create a visitor counter displays how many people have accessed the site.
-> - Retrieve and update visitor counter value in DynamoDB Table
-> - Interacting database with **Python** code in Lambda Function, trigger by AWS Function URL
-> - **Infrastructure as Code** all the AWS resouces mentioned above by **terraform**
-> - Create **CI/CD pipeline** for both frontend and backend on **GitHub Action**
+- Create personal resume website frame using **HTML & CSS**
+- Deploy the webiste using **AWS** S3 and Cloudfront distribution
+- Connect the distribution by CloudFare custom domain name in the frontend
+- Implement **Javascript** to create a visitor counter displays how many people have accessed the site.
+- Retrieve and update visitor counter value in DynamoDB Table
+- Interacting database with **Python** code in Lambda Function, trigger by AWS Function URL
+- **Infrastructure as Code** all the AWS resouces mentioned above by **terraform**
+- Create **CI/CD pipeline** for both frontend and backend on **GitHub Action**
 
 ## Graph
 
