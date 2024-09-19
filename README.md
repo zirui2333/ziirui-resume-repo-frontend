@@ -1,6 +1,6 @@
 # About the Project
 
-##
+## Abstract
 
 Welcoming everyone to access my website: www.ziirui-resume-website.com
 
@@ -26,6 +26,10 @@ It's also my first cloud project at cloud resume challenge by using AWS. What is
 ## Graph
 
 ![Cloud Diagram.jpg](https://github.com/zirui2333/ziirui-resume-repo-frontend/blob/main/Readme_Item/Cloud-resume-diagram.jpg?raw=true)
+
+## Kindly Note
+
+Directly clone my repository will not do anything because most of my steps are done in AWS and Terraform. You can refer to my [website guildline](https://www.ziirui-resume-website.com/posts/tech/cloud_website/) to start.
 <br>
 
 # Hugo Thing
