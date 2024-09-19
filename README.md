@@ -58,7 +58,7 @@ You can also see **reference** section to get detailed implementation of cool fe
 
 ## 2. Reference
 
-There are many personal information in the template that need to be configured by yourself. Please be patient to modify it. You can refer to the blogger's website building tutorial: [中文](https://www.sulvblog.cn/posts/blog/) | [En](https://kyxie.github.io/en/blog/tech/papermod/)
+There are many personal information in the template that need to be configured by yourself. Please be patient to modify it. You can refer to the blogger's website building tutorial: [EN Blog From Kyrie Xie](https://kyxie.github.io/en/blog/tech/papermod/) | [中文 Blog From Sulv](https://www.sulvblog.cn/posts/blog/)
 
 ## 3. Hugo blog exchange group
 
