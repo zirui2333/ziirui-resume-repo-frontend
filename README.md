@@ -1,12 +1,12 @@
 # About the Project
 
-## Abstract
+## Foreword
 
 Welcoming everyone to access my website: www.ziirui-resume-website.com
 
 Here is a [Comprehensive Tutorial](https://www.ziirui-resume-website.com/posts/tech/cloud_website/) I made for creating this cloud projects
 
-## Short Explaination of what my project does
+## Description
 
 This is a Full stack serverless cloud project on AWS for hosting a personal domain website with DevOps skills
 
