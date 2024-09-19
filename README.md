@@ -1,3 +1,17 @@
+# Table of Contents
+
+- [About the Project](#about-the-project)
+  - [Foreword](#foreword)
+  - [Description](#description)
+  - [Features](#features)
+  - [Architectural Graph](#architectural-graph)
+  - [Kindly Note](#kindly-note)
+- [Hugo Thing](#hugo-thing)
+  - [1. Installation](#1-installation)
+  - [2. Reference](#2-reference)
+  - [3. Hugo Blog Exchange Group](#3-hugo-blog-exchange-group)
+  - [4. Possible Problems](#4-possible-problems)
+
 # About the Project
 
 ## Foreword
