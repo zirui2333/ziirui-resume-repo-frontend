@@ -5,8 +5,6 @@
   - [Description](#description)
   - [Features](#features)
   - [Architectural Graph](#architectural-graph)
-  - [Kindly Note](#kindly-note)
-  - [License](#license)
 - [Hugo Thing](#hugo-thing)
   - [1. Installation](#1-installation)
   - [2. Reference](#2-reference)
@@ -48,7 +46,7 @@ Directly clone my repository will not do anything because most of my steps are d
 
 ## License
 
-[![Licen](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
+[![License](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
 <br>
 
 # Hugo Thing
