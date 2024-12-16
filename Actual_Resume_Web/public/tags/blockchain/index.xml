@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Blockchain on Zirui&#39;s Space</title>
-    <link>http://localhost:1313/tags/blockchain/</link>
+    <link>https://www.ziirui-resume-website.com/tags/blockchain/</link>
     <description>Recent content in Blockchain on Zirui&#39;s Space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.ziirui-resume-website.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blockchain - Myth Unveiled</title>
-      <link>http://localhost:1313/posts/tech/blockchain_class_thought/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/blockchain_class_thought/</link>
       <pubDate>Sat, 14 Dec 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/blockchain_class_thought/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/blockchain_class_thought/</guid>
       <description>The lessons after taking the `Intro to Blockchain` course</description>
     </item>
     

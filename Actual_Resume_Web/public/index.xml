@@ -2,53 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Zirui&#39;s Space</title>
-    <link>http://localhost:1313/</link>
+    <link>https://www.ziirui-resume-website.com/</link>
     <description>Recent content on Zirui&#39;s Space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.ziirui-resume-website.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blockchain - Myth Unveiled</title>
-      <link>http://localhost:1313/posts/tech/blockchain_class_thought/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/blockchain_class_thought/</link>
       <pubDate>Sat, 14 Dec 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/blockchain_class_thought/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/blockchain_class_thought/</guid>
       <description>The lessons after taking the `Intro to Blockchain` course</description>
     </item>
     
     <item>
+      <title>A Fall Trip to Bear Mountain</title>
+      <link>https://www.ziirui-resume-website.com/posts/life/bear_mountain/</link>
+      <pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ziirui-resume-website.com/posts/life/bear_mountain/</guid>
+      <description>Catch the fading glow of autumn&amp;#39;s embrace.</description>
+    </item>
+    
+    <item>
       <title>Struggle with Matrix ClockWise Iteration? Here is all you need to know.</title>
-      <link>http://localhost:1313/posts/tech/matrix_loop/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/matrix_loop/</link>
       <pubDate>Mon, 14 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/matrix_loop/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/matrix_loop/</guid>
       <description>The fool-proof way to introduce you the pattern of Matrix Iteration.</description>
     </item>
     
     <item>
       <title>Tutorial - An Entry DevOps project</title>
-      <link>http://localhost:1313/posts/tech/cloud_website/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/cloud_website/</link>
       <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/cloud_website/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/cloud_website/</guid>
       <description>A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code...</description>
     </item>
     
     <item>
       <title>Leetcode 150</title>
-      <link>http://localhost:1313/posts/tech/leetcode_150/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/leetcode_150/</link>
       <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/leetcode_150/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/leetcode_150/</guid>
       <description>This post is my journey of conquring leetcode problems. </description>
     </item>
     
     <item>
       <title>🙋🏻‍♂️About Me</title>
-      <link>http://localhost:1313/about/</link>
+      <link>https://www.ziirui-resume-website.com/about/</link>
       <pubDate>Sat, 06 Nov 2021 14:57:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/about/</guid>
+      <guid>https://www.ziirui-resume-website.com/about/</guid>
       <description>Name: Zirui Zheng Base: New York Career: Engineer Love: Food, Music, Capybara Blog Source Source Code Blog principle My career, hustle, and life Site Inspiration Sulv&amp;#39;s Blog 一个记录技术、阅读、生活的博客 Kunyang&amp;#39;s Blog Kyrie Xie Yao&amp;#39;s World Hi, there. It&amp;#39;s Actually Yao</description>
     </item>
     

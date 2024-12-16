@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tutorial on Zirui&#39;s Space</title>
-    <link>http://localhost:1313/categories/tutorial/</link>
+    <link>https://www.ziirui-resume-website.com/categories/tutorial/</link>
     <description>Recent content in Tutorial on Zirui&#39;s Space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.ziirui-resume-website.com/categories/tutorial/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Struggle with Matrix ClockWise Iteration? Here is all you need to know.</title>
-      <link>http://localhost:1313/posts/tech/matrix_loop/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/matrix_loop/</link>
       <pubDate>Mon, 14 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/matrix_loop/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/matrix_loop/</guid>
       <description>The fool-proof way to introduce you the pattern of Matrix Iteration.</description>
     </item>
     
     <item>
       <title>Tutorial - An Entry DevOps project</title>
-      <link>http://localhost:1313/posts/tech/cloud_website/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/cloud_website/</link>
       <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/cloud_website/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/cloud_website/</guid>
       <description>A comprehensive guide on hosting AWS website along with CI/CD automation and infrastructure as code...</description>
     </item>
     
     <item>
       <title>Leetcode 150</title>
-      <link>http://localhost:1313/posts/tech/leetcode_150/</link>
+      <link>https://www.ziirui-resume-website.com/posts/tech/leetcode_150/</link>
       <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/leetcode_150/</guid>
+      <guid>https://www.ziirui-resume-website.com/posts/tech/leetcode_150/</guid>
       <description>This post is my journey of conquring leetcode problems. </description>
     </item>
     

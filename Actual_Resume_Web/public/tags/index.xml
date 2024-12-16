@@ -2,35 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>🧩 Tags on Zirui&#39;s Space</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://www.ziirui-resume-website.com/tags/</link>
     <description>Recent content in 🧩 Tags on Zirui&#39;s Space</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.ziirui-resume-website.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blockchain</title>
-      <link>http://localhost:1313/tags/blockchain/</link>
+      <link>https://www.ziirui-resume-website.com/tags/blockchain/</link>
       <pubDate>Sat, 14 Dec 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/blockchain/</guid>
+      <guid>https://www.ziirui-resume-website.com/tags/blockchain/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Trip</title>
+      <link>https://www.ziirui-resume-website.com/tags/trip/</link>
+      <pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ziirui-resume-website.com/tags/trip/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Leetcode</title>
-      <link>http://localhost:1313/tags/leetcode/</link>
+      <link>https://www.ziirui-resume-website.com/tags/leetcode/</link>
       <pubDate>Mon, 14 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/leetcode/</guid>
+      <guid>https://www.ziirui-resume-website.com/tags/leetcode/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Cloud</title>
-      <link>http://localhost:1313/tags/cloud/</link>
+      <link>https://www.ziirui-resume-website.com/tags/cloud/</link>
       <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/cloud/</guid>
+      <guid>https://www.ziirui-resume-website.com/tags/cloud/</guid>
       <description></description>
     </item>
     
