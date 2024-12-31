@@ -25,23 +25,23 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=n>matrix</span><span class=p>.</span><span class=n>empty</span><span class=p>()</span> <span class=o>||</span> <span class=n>matrix</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>empty</span><span class=p>()){</span>
 </span></span><span class=line><span class=cl>        <span class=k>return</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>top</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>bottom</span> <span class=o>=</span> <span class=n>matrix</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>left</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>right</span> <span class=o>=</span> <span class=n>matrix</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=k>while</span><span class=p>(</span><span class=n>top</span> <span class=o>&lt;=</span> <span class=n>bottom</span> <span class=o>&amp;&amp;</span> <span class=n>left</span> <span class=o>&lt;=</span> <span class=n>right</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>        <span class=c1>// Go from left to right
 </span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>col</span> <span class=o>=</span> <span class=n>left</span><span class=p>;</span> <span class=n>col</span> <span class=o>&lt;=</span> <span class=n>right</span><span class=p>;</span> <span class=o>++</span><span class=n>col</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>            <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>matrix</span><span class=p>[</span><span class=n>top</span><span class=p>][</span><span class=n>col</span><span class=p>];</span>
 </span></span><span class=line><span class=cl>        <span class=p>}</span>
 </span></span><span class=line><span class=cl>        <span class=o>++</span><span class=n>top</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>        <span class=c1>// Go from top to bottom
 </span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>row</span> <span class=o>=</span> <span class=n>top</span><span class=p>;</span> <span class=n>row</span> <span class=o>&lt;=</span> <span class=n>bottom</span><span class=p>;</span> <span class=o>++</span><span class=n>row</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>            <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>matrix</span><span class=p>[</span><span class=n>row</span><span class=p>][</span><span class=n>right</span><span class=p>];</span>
 </span></span><span class=line><span class=cl>        <span class=p>}</span>
 </span></span><span class=line><span class=cl>        <span class=o>--</span><span class=n>right</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>        <span class=c1>// Come back from right to left
 </span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span><span class=p>(</span><span class=n>top</span> <span class=o>&lt;=</span> <span class=n>bottom</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>            <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>col</span> <span class=o>=</span> <span class=n>right</span><span class=p>;</span> <span class=n>col</span> <span class=o>&gt;=</span> <span class=n>left</span><span class=p>;</span> <span class=o>--</span><span class=n>col</span><span class=p>){</span>
@@ -49,9 +49,9 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span><span class=line><span class=cl>            <span class=p>}</span>
 </span></span><span class=line><span class=cl>            <span class=o>--</span><span class=n>bottom</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>        <span class=c1>// Come back from bottom to top
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span><span class=p>(</span><span class=n>left</span> <span class=o>&lt;=</span> <span class=n>right</span><span class=p>){</span>    
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span><span class=p>(</span><span class=n>left</span> <span class=o>&lt;=</span> <span class=n>right</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>            <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>row</span> <span class=o>=</span> <span class=n>bottom</span><span class=p>;</span> <span class=n>row</span> <span class=o>&gt;=</span> <span class=n>top</span><span class=p>;</span> <span class=o>--</span><span class=n>row</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>                <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>matrix</span><span class=p>[</span><span class=n>row</span><span class=p>][</span><span class=n>left</span><span class=p>];</span>
 </span></span><span class=line><span class=cl>            <span class=p>}</span>
@@ -67,16 +67,16 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span><span class=line><span class=cl>        <span class=p>{</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>},</span>
 </span></span><span class=line><span class=cl>        <span class=p>{</span><span class=mi>7</span><span class=p>,</span><span class=mi>8</span><span class=p>,</span><span class=mi>9</span><span class=p>}</span>
 </span></span><span class=line><span class=cl>    <span class=p>};</span>
-</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=n>Matrix_Iteration</span><span class=p>(</span><span class=n>matrix</span><span class=p>);</span>
 </span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><br><h1 id=the-pattern-breakdown>The Pattern Breakdown<a hidden class=anchor aria-hidden=true href=#the-pattern-breakdown>#</a></h1><p>&ldquo;Wow, that&rsquo;s a lot of code!&rdquo; you might say. Don&rsquo;t panic, we&rsquo;re about to start, and please give me just 3 minutes, and you&rsquo;ll walk away with no more fear for Matrix Iteration 😉!</p><p>Note: I&rsquo;ll use C++ to explain the code, but the logic is the same for other languages.</p><br><h2 id=1-initialization>1. Initialization<a hidden class=anchor aria-hidden=true href=#1-initialization>#</a></h2><p>I won&rsquo;t bother to explain this part, as it is self explanatory.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-C++ data-lang=C++><span class=line><span class=cl><span class=kt>void</span> <span class=nf>Matrix_Iteration</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;&amp;</span> <span class=n>matrix</span><span class=p>){</span>
+</span></span></code></pre></div><br><h1 id=the-pattern-breakdown>The Pattern Breakdown<a hidden class=anchor aria-hidden=true href=#the-pattern-breakdown>#</a></h1><p>&ldquo;Wow, that&rsquo;s a lot of code!&rdquo; you might say. Don&rsquo;t panic, we&rsquo;re about to start, and please give me just 3 minutes, and you&rsquo;ll walk away with no more fear for Matrix Iteration 😉!</p><blockquote><p>Note: I&rsquo;ll use C++ to explain the code, but the logic is the same for other languages.</p></blockquote><br><h2 id=1-initialization>1. Initialization<a hidden class=anchor aria-hidden=true href=#1-initialization>#</a></h2><p>I won&rsquo;t bother to explain this part, as it is self explanatory.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-C++ data-lang=C++><span class=line><span class=cl><span class=kt>void</span> <span class=nf>Matrix_Iteration</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;&amp;</span> <span class=n>matrix</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>    <span class=c1>//Check if the matrix is empty, they&#39;re edge cases.
 </span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span><span class=p>(</span><span class=n>matrix</span><span class=p>.</span><span class=n>empty</span><span class=p>()</span> <span class=o>||</span> <span class=n>matrix</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>empty</span><span class=p>()){</span>
 </span></span><span class=line><span class=cl>        <span class=k>return</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=c1>//`top` and `bottom`: Control vertical movement (up and down).
 </span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//`left` and `right`: Control horizontal movement (left and right).
 </span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>int</span> <span class=n>top</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>bottom</span> <span class=o>=</span> <span class=n>matrix</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
@@ -117,8 +117,8 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span><span class=line><span class=cl><span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>row</span> <span class=o>=</span> <span class=p>;</span> <span class=n>row</span>  <span class=p>;</span> <span class=o>--</span><span class=n>row</span><span class=p>){</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><p>In summary:</p><ol><li><strong>The constant used in the current loopwill be decremented or incremented</strong></li><li><strong>The constatn will be used in next loop interation again.</strong></li></ol><p>So if we know this pattern, then for the 2nd for loop (goes from top to bottom along the <strong>right</strong> side), <code>right</code> should be used, changed and re-applied in next loop accordingly.</p><br><h3 id=attempt-the-pattern>Attempt the pattern<a hidden class=anchor aria-hidden=true href=#attempt-the-pattern>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-C++ data-lang=C++><span class=line><span class=cl><span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>col</span> <span class=o>=</span> <span class=n>left</span><span class=p>;</span> <span class=n>col</span> <span class=o>&lt;=</span><span class=n>right</span> <span class=p>;</span> <span class=o>++</span><span class=n>col</span><span class=p>){</span>
-</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>matrix</span><span class=p>[</span><span class=n>top</span><span class=p>][</span><span class=n>col</span><span class=p>];</span> 
+</span></span></code></pre></div><p>In summary:</p><blockquote><ol><li><strong>The constant used in the current loopwill be decremented or incremented</strong></li><li><strong>The constatn will be used in next loop interation again.</strong></li></ol></blockquote><p>So if we know this pattern, then for the 2nd for loop (goes from top to bottom along the <strong>right</strong> side), <code>right</code> should be used, changed and re-applied in next loop accordingly.</p><br><h3 id=attempt-the-pattern>Attempt the pattern<a hidden class=anchor aria-hidden=true href=#attempt-the-pattern>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-C++ data-lang=C++><span class=line><span class=cl><span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>col</span> <span class=o>=</span> <span class=n>left</span><span class=p>;</span> <span class=n>col</span> <span class=o>&lt;=</span><span class=n>right</span> <span class=p>;</span> <span class=o>++</span><span class=n>col</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>matrix</span><span class=p>[</span><span class=n>top</span><span class=p>][</span><span class=n>col</span><span class=p>];</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=o>++</span><span class=n>top</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>
@@ -135,7 +135,7 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><br><h3 id=apply-to-the-rest>Apply to the rest<a hidden class=anchor aria-hidden=true href=#apply-to-the-rest>#</a></h3><p>If this makes sense to you, let&rsquo;s finish the rest of the loop.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-C++ data-lang=C++><span class=line><span class=cl><span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>col</span> <span class=o>=</span> <span class=n>left</span><span class=p>;</span> <span class=n>col</span> <span class=o>&lt;=</span><span class=n>right</span> <span class=p>;</span> <span class=o>++</span><span class=n>col</span><span class=p>){</span>
-</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>matrix</span><span class=p>[</span><span class=n>top</span><span class=p>][</span><span class=n>col</span><span class=p>];</span> 
+</span></span><span class=line><span class=cl>    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>matrix</span><span class=p>[</span><span class=n>top</span><span class=p>][</span><span class=n>col</span><span class=p>];</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=o>++</span><span class=n>top</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>
@@ -176,7 +176,7 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span><span class=p>(</span><span class=n>matrix</span><span class=p>.</span><span class=n>empty</span><span class=p>()</span> <span class=o>||</span> <span class=n>matrix</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>empty</span><span class=p>()){</span>
 </span></span><span class=line><span class=cl>        <span class=k>return</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>top</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>bottom</span> <span class=o>=</span> <span class=n>matrix</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>left</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>right</span> <span class=o>=</span> <span class=n>matrix</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>
@@ -254,7 +254,7 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=n>matrix</span><span class=p>.</span><span class=n>empty</span><span class=p>()</span> <span class=o>||</span> <span class=n>matrix</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>empty</span><span class=p>()){</span>
 </span></span><span class=line><span class=cl>        <span class=k>return</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>top</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>bottom</span> <span class=o>=</span> <span class=n>matrix</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>left</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>right</span> <span class=o>=</span> <span class=n>matrix</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>
@@ -292,7 +292,7 @@ The <a href=https://leetcode.com/problems/spiral-matrix/description/ target=_bla
 </span></span><span class=line><span class=cl>        <span class=p>{</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>},</span>
 </span></span><span class=line><span class=cl>        <span class=p>{</span><span class=mi>7</span><span class=p>,</span><span class=mi>8</span><span class=p>,</span><span class=mi>9</span><span class=p>}</span>
 </span></span><span class=line><span class=cl>    <span class=p>};</span>
-</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=n>Matrix_Iteration_counter_clockwise</span><span class=p>(</span><span class=n>matrix</span><span class=p>);</span>
 </span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
